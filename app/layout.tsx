@@ -4,6 +4,7 @@ import { MotionProvider } from "@/components/MotionProvider";
 import { SiteFooter, SiteHeader } from "@/components/ui";
 import { Spotlight } from "@/components/Spotlight";
 import { TipLayer } from "@/components/TipLayer";
+import { Toaster } from "@/components/Toaster";
 import { Analytics } from "@vercel/analytics/next";
 import { site, siteUrl } from "@/content/site";
 import "./globals.css";
@@ -82,6 +83,7 @@ export default function RootLayout({
         <SiteFooter />
         <Spotlight />
         <TipLayer />
+        <Toaster />
         {/* Vercel Web Analytics: cookieless, only reports on Vercel deployments. */}
         <Analytics />
       </body>

@@ -5,6 +5,7 @@ import { Reveal } from "@/components/Reveal";
 import { PreviewVideo } from "@/components/PreviewVideo";
 import { GithubActivity } from "@/components/GithubActivity";
 import { HobbyStack } from "@/components/HobbyStack";
+import { CopyEmailButton } from "@/components/CopyEmailButton";
 import { SkillLegend, TechChip, TechIcon, hasTechIcon } from "@/components/TechIcon";
 import {
   ArrowDown,
@@ -17,7 +18,9 @@ import {
 // Re-render at most once a day so the GitHub heatmap stays fresh.
 export const revalidate = 86400;
 
-const mailto = `mailto:${site.contact.email}`;
+// mailto: does nothing without a desktop mail app, so "Contact me" copies the
+// address instead, and "write" actions open a Gmail draft in the browser.
+const gmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(site.contact.email)}`;
 
 const buttonBase =
   "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors";
@@ -82,9 +85,9 @@ function Hero() {
         <p className="mt-6 text-lg font-medium text-accent sm:text-xl">{site.title}</p>
         <p className="mt-3 max-w-lg text-lg leading-relaxed text-muted sm:text-xl">{site.tagline}</p>
         <div className="mt-9 flex flex-wrap items-center gap-3">
-          <a href={mailto} className={buttonPrimary}>
+          <CopyEmailButton email={site.contact.email} className={buttonPrimary}>
             Contact me
-          </a>
+          </CopyEmailButton>
           {/* TODO: add public/cv.pdf manually — this link 404s until the file exists. */}
           <a href={site.cvHref} download className={buttonSecondary}>
             Download CV
@@ -137,12 +140,12 @@ function SocialIcons() {
         </ExternalLink>
       </li>
       <li>
-        <a href={mailto} aria-label={`Email ${site.contact.email}`} className={item}>
+        <ExternalLink href={gmail} aria-label={`Write to ${site.contact.email} in Gmail`} className={item}>
           <svg aria-hidden="true" viewBox="0 0 24 24" className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="5" width="18" height="14" rx="2.5" />
             <path d="m4 7 8 6 8-6" />
           </svg>
-        </a>
+        </ExternalLink>
       </li>
     </ul>
   );
@@ -581,7 +584,7 @@ function Contact() {
     {
       label: "Email",
       value: contact.email,
-      href: mailto,
+      href: "",
       external: false,
       icon: (
         <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -648,15 +651,19 @@ function Contact() {
                     {inner}
                   </ExternalLink>
                 ) : (
-                  <a href={card.href} className={cls}>
+                  <CopyEmailButton email={contact.email} className={`${cls} w-full text-left`}>
                     {inner}
-                  </a>
+                  </CopyEmailButton>
                 )}
               </li>
             );
           })}
         </ul>
-        <div className="mt-6">
+        <div className="mt-6 flex flex-wrap gap-3">
+          <ExternalLink href={gmail} className={buttonSecondary}>
+            Write in Gmail
+            <ArrowUpRight />
+          </ExternalLink>
           <a href={site.cvHref} download className={buttonSecondary}>
             Download CV
             <ArrowDown />
