@@ -294,19 +294,22 @@ function ProjectMedia({ project }: { project: Project }) {
     );
   }
   // No preview yet: a quiet panel built from the project's own tags.
-  const icons = project.tags.filter(hasTechIcon);
+  const icons = project.tags.filter(hasTechIcon).slice(0, 8);
+  const plain = project.tags.filter((t) => !hasTechIcon(t));
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[radial-gradient(var(--line)_1px,transparent_1px)] [background-size:14px_14px]">
+    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[radial-gradient(var(--line)_1px,transparent_1px)] p-6 [background-size:14px_14px]">
       {icons.length > 0 && (
-        <div className="flex gap-4 text-ink">
+        <div className="flex max-w-xs flex-wrap justify-center gap-4 text-ink">
           {icons.map((t) => (
-            <TechIcon key={t} name={t} className="size-12" />
+            <TechIcon key={t} name={t} className="size-10 sm:size-11" />
           ))}
         </div>
       )}
-      <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted">
-        {project.tags.filter((t) => !hasTechIcon(t)).join(" · ") || project.tags.join(" · ")}
-      </p>
+      {plain.length > 0 && (
+        <p className="text-center font-mono text-xs uppercase tracking-[0.14em] text-muted">
+          {plain.join(" · ")}
+        </p>
+      )}
     </div>
   );
 }
