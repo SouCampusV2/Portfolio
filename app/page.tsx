@@ -317,22 +317,46 @@ function Experience() {
       <Reveal>
         <ol className="divide-y divide-line border-y border-line">
           {site.experience.map((job) => (
-            <li
-              key={`${job.role}-${job.org}`}
-              className="grid gap-1 py-5 sm:grid-cols-[11rem_1fr] sm:gap-6"
-            >
-              <p className="font-mono text-xs leading-6 text-muted tabular-nums">{job.period}</p>
-              <div>
-                <h3 className="text-base font-semibold sm:text-lg">
-                  {job.role}
-                  <span className="font-normal text-muted"> · {job.org}</span>
-                </h3>
-                {job.note && (
-                  <p className="mt-1.5 max-w-[62ch] text-sm leading-relaxed text-muted">
-                    {job.note}
-                  </p>
-                )}
-              </div>
+            <li key={`${job.role}-${job.org}`}>
+              <details className="job group/job" open={job.open}>
+                <summary className="grid cursor-pointer list-none gap-1 py-5 sm:grid-cols-[11rem_1fr_auto] sm:gap-6 [&::-webkit-details-marker]:hidden">
+                  <span className="font-mono text-xs leading-6 text-muted tabular-nums">{job.period}</span>
+                  <span>
+                    <span className="block text-base font-semibold sm:text-lg">
+                      {job.role}
+                      <span className="font-normal text-muted"> · {job.org}</span>
+                    </span>
+                    <span className="mt-1 block text-sm leading-relaxed text-muted">{job.summary}</span>
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="hidden size-8 place-items-center self-start rounded-full border border-line text-muted transition-[transform,color,border-color] duration-300 group-open/job:rotate-45 group-open/job:border-accent group-open/job:text-accent group-hover/job:text-ink sm:grid"
+                  >
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" className="size-3.5">
+                      <path d="M8 3v10M3 8h10" />
+                    </svg>
+                  </span>
+                </summary>
+                <div className="pb-6 sm:pl-[calc(11rem+1.5rem)] sm:pr-14">
+                  <ul className="space-y-2 text-[0.95rem] leading-relaxed text-ink/85">
+                    {job.highlights.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span aria-hidden="true" className="mt-[0.7em] h-px w-3 shrink-0 bg-accent" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  {job.tech && (
+                    <ul aria-label="Tech" className="mt-4 flex flex-wrap gap-1.5">
+                      {job.tech.map((t) => (
+                        <li key={t}>
+                          <TechChip name={t} />
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </details>
             </li>
           ))}
         </ol>

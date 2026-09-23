@@ -10,6 +10,7 @@ import {
   siGoogleanalytics,
   siGooglegemini,
   siGraphql,
+  siJira,
   siHtml5,
   siJavascript,
   siMake,
@@ -30,8 +31,8 @@ import {
   siTypescript,
   siVercel,
   siVuedotjs,
-  type SimpleIcon,
   siZod,
+  type SimpleIcon,
 } from "simple-icons";
 
 /**
@@ -69,14 +70,14 @@ const ICONS: Record<string, SimpleIcon | string> = {
   ChatGPT: "#10a37f",
   Gemini: siGooglegemini,
   "Claude Code": siClaude,
-  "Prompt Engineering": "#d97757",
   "Claude API": siClaude,
   Zod: siZod,
+  "Prompt Engineering": "#d97757",
   Shopify: siShopify,
-  "SEO Optimization": "#0f9d58",
   "Shopify Metaobjects": siShopify,
   Liquid: "#008060",
   PageFly: "#2f54eb",
+  "SEO Optimization": "#0f9d58",
   "Google Analytics": siGoogleanalytics,
   Figma: siFigma,
   Canva: "#00c4cc",
@@ -88,6 +89,7 @@ const ICONS: Record<string, SimpleIcon | string> = {
   GitHub: siGithub,
   "GitHub Actions": siGithubactions,
   npm: siNpm,
+  Jira: siJira,
   Vercel: siVercel,
 };
 

@@ -106,6 +106,24 @@ p {
   mix-blend-mode: normal;
 }
 
+/* Experience accordion: animate <details> open/close where supported. */
+:root {
+  interpolate-size: allow-keywords;
+}
+.job::details-content {
+  block-size: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    block-size 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease,
+    content-visibility 0.4s allow-discrete;
+}
+.job[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+
 /* GitHub activity heat levels: accent mixed into the empty-cell color. */
 .heat-0 { background: var(--heat-0); }
 .heat-1 { background: color-mix(in oklab, var(--accent) 30%, var(--heat-0)); }
@@ -191,3 +209,6 @@ p {
     transform: none !important;
   }
 }
+  .job::details-content {
+    transition: none;
+  }

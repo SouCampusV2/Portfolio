@@ -45,7 +45,13 @@ export type Job = {
   role: string;
   org: string;
   period: string;
-  note?: string;
+  /** One line shown in the collapsed row. */
+  summary: string;
+  /** Shown when the row is expanded. */
+  highlights: string[];
+  tech?: string[];
+  /** Expanded on first load. */
+  open?: boolean;
 };
 
 export type TechGroup = {
@@ -161,13 +167,13 @@ export const site = {
       tags: [
         "TypeScript",
         "Next.js",
+        "Node.js",
         "React",
         "Tailwind CSS",
         "Motion",
         "Supabase (PostgreSQL)",
         "Stripe",
         "Vercel",
-        "Node.js",
       ],
       link: {
         label: "Visit marketplace",
@@ -246,27 +252,63 @@ export const site = {
       },
     },
   ] satisfies Project[] as Project[],
+  // Details collected from the CV versions. Expandable on the page.
 
   experience: [
     {
       role: "Founder & Full-Stack Developer",
       org: "SouCampus",
+      open: true,
+      summary: "Built a live marketplace for premium Minecraft builds alone, from architecture to deployment.",
+      highlights: [
+        "Founded SouCampus and built the whole platform as the sole developer: architecture, front end, back end, database and deployment.",
+        "Created a modern e-commerce experience for buying and selling high-quality Minecraft maps and builds.",
+        "Integrated secure Stripe payments, authentication and database management on Supabase (PostgreSQL) with row-level security.",
+        "Core marketplace flows (listings, checkout and accounts) are built and work end to end.",
+        "Reached Google PageSpeed 100 on desktop and 88 on mobile in production through performance-focused architecture and optimization.",
+      ],
+      tech: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Motion", "Supabase (PostgreSQL)", "Stripe", "REST APIs", "GitHub", "Vercel"],
       period: "Jun 2026 – Present",
     },
     {
       role: "Head of Application Unit",
       org: "proceedit",
+      summary: "Led the CMI mobile app from scratch to launch and co-built the company website.",
+      highlights: [
+        "Led the end-to-end development and launch of the CMI mobile app from scratch in 6 months, growing it to ~200 registered users.",
+        "Architected the Flutter codebase and integrated REST and GraphQL APIs between the app and backend services.",
+        "Turned high-fidelity Figma designs into Flutter and FlutterFlow apps: reusable widgets, managed app state, responsive on iOS and Android.",
+        "Led a team of 10 developers in the application unit and coordinated ~10 colleagues across business, marketing and leadership.",
+        "Co-developed and launched the company website, contributing to front-end architecture, UI implementation and user experience.",
+        "Improved website performance and SEO by restructuring the content hierarchy and refactoring legacy HTML/CSS/JS: PageSpeed 70 → 85, page weight cut by 40%.",
+        "Refined layouts and applied the company design system consistently across digital products.",
+        "Built n8n automations to streamline internal workflows, including an employee onboarding automation (bachelor's thesis).",
+      ],
+      tech: ["Flutter", "FlutterFlow", "GraphQL", "REST APIs", "PostgreSQL", "Shopify", "HTML", "CSS", "JavaScript", "n8n", "Figma", "Jira"],
       period: "Jan 2025 – Jun 2026",
     },
+      // Note: one older CV says "Data Analytics Intern, 15 May – 15 Aug 2023".
     {
       role: "Data Analyst",
       org: "Sayara International",
       period: "Apr 2023 – Oct 2023",
-      note: "Collected, validated and organized media data (YouScan, Excel) and prepared visualizations and reports.",
+      summary: "Analyzed propaganda narratives about the conflict in Ukraine from media data.",
+      highlights: [
+        "Analyzed Russian propaganda narratives related to the conflict in Ukraine.",
+        "Collected, validated and organized media data in YouScan, Excel and Word.",
+        "Built and interpreted data visualizations to support ongoing analysis and reporting.",
+      ],
+      tech: ["YouScan", "Excel", "Word"],
     },
     {
       role: "Minecraft Level Designer",
       org: "Freelance",
+      summary: "Multiplayer maps and structures for clients worldwide, including MrBeast and Microsoft.",
+      highlights: [
+        "Built multiplayer maps and structures for clients worldwide for more than 5 years.",
+        "Collaborated with MrBeast and Microsoft on custom designs for public events.",
+        "The build portfolio lives on soucampus.online.",
+      ],
       period: "2019 – Present",
     },
   ] satisfies Job[] as Job[],
