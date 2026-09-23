@@ -1,49 +1,49 @@
 @import "tailwindcss";
 
 /*
- * Palette: cool paper ground, graphite ink, one cobalt accent.
+ * Palette: warm paper ground, deep ink, one oxblood-red accent.
  * Theme: follows the system until the visitor uses the toggle, which stamps
  * data-theme="light|dark" on <html> (see ThemeToggle + the inline script in
  * layout.tsx). Components only use the tokens below.
  */
 :root {
-  --bg: #f4f5f7;
-  --surface: #ffffff;
-  --ink: #10141b;
-  --muted: #525c6b;
-  --line: #dadee5;
-  --accent: #2c45c4;
+  --bg: #f7f4f1;
+  --surface: #fffdfb;
+  --ink: #1d1517;
+  --muted: #685a5d;
+  --line: #e5dcda;
+  --accent: #7d1523;
   --accent-ink: #ffffff;
-  --accent-soft: #e5e9fa;
-  --heat-0: #e4e7ed;
+  --accent-soft: #f5e2e1;
+  --heat-0: #ebe3e1;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0c0f14;
-    --surface: #131820;
-    --ink: #e7eaf0;
-    --muted: #9aa3b1;
-    --line: #242b37;
-    --accent: #93a5ff;
-    --accent-ink: #0c0f14;
-    --accent-soft: #1a2142;
-    --heat-0: #1a202a;
+    --bg: #120e0f;
+    --surface: #1a1415;
+    --ink: #f2eaeb;
+    --muted: #ab9ca0;
+    --line: #2d2427;
+    --accent: #df5059;
+    --accent-ink: #120e0f;
+    --accent-soft: #3a1618;
+    --heat-0: #221b1d;
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #0c0f14;
-  --surface: #131820;
-  --ink: #e7eaf0;
-  --muted: #9aa3b1;
-  --line: #242b37;
-  --accent: #93a5ff;
-  --accent-ink: #0c0f14;
-  --accent-soft: #1a2142;
-  --heat-0: #1a202a;
+  --bg: #120e0f;
+  --surface: #1a1415;
+  --ink: #f2eaeb;
+  --muted: #ab9ca0;
+  --line: #2d2427;
+  --accent: #df5059;
+  --accent-ink: #120e0f;
+  --accent-soft: #3a1618;
+  --heat-0: #221b1d;
   color-scheme: dark;
 }
 
