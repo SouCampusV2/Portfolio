@@ -21,7 +21,17 @@ function sortByLevel(items: string[]) {
   return [...items].sort((a, b) => rank(a) - rank(b));
 }
 
+/** Every tag used by projects or experience that no group lists yet. */
+function ungrouped() {
+  const grouped = new Set(site.tech.flatMap((g) => g.items));
+  const aliases = new Set(["Supabase (PostgreSQL)"]); // shown as Supabase + PostgreSQL
+  const used = [...site.projects.flatMap((p) => p.tags), ...site.experience.flatMap((j) => j.tech ?? [])];
+  return [...new Set(used)].filter((n) => !grouped.has(n) && !aliases.has(n));
+}
+
 export default function TechStackPage() {
+  const other = ungrouped();
+  const groups = other.length ? [...site.tech, { category: "Other", items: other }] : site.tech;
   return (
     <main id="main" className="mx-auto max-w-6xl px-4 pb-20 pt-10 sm:px-6 sm:pt-14 lg:px-8">
       <Link
@@ -45,7 +55,7 @@ export default function TechStackPage() {
       </div>
 
       <div className="mt-12 divide-y divide-line border-y border-line">
-        {site.tech.map((group) => (
+        {groups.map((group) => (
           <Reveal key={group.category}>
             <section
               aria-labelledby={`tech-${group.category}`}

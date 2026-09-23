@@ -401,7 +401,7 @@ export const site = {
     },
     {
       category: "Backend & Languages",
-      items: ["Node.js", "Python", "PHP", "C#", "C++", "GraphQL", "Zod", "Stripe"],
+      items: ["Node.js", "REST APIs", "GraphQL", "Zod", "Stripe", "Python", "PHP", "C#", "C++"],
     },
     {
       category: "Databases",
@@ -410,21 +410,25 @@ export const site = {
     { category: "Mobile", items: ["Flutter", "FlutterFlow", "Google Play", "App Store"] },
     {
       category: "AI & Automation",
-      items: ["Claude Code", "Claude API", "ChatGPT", "Gemini", "Prompt Engineering", "Tavily", "n8n", "Make.com"],
+      items: ["Claude Code", "Claude API", "OpenAI API", "ChatGPT", "Gemini", "Prompt Engineering", "Tavily", "n8n", "Make.com"],
     },
     {
       category: "CMS & Marketing",
-      items: ["Shopify", "Liquid", "PageFly", "SEO Optimization", "Google Analytics"],
+      items: ["Shopify", "Shopify Metaobjects", "Liquid", "PageFly", "SEO Optimization", "Google Analytics"],
     },
     { category: "Design & Motion", items: ["Figma", "Canva", "Lottie", "Rive", "Spline"] },
     {
-      category: "Data & Office",
-      items: ["Excel", "PowerPoint", "Word", "YouScan"],
+      category: "Workspace & Data",
+      items: ["Google Sheets", "Gmail", "Google Calendar", "Google Drive", "Excel", "PowerPoint", "Word", "YouScan"],
     },
     {
       // Delivery & support side, for coordination / governance / support roles.
       category: "Delivery & Support",
-      items: ["Team leadership", "Stakeholder coordination", "Client support", "Ticket handling", "Jira"],
+      items: ["Team leadership", "Stakeholder coordination", "Client support", "Ticket handling", "Client communication (English)", "Jira"],
+    },
+    {
+      category: "Games & Content",
+      items: ["Level design", "Multiplayer servers", "TikTok", "Content creation"],
     },
     {
       category: "Tools & Deployment",
@@ -464,6 +468,26 @@ export const site = {
     Vercel: { level: "core", note: "Deploys SouCampus, Crossdesk and this site" },
     Jira: { level: "core", note: "Delivery tracking at proceedit" },
     "Google Analytics": { level: "core", note: "Set up and used on SouCampus, configured with AI help" },
+    "REST APIs": { level: "core", note: "SouCampus back end; integrations in the CMI app and n8n" },
+    "Google Play": { level: "core", note: "Published the CMI app" },
+    "App Store": { level: "core", note: "Published the CMI app" },
+    ChatGPT: { level: "core", note: "Everyday assistant for research and drafts" },
+    "Prompt Engineering": { level: "core", note: "AI parsing in my n8n thesis; everyday work with AI tools" },
+    "OpenAI API": { level: "core", note: "AI agent that parses job applications in my n8n thesis" },
+    "SEO Optimization": { level: "core", note: "Restructured content and code on the proceedit site" },
+    "Google Sheets": { level: "core", note: "The data layer of my n8n onboarding system" },
+    Gmail: { level: "core", note: "Triggers and emails in my n8n onboarding system" },
+    "Google Calendar": { level: "core", note: "Automatic interview booking in my n8n onboarding system" },
+    "Google Drive": { level: "core", note: "Contracts and access sharing in my n8n onboarding system" },
+    "Team leadership": { level: "core", note: "Led 10 developers at proceedit" },
+    "Stakeholder coordination": { level: "core", note: "Coordinated ~10 people across business, marketing and leadership" },
+    "Client support": { level: "core", note: "Years of Minecraft client work, from request to delivery" },
+    "Ticket handling": { level: "core", note: "Client requests and revisions through tickets" },
+    "Client communication (English)": { level: "core", note: "Daily with clients from many countries" },
+    "Level design": { level: "core", note: "Minecraft maps and builds since 2019" },
+    "Multiplayer servers": { level: "core", note: "Builds for Luckycraft, GuardiumMC, RamboMC, AstroSMP and more" },
+    TikTok: { level: "core", note: "Grew @soucampus to 1.8K followers and 168K likes" },
+    "Content creation": { level: "core", note: "52 build videos on @soucampus" },
     // Learned earlier / only touched
     Python: { level: "familiar", note: "Learned earlier; used for smaller tasks" },
     PHP: { level: "familiar", note: "Learned earlier; not used in recent projects" },
@@ -481,6 +505,14 @@ export const site = {
     Rive: { level: "familiar", note: "Explored for animations on the proceedit site" },
     Spline: { level: "familiar", note: "Built a 3D model for the proceedit site" },
     YouScan: { level: "familiar", note: "Media analysis at Sayara International, 2023" },
+    Zod: { level: "familiar", note: "Validation in the Crossdesk code base" },
+    Tavily: { level: "familiar", note: "Fallback website reader in Crossdesk (set up by a teammate)" },
+    Gemini: { level: "familiar", note: "Used now and then next to Claude and ChatGPT" },
+    "Shopify Metaobjects": { level: "familiar", note: "Structured content on the proceedit site" },
+    Canva: { level: "familiar", note: "Quick graphics and presentations" },
+    Excel: { level: "familiar", note: "Data analysis at Sayara International, 2023" },
+    PowerPoint: { level: "familiar", note: "Presentations and reports" },
+    Word: { level: "familiar", note: "Reports at Sayara International, 2023" },
   } as Record<string, SkillLevel>,
 
   // GitHub Activity heatmap (public contribution data, refreshed daily).

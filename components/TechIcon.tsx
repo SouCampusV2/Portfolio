@@ -119,6 +119,16 @@ const GLYPHS: Record<string, Glyph> = {
       </>
     ),
   },
+  exchange: {
+    glyph: (
+      <>
+        <path d="m8 3-4 4 4 4" />
+        <path d="M4 7h16" />
+        <path d="m16 21 4-4-4-4" />
+        <path d="M20 17H4" />
+      </>
+    ),
+  },
   languages: {
     glyph: (
       <>
@@ -146,6 +156,7 @@ const ICONS: Record<string, SimpleIcon | string | Glyph> = {
   "Ticket handling": GLYPHS.ticket,
   "Client communication (English)": GLYPHS.languages,
   "Level design": GLYPHS.box,
+  "REST APIs": GLYPHS.exchange,
   "Multiplayer servers": GLYPHS.server,
   "Content creation": GLYPHS.video,
   TikTok: siTiktok,
