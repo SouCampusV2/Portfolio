@@ -5,7 +5,7 @@ import { Reveal } from "@/components/Reveal";
 import { PreviewVideo } from "@/components/PreviewVideo";
 import { GithubActivity } from "@/components/GithubActivity";
 import { HobbyStack } from "@/components/HobbyStack";
-import { TechChip, TechIcon, hasTechIcon } from "@/components/TechIcon";
+import { SkillLegend, TechChip, TechIcon, hasTechIcon } from "@/components/TechIcon";
 import {
   ArrowDown,
   ArrowRight,
@@ -437,6 +437,9 @@ function Technologies() {
           {rows.map((row, i) => (
             <MarqueeRow key={i} items={row} reverse={i % 2 === 1} />
           ))}
+        </div>
+        <div className="mt-4">
+          <SkillLegend />
         </div>
       </Reveal>
     </Section>

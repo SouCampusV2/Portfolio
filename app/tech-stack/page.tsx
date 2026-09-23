@@ -2,13 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/content/site";
 import { Reveal } from "@/components/Reveal";
-import { TechChip } from "@/components/TechIcon";
+import { SkillLegend, TechChip } from "@/components/TechIcon";
 
 export const metadata: Metadata = {
   title: `Tech Stack — ${site.name}`,
   description: `Tools and technologies ${site.name} uses, grouped by area.`,
   alternates: { canonical: "/tech-stack" },
 };
+
+const RANK = { core: 0, familiar: 2 } as const;
+
+/** Most-used first, then unrated, then the ones only learned or touched. */
+function sortByLevel(items: string[]) {
+  const rank = (n: string) => {
+    const level = site.skillLevels[n]?.level;
+    return level ? RANK[level] : 1;
+  };
+  return [...items].sort((a, b) => rank(a) - rank(b));
+}
 
 export default function TechStackPage() {
   return (
@@ -29,6 +40,9 @@ export default function TechStackPage() {
       <p className="mt-4 max-w-xl text-lg text-muted">
         The tools and technologies behind the projects on this site, grouped by area.
       </p>
+      <div className="mt-6">
+        <SkillLegend />
+      </div>
 
       <div className="mt-12 divide-y divide-line border-y border-line">
         {site.tech.map((group) => (
@@ -44,7 +58,7 @@ export default function TechStackPage() {
                 {group.category}
               </h2>
               <ul className="flex flex-wrap gap-2 md:col-span-9">
-                {group.items.map((name) => (
+                {sortByLevel(group.items).map((name) => (
                   <li key={name}>
                     <TechChip name={name} size="md" />
                   </li>

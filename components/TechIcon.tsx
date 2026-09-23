@@ -44,6 +44,7 @@ import {
   siZod,
   type SimpleIcon,
 } from "simple-icons";
+import { site } from "@/content/site";
 
 /**
  * Outline glyphs for skills that are not brands, drawn after Lucide icons
@@ -264,15 +265,47 @@ export function TechIcon({ name, className = "size-3.5" }: { name: string; class
   );
 }
 
-/** Chip with icon + label, as used in project cards, the marquee and /tech-stack. */
+/** Chip with icon + label, as used in project cards, the marquee and /tech-stack.
+ * Styled by `site.skillLevels`; a note there becomes a tooltip (see TipLayer). */
 export function TechChip({ name, size = "sm" }: { name: string; size?: "sm" | "md" }) {
+  const skill = site.skillLevels[name];
   const pad = size === "md" ? "px-3 py-1.5 text-sm" : "px-2.5 py-1 text-xs";
+  const tone =
+    skill?.level === "core"
+      ? "border-accent/45 bg-accent-soft/60 text-ink"
+      : skill?.level === "familiar"
+        ? "border-dashed border-line bg-transparent text-muted"
+        : "border-line bg-surface text-ink/85";
   return (
     <span
-      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-line bg-surface ${pad} text-ink/85`}
+      data-tip={skill?.note}
+      tabIndex={skill ? 0 : undefined}
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border ${pad} ${tone} ${
+        skill ? "cursor-help" : ""
+      }`}
     >
-      <TechIcon name={name} className={size === "md" ? "size-4" : "size-3.5"} />
+      <span className={skill?.level === "familiar" ? "opacity-60" : ""}>
+        <TechIcon name={name} className={size === "md" ? "size-4" : "size-3.5"} />
+      </span>
       {name}
+      {skill && <span className="sr-only">: {skill.note}</span>}
     </span>
+  );
+}
+
+/** Legend for the two skill levels. */
+export function SkillLegend() {
+  return (
+    <p className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted">
+      <span className="inline-flex items-center gap-1.5">
+        <span aria-hidden="true" className="size-3 rounded-[4px] border border-accent/45 bg-accent-soft/60" />
+        Use a lot / right now
+      </span>
+      <span className="inline-flex items-center gap-1.5">
+        <span aria-hidden="true" className="size-3 rounded-[4px] border border-dashed border-muted/60" />
+        Learned earlier / touched
+      </span>
+      <span>Hover or tap a skill for details.</span>
+    </p>
   );
 }

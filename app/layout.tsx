@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/MotionProvider";
 import { SiteFooter, SiteHeader } from "@/components/ui";
 import { Spotlight } from "@/components/Spotlight";
+import { TipLayer } from "@/components/TipLayer";
 import { site, siteUrl } from "@/content/site";
 import "./globals.css";
 
@@ -79,6 +80,7 @@ export default function RootLayout({
         <MotionProvider>{children}</MotionProvider>
         <SiteFooter />
         <Spotlight />
+        <TipLayer />
       </body>
     </html>
   );

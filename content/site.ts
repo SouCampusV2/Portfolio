@@ -79,6 +79,13 @@ export type CaseSection = {
   planned?: boolean;
 };
 
+export type SkillLevel = {
+  /** core = used a lot or right now; familiar = learned earlier or only touched. */
+  level: "core" | "familiar";
+  /** Shown as a tooltip on hover / focus / tap. */
+  note: string;
+};
+
 export type Recommendation = {
   quote: string;
   name: string;
@@ -419,6 +426,56 @@ export const site = {
       items: ["Git", "GitHub", "GitHub Actions", "npm", "Docker", "Vercel"],
     },
   ] satisfies TechGroup[] as TechGroup[],
+
+  // How well each technology is known. Chips are highlighted by level and show
+  // `note` as a tooltip. Names missing here render as plain chips.
+  // DRAFT based on where each tool shows up in the projects above: correct freely.
+  skillLevels: {
+    // Used a lot / right now
+    TypeScript: { level: "core", note: "Every day: SouCampus, Crossdesk and this site" },
+    JavaScript: { level: "core", note: "Every web project, plus custom logic in n8n" },
+    HTML: { level: "core", note: "Every web project; refactored legacy markup at proceedit" },
+    CSS: { level: "core", note: "Every web project; refactored legacy styles at proceedit" },
+    React: { level: "core", note: "SouCampus, Crossdesk and this site" },
+    "Next.js": { level: "core", note: "SouCampus, Crossdesk and this site (App Router)" },
+    "Node.js": { level: "core", note: "Server side of SouCampus and Crossdesk" },
+    "Tailwind CSS": { level: "core", note: "Styling in all my current web projects" },
+    Motion: { level: "core", note: "Animations on SouCampus and this site" },
+    Supabase: { level: "core", note: "Auth, database and row-level security in SouCampus and Crossdesk" },
+    "Supabase (PostgreSQL)": { level: "core", note: "Auth, database and row-level security in SouCampus" },
+    PostgreSQL: { level: "core", note: "Through Supabase in SouCampus and Crossdesk; the CMI app database" },
+    Stripe: { level: "core", note: "Checkout in SouCampus; introduction fees in Crossdesk" },
+    GraphQL: { level: "core", note: "API layer of the CMI app" },
+    Flutter: { level: "core", note: "CMI app at proceedit, Jan 2025 – Jun 2026" },
+    FlutterFlow: { level: "core", note: "CMI app at proceedit, Jan 2025 – Jun 2026" },
+    n8n: { level: "core", note: "Internal automations at proceedit and my bachelor's thesis" },
+    "Claude Code": { level: "core", note: "Daily coding partner" },
+    "Claude API": { level: "core", note: "AI agents in Crossdesk" },
+    Figma: { level: "core", note: "From design concepts to the CMI app and the proceedit site" },
+    Shopify: { level: "core", note: "proceedit corporate website" },
+    Git: { level: "core", note: "Every project" },
+    GitHub: { level: "core", note: "Every project; team workflow on Crossdesk" },
+    npm: { level: "core", note: "Every JavaScript project" },
+    Vercel: { level: "core", note: "Deploys SouCampus, Crossdesk and this site" },
+    Jira: { level: "core", note: "Delivery tracking at proceedit" },
+    // Learned earlier / only touched
+    Python: { level: "familiar", note: "Learned earlier; used for smaller tasks" },
+    PHP: { level: "familiar", note: "Learned earlier; not used in recent projects" },
+    "C#": { level: "familiar", note: "University course" },
+    "C++": { level: "familiar", note: "Learned earlier; not used in recent projects" },
+    "Vue.js": { level: "familiar", note: "Tried it; React is my main framework" },
+    MySQL: { level: "familiar", note: "Learned earlier; PostgreSQL is my main database" },
+    SQLite: { level: "familiar", note: "Learned earlier; small projects" },
+    Docker: { level: "familiar", note: "Learned the basics; not in production yet" },
+    "GitHub Actions": { level: "familiar", note: "Basic CI workflows" },
+    "Make.com": { level: "familiar", note: "Evaluated against n8n and Zapier in my thesis" },
+    Liquid: { level: "familiar", note: "Shopify theme work on the proceedit site" },
+    PageFly: { level: "familiar", note: "Page builder on the proceedit site" },
+    Lottie: { level: "familiar", note: "Explored for animations on the proceedit site" },
+    Rive: { level: "familiar", note: "Explored for animations on the proceedit site" },
+    Spline: { level: "familiar", note: "Built a 3D model for the proceedit site" },
+    YouScan: { level: "familiar", note: "Media analysis at Sayara International, 2023" },
+  } as Record<string, SkillLevel>,
 
   // GitHub Activity heatmap (public contribution data, refreshed daily).
   githubUser: "SouCampusV2",
