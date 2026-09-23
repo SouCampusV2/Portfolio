@@ -227,14 +227,25 @@ export function TechIcon({ name, className = "size-3.5" }: { name: string; class
   const icon = ICONS[name];
   if (!icon) return null;
   if (typeof icon === "string") {
+    // Letter badge as SVG so the letter sits exactly in the middle
+    // regardless of the page font's ascent/descent.
+    const letter = name.replace(/[^A-Za-z]/g, "")[0]?.toUpperCase() ?? name[0];
     return (
-      <span
-        aria-hidden="true"
-        style={{ background: icon }}
-        className={`${className} inline-grid shrink-0 place-items-center rounded-[3px] text-[0.55rem] font-bold leading-none text-white`}
-      >
-        {name.replace(/[^A-Za-z]/g, "")[0]?.toUpperCase() ?? name[0]}
-      </span>
+      <svg aria-hidden="true" viewBox="0 0 24 24" className={`${className} shrink-0`}>
+        <rect width="24" height="24" rx="5" fill={icon} />
+        <text
+          x="12"
+          y="12"
+          textAnchor="middle"
+          dominantBaseline="central"
+          fontSize="14"
+          fontWeight="700"
+          fontFamily="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif"
+          fill="#fff"
+        >
+          {letter}
+        </text>
+      </svg>
     );
   }
   if ("glyph" in icon) {
@@ -284,7 +295,7 @@ export function TechChip({ name, size = "sm" }: { name: string; size?: "sm" | "m
         skill ? "cursor-help" : ""
       }`}
     >
-      <span className={skill?.level === "familiar" ? "opacity-60" : ""}>
+      <span className={`inline-flex shrink-0 ${skill?.level === "familiar" ? "opacity-60" : ""}`}>
         <TechIcon name={name} className={size === "md" ? "size-4" : "size-3.5"} />
       </span>
       {name}
