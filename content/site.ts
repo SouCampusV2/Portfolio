@@ -154,13 +154,16 @@ export const site = {
   projects: [
     {
       title: "SouCampus",
+      // Features as they are on the live site (soucampus.online).
       summary:
-        "Marketplace for buying and selling premium Minecraft maps and builds.",
-      role: "Founder and sole developer, from architecture to production deployment.",
+        "A Minecraft build business in one product: a studio for custom builds on order and a marketplace of ready-made maps with instant download.",
+      role: "Founder and sole developer, from the business plan and architecture to production deployment.",
       highlights: [
+        "Wrote the business plan: marketplace sales plus custom build commissions",
+        "Marketplace with categories, filters, ratings, purchase counts, free maps, collections and similar-map suggestions by category, type and theme",
+        "Cart, Stripe checkout and instant download; comments with moderation on every listing",
         "Authentication and database-level access control (Supabase row-level security)",
-        "Secure Stripe checkout",
-        "Listings, checkout and accounts work end to end",
+        "Studio side: portfolio, client stories and custom orders; wiki, changelog and support pages",
         "PageSpeed 100 on desktop, 90 on mobile",
       ],
       tags: [
@@ -285,7 +288,9 @@ export const site = {
       summary: "Built a live marketplace for premium Minecraft builds alone, from architecture to deployment.",
       highlights: [
         "Founded SouCampus and built the whole platform as the sole developer: architecture, front end, back end, database and deployment.",
-        "Created a modern e-commerce experience for buying and selling high-quality Minecraft maps and builds.",
+        "Wrote the business plan: two revenue streams, marketplace sales of ready-made maps and custom build commissions.",
+        "Created a modern e-commerce experience for buying and selling high-quality Minecraft maps and builds: categories, filters, ratings, collections, similar-map suggestions, cart and instant download.",
+        "Built the studio side too: portfolio, client stories, custom orders, plus wiki, changelog and support pages.",
         "Integrated secure Stripe payments, authentication and database management on Supabase (PostgreSQL) with row-level security.",
         "Core marketplace flows (listings, checkout and accounts) are built and work end to end.",
         "Reached Google PageSpeed 100 on desktop and 90 on mobile in production through performance-focused architecture and optimization.",
@@ -415,7 +420,15 @@ export const site = {
       {
         heading: "The product",
         body: [
-          "SouCampus is where people buy and sell premium Minecraft maps and builds. Listings, checkout and accounts work end to end.",
+          "SouCampus is a Minecraft build business in one product. The studio side takes custom orders for maps, spawns and whole worlds, with a portfolio and client stories. The marketplace sells ready-made maps and builds that are yours to download right after checkout.",
+          "Listings, checkout and accounts work end to end.",
+        ],
+      },
+      {
+        heading: "Business",
+        // TODO: add numbers from the business plan you are happy to make public.
+        body: [
+          "I wrote the business plan myself. It combines two revenue streams: custom build commissions and marketplace sales of ready-made maps that anyone can buy without waiting for an order.",
         ],
       },
       {
@@ -426,6 +439,10 @@ export const site = {
           "Database-level access control with Supabase row-level security, so the database itself decides who can read or change each row",
           "Secure checkout with Stripe",
           "Listings, checkout and accounts working end to end",
+          "Marketplace browsing: categories (spawns and hubs, adventure and RPG, minigames and PvP, buildings, interiors, landscape, assets), filters, collections and free maps",
+          "Listing pages with ratings, purchase and view counts, comments with moderation, cart and instant download",
+          "Similar maps picked by category, type and theme, not at random",
+          "A wiki that answers the questions buyers used to ask in Discord, plus a changelog and support pages",
         ],
       },
       {
