@@ -88,7 +88,6 @@ function Hero() {
           <CopyEmailButton email={site.contact.email} className={buttonPrimary}>
             Contact me
           </CopyEmailButton>
-          {/* TODO: add public/cv.pdf manually — this link 404s until the file exists. */}
           <a href={site.cvHref} download className={buttonSecondary}>
             Download CV
             <ArrowDown />

@@ -32,7 +32,7 @@ All text lives in [`content/site.ts`](content/site.ts). Components only read fro
 
 ## Add the CV
 
-Put the PDF at **`public/cv.pdf`**. Both "Download CV" buttons link to `/cv.pdf`; they return a 404 until the file exists.
+The CV lives at **`public/CV_Yevhenii_Stavytskyi.pdf`** and both "Download CV" buttons link to it (`site.cvHref`). To update it, replace the file and keep the name.
 
 ## Deploy to Vercel
 

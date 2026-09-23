@@ -112,8 +112,8 @@ export const site = {
   tagline: "I build products end to end and keep cross-team delivery on track.",
   location: "Tallinn, Estonia",
   avatar: "/portrait.webp",
-  // TODO: add the file manually at public/cv.pdf
-  cvHref: "/cv.pdf",
+  // The general CV (public/). Replace the file to update it; keep the name.
+  cvHref: "/CV_Yevhenii_Stavytskyi.pdf",
 
   // Words in the bio that become links (first occurrence only).
   aboutLinks: {
