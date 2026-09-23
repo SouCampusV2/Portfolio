@@ -24,7 +24,9 @@ export type Metric = {
  */
 export type ProjectMedia =
   | { kind: "video"; src: string; poster: string; alt: string }
-  | { kind: "image"; src: string; alt: string };
+  | { kind: "image"; src: string; alt: string }
+  /** App icon on a quiet panel, for apps without public screenshots. */
+  | { kind: "app"; icon: string; alt: string };
 
 export type Project = {
   title: string;
@@ -36,6 +38,8 @@ export type Project = {
   tags: string[];
   badge?: string;
   link?: Link;
+  /** Further external links shown next to `link` (e.g. a second app store). */
+  moreLinks?: Link[];
   /** Internal case study page, e.g. "/soucampus". */
   caseStudy?: string;
   media?: ProjectMedia;
@@ -225,9 +229,9 @@ export const site = {
     },
     {
       title: "CMI mobile app — proceedit",
-      // What CMI is: from the public description on proceedit.shop.
+      // What CMI is: from its App Store / Google Play listing and proceedit.shop.
       summary:
-        "Continuous Market Insights: a fintech app with AI-powered intraday market analysis. Launched from scratch in 6 months, grown to ~200 registered users.",
+        "Continuous Market Insights: an AI-driven market analysis app, live on the App Store and Google Play since March 2026. Launched from scratch in 6 months, grown to ~200 registered users.",
       role: "Head of Application Unit. Led delivery, owned the front end, took part in architecture decisions.",
       highlights: [
         "Built the app's screens in Flutter and FlutterFlow and made them responsive across phone sizes on iOS and Android",
@@ -237,7 +241,15 @@ export const site = {
         "Reworked the app's databases along the way",
       ],
       tags: ["FlutterFlow", "Flutter", "PostgreSQL", "GraphQL", "Google Play", "App Store"],
-      // TODO: CMI app screenshots or a screen recording, if they can be shown publicly.
+      link: { label: "App Store", href: "https://apps.apple.com/us/app/cmi-ai-driven-market-analysis/id6754933246" },
+      moreLinks: [
+        {
+          label: "Google Play",
+          href: "https://play.google.com/store/apps/details?id=com.mycompany.cticontinuoustradinginsightsapplication",
+        },
+      ],
+      // TODO: app screenshots or a screen recording could replace the icon.
+      media: { kind: "app", icon: "/projects/cmi-icon.webp", alt: "CMI app icon" },
     },
     {
       title: "Corporate website — proceedit",

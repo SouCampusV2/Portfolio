@@ -261,15 +261,16 @@ function ProjectCard({ project, wide }: { project: Project; wide?: boolean }) {
                 <ArrowRight className="size-3.5" />
               </Link>
             )}
-            {project.link && (
+            {[...(project.link ? [project.link] : []), ...(project.moreLinks ?? [])].map((l) => (
               <ExternalLink
-                href={project.link.href}
+                key={l.href}
+                href={l.href}
                 className="inline-flex items-center gap-1.5 font-mono text-[0.72rem] font-medium uppercase tracking-[0.12em] text-muted transition-colors hover:text-accent"
               >
-                {project.link.label}
+                {l.label}
                 <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </ExternalLink>
-            )}
+            ))}
           </div>
         )}
       </div>
@@ -291,6 +292,19 @@ function ProjectMedia({ project }: { project: Project }) {
         sizes="(min-width: 768px) 560px, 100vw"
         className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
       />
+    );
+  }
+  if (media?.kind === "app") {
+    return (
+      <div className="absolute inset-0 grid place-items-center bg-[radial-gradient(var(--line)_1px,transparent_1px)] [background-size:14px_14px]">
+        <Image
+          src={media.icon}
+          alt={media.alt}
+          width={160}
+          height={160}
+          className="size-28 rounded-[22%] shadow-[0_18px_40px_-16px_rgba(16,20,27,0.55)] transition-transform duration-500 group-hover:scale-105 sm:size-36"
+        />
+      </div>
     );
   }
   // No preview yet: a quiet panel built from the project's own tags.
