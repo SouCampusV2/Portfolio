@@ -124,6 +124,38 @@ p {
   opacity: 1;
 }
 
+/* Card spotlight: a soft glow follows the pointer; the card itself stays put.
+   Spotlight.tsx writes --mouse-x / --mouse-y on pointer move. */
+.card-spotlight {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.card-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s;
+  background: radial-gradient(
+    480px circle at var(--mouse-x) var(--mouse-y),
+    color-mix(in oklab, var(--accent) 16%, transparent),
+    transparent 72%
+  );
+}
+.card-spotlight:hover::before,
+.card-spotlight:focus-within::before {
+  opacity: 1;
+}
+.card-spotlight > * {
+  position: relative;
+  z-index: 2;
+}
+
 /* GitHub activity heat levels: accent mixed into the empty-cell color. */
 .heat-0 { background: var(--heat-0); }
 .heat-1 { background: color-mix(in oklab, var(--accent) 30%, var(--heat-0)); }
@@ -204,11 +236,11 @@ p {
   .marquee-track [aria-hidden="true"] {
     display: none;
   }
+  .job::details-content {
+    transition: none;
+  }
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
   }
 }
-  .job::details-content {
-    transition: none;
-  }

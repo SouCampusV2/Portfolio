@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/MotionProvider";
 import { SiteFooter, SiteHeader } from "@/components/ui";
+import { Spotlight } from "@/components/Spotlight";
 import { site, siteUrl } from "@/content/site";
 import "./globals.css";
 
@@ -77,6 +78,7 @@ export default function RootLayout({
         <SiteHeader />
         <MotionProvider>{children}</MotionProvider>
         <SiteFooter />
+        <Spotlight />
       </body>
     </html>
   );

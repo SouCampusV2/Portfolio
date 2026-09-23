@@ -197,7 +197,7 @@ function ProjectCard({ project, wide }: { project: Project; wide?: boolean }) {
   const { featured } = project;
   return (
     <article
-      className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition duration-300 hover:-translate-y-1 hover:border-muted/40 hover:shadow-[0_18px_40px_-24px_rgba(16,20,27,0.45)] ${
+      className={`card-spotlight group flex h-full flex-col rounded-2xl border border-line bg-surface transition-colors duration-300 hover:border-accent/35 ${
         wide ? "lg:grid lg:grid-cols-[1.45fr_1fr]" : ""
       }`}
     >
@@ -576,7 +576,7 @@ function Contact() {
               </>
             );
             const cls =
-              "group flex items-center gap-3.5 rounded-2xl border border-line bg-surface p-4 transition duration-300 hover:-translate-y-0.5 hover:border-muted/40 hover:shadow-[0_14px_32px_-22px_rgba(16,20,27,0.45)]";
+              "card-spotlight group flex items-center gap-3.5 rounded-2xl border border-line bg-surface p-4 transition-colors duration-300 hover:border-accent/35";
             return (
               <li key={card.label} className={card.label === "Email" ? "sm:col-span-2 lg:col-span-1" : ""}>
                 {card.external ? (
