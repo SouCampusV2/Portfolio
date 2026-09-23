@@ -51,10 +51,10 @@ function Hero() {
         <Image
           src={site.avatar}
           alt={`Portrait of ${site.name}`}
-          width={96}
-          height={96}
+          width={128}
+          height={128}
           priority
-          className="size-16 rounded-full object-cover ring-2 ring-line ring-offset-2 ring-offset-bg sm:size-20"
+          className="size-20 rounded-full object-cover ring-2 ring-line ring-offset-2 ring-offset-bg sm:size-28"
         />
         <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">
           <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
