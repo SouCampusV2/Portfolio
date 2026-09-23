@@ -187,6 +187,7 @@ export const site = {
         "Motion",
         "Supabase (PostgreSQL)",
         "Stripe",
+        "Google Analytics",
         "Vercel",
       ],
       link: {
@@ -333,7 +334,7 @@ export const site = {
         "Core marketplace flows (listings, checkout and accounts) are built and work end to end.",
         "Reached Google PageSpeed 100 on desktop and 90 on mobile in production through performance-focused architecture and optimization.",
       ],
-      tech: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Motion", "Supabase (PostgreSQL)", "Stripe", "REST APIs", "GitHub", "Vercel"],
+      tech: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Motion", "Supabase (PostgreSQL)", "Stripe", "Google Analytics", "REST APIs", "GitHub", "Vercel"],
     },
     {
       role: "Head of Application Unit",
@@ -458,6 +459,7 @@ export const site = {
     npm: { level: "core", note: "Every JavaScript project" },
     Vercel: { level: "core", note: "Deploys SouCampus, Crossdesk and this site" },
     Jira: { level: "core", note: "Delivery tracking at proceedit" },
+    "Google Analytics": { level: "core", note: "Set up and used on SouCampus, configured with AI help" },
     // Learned earlier / only touched
     Python: { level: "familiar", note: "Learned earlier; used for smaller tasks" },
     PHP: { level: "familiar", note: "Learned earlier; not used in recent projects" },
