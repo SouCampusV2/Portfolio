@@ -218,7 +218,7 @@ export const site = {
       // TODO: CMI app screenshots or a screen recording, if they can be shown publicly.
     },
     {
-      title: "proceedit website",
+      title: "Corporate website — proceedit",
       summary: "proceedit's corporate website, built on Shopify.",
       role: "Implemented part of the front end and the design.",
       highlights: [
