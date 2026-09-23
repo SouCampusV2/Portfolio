@@ -2,6 +2,7 @@ import type { ComponentProps } from "react";
 import Link from "next/link";
 import { site } from "@/content/site";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { VisitorPill } from "@/components/VisitorPill";
 
 export function ExternalLink({ children, ...props }: ComponentProps<"a">) {
   return (
@@ -139,9 +140,12 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col gap-2 border-t border-line py-8 font-mono text-xs text-muted sm:flex-row sm:justify-between">
-        <p>© 2026 {site.name}</p>
-        <p>{site.location}</p>
+      <div className="flex flex-col gap-4 border-t border-line py-8 font-mono text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-1">
+          <p>© 2026 {site.name}</p>
+          <p>{site.location}</p>
+        </div>
+        <VisitorPill />
       </div>
     </footer>
   );

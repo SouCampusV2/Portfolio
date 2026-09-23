@@ -40,4 +40,8 @@ Put the PDF at **`public/cv.pdf`**. Both "Download CV" buttons link to `/cv.pdf`
 2. On [vercel.com/new](https://vercel.com/new), import the repo. The defaults are correct (framework: Next.js, build: `next build`).
 3. Deploy. The canonical URL, sitemap and Open Graph links use Vercel's production domain automatically. If you add a custom domain, set the env var `NEXT_PUBLIC_SITE_URL=https://your-domain` in the Vercel project settings and redeploy.
 
+### Visitor counter (optional)
+
+The "Visited by N people" pill in the footer needs a small Redis store. In the Vercel project: **Storage → Create → Upstash (Redis)**, connect it to the project and redeploy. That sets `KV_REST_API_URL` and `KV_REST_API_TOKEN`, which `app/api/visits/route.ts` reads. Without them the pill is simply hidden. Each browser is counted once. Avatars live in `public/avatars/`.
+
 Favicon, Open Graph and Twitter images are generated at build time from `app/icon.tsx`, `app/apple-icon.tsx` and `app/opengraph-image.tsx`.
