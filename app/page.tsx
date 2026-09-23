@@ -517,7 +517,10 @@ function Outside() {
             </ul>
           </div>
           {/* TODO: add real photos via `photo` on each hobby in content/site.ts. */}
-          <HobbyStack hobbies={outside.hobbies} />
+          {/* Room for the rotated cards so they never touch the page edge. */}
+          <div className="sm:pr-4">
+            <HobbyStack hobbies={outside.hobbies} />
+          </div>
         </div>
       </Reveal>
     </Section>
