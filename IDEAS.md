@@ -8,7 +8,8 @@ Things to add later. Not built yet.
 - **Avatar in the hero** that swaps between an art version and a real photo on hover (like renlenon.vercel.app). Waiting on the photo.
 - **Real photos** for "Outside the IDE" (set `photo` on each hobby in `content/site.ts`).
 - **More case studies**: Crossdesk, CMI / proceedit.
-- **Bachelor's thesis link** on the n8n onboarding card, once the public record (UT DSpace) is confirmed and proceedit is fine with it.
+- **Bachelor's thesis link** on the n8n onboarding card: UT publishes it in DSpace (CC BY-NC-ND 4.0) about a year after graduation, so around mid-2027.
+- **n8n case study page** with the AS-IS / TO-BE diagrams and the workflow screenshots from the thesis.
 
 ## Beyond the site
 

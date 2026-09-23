@@ -239,10 +239,20 @@ export const site = {
       },
     },
     {
-      title: "Employee onboarding automation — bachelor's thesis",
-      // TODO: one sentence on what the system automates.
-      summary: "Onboarding automation system built in n8n for proceedit.",
-      tags: ["n8n", "Workflow automation"],
+      title: "Onboarding automation in n8n — bachelor's thesis",
+      // From the thesis "Automated System for Onboarding in a Medium-Sized
+      // Company" (University of Tartu, 2026). Public in UT DSpace a year after graduation.
+      summary:
+        "An n8n system that automates hiring and onboarding for a fintech company of 50–100 people, on top of the tools HR already used: Gmail, Google Forms and Sheets, Google Drive and Jira.",
+      role: "Author: mapped the manual process, designed and built the MVP, and measured the result. University of Tartu, 2026.",
+      highlights: [
+        "Cut HR admin time per candidate from 24 to 2 minutes (−91.6%); only the CV review stays manual",
+        "AI intake: a Gmail trigger and an OpenAI agent turn application emails into structured rows in Google Sheets and book interviews in Google Calendar",
+        "Status-driven pipeline: changing a candidate's status in the sheet sends test tasks with automatic reminders and generates contracts in Google Drive",
+        "IT provisioning: a daily job creates the Jira user, clones onboarding tickets, notifies the supervisor, shares Drive folders, sends the welcome email and adds recurring meetings after a week",
+        "Chose n8n over Zapier and Make for self-hosting sensitive HR data, per-execution pricing and custom JavaScript",
+      ],
+      tags: ["n8n", "JavaScript", "Google Sheets", "Gmail", "Google Calendar", "Google Drive", "Jira", "OpenAI API"],
     },
     {
       title: "Minecraft level design",
@@ -293,7 +303,7 @@ export const site = {
         "Implemented part of the website's front end and design; explored Lottie and Rive animations and built a 3D model in Spline.",
         "Improved website performance and SEO by restructuring the content hierarchy and refactoring legacy HTML/CSS/JS: PageSpeed 70 → 85, page weight cut by 40%.",
         "Refined layouts and applied the company design system consistently across digital products.",
-        "Built n8n automations to streamline internal workflows, including an employee onboarding automation (bachelor's thesis).",
+        "Built n8n automations to streamline internal workflows, including the onboarding system from my bachelor's thesis, which cut HR admin time per candidate from 24 to 2 minutes.",
       ],
       tech: ["Flutter", "FlutterFlow", "Google Play", "App Store", "GraphQL", "REST APIs", "PostgreSQL", "Shopify", "HTML", "CSS", "JavaScript", "n8n", "Figma", "Jira"],
     },
