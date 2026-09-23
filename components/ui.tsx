@@ -105,9 +105,10 @@ export function SiteHeader() {
         <Link
           href="/"
           aria-label={`${site.name}, home`}
-          className="grid size-9 place-items-center rounded-full border border-line font-mono text-xs font-medium transition-colors hover:border-ink"
+          title="Yevhenii Stavytskyi · SouCampus"
+          className="grid h-9 place-items-center rounded-full border border-line px-3 font-mono text-xs font-medium tracking-[0.06em] transition-colors hover:border-accent hover:text-accent"
         >
-          YS
+          YSS
         </Link>
         <nav aria-label="Main" className="flex items-center gap-1 sm:gap-3">
           <ul className="flex gap-3 text-sm text-muted sm:gap-5">

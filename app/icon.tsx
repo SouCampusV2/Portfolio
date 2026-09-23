@@ -16,12 +16,12 @@ export default function Icon() {
           borderRadius: 14,
           background: "#7d1523",
           color: "#ffffff",
-          fontSize: 30,
+          fontSize: 21,
           fontWeight: 700,
           letterSpacing: -1,
         }}
       >
-        YS
+        YSS
       </div>
     ),
     size,

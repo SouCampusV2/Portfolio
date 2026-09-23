@@ -31,11 +31,11 @@ export default function OpengraphImage() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 24,
+              fontSize: 19,
               fontWeight: 600,
             }}
           >
-            YS
+            YSS
           </div>
           <div style={{ fontSize: 26, color: "#685a5d" }}>{site.location}</div>
         </div>
