@@ -216,11 +216,16 @@ export const site = {
     {
       title: "proceedit website",
       summary: "proceedit's corporate website, built on Shopify.",
-      // TODO: your exact role on the website (what you built or changed yourself).
-      highlights: ["PageSpeed raised from 70 to 85", "Page weight cut by 40%"],
+      role: "Implemented part of the front end and the design.",
+      highlights: [
+        "PageSpeed raised from 70 to 85",
+        "Page weight cut by 40%",
+        "Explored Lottie and Rive animations for the site",
+        "Built a 3D model in Spline",
+      ],
       // Stack as detected on the live site (Shopify Dawn theme, PageFly, files on
       // the Shopify CDN, content in metaobjects). TODO: keep only what you worked with.
-      tags: ["Shopify", "Liquid", "PageFly", "Shopify Metaobjects"],
+      tags: ["Shopify", "Liquid", "PageFly", "Shopify Metaobjects", "Lottie", "Rive", "Spline"],
       link: { label: "Visit proceedit", href: "https://proceedit.shop/" },
       media: {
         kind: "video",
@@ -280,6 +285,7 @@ export const site = {
         "Turned high-fidelity Figma designs into Flutter and FlutterFlow apps: reusable widgets, managed app state, responsive on iOS and Android.",
         "Led a team of 10 developers in the application unit and coordinated ~10 colleagues across business, marketing and leadership.",
         "Co-developed and launched the company website, contributing to front-end architecture, UI implementation and user experience.",
+        "Implemented part of the website's front end and design; explored Lottie and Rive animations and built a 3D model in Spline.",
         "Improved website performance and SEO by restructuring the content hierarchy and refactoring legacy HTML/CSS/JS: PageSpeed 70 → 85, page weight cut by 40%.",
         "Refined layouts and applied the company design system consistently across digital products.",
         "Built n8n automations to streamline internal workflows, including an employee onboarding automation (bachelor's thesis).",
@@ -340,7 +346,7 @@ export const site = {
       category: "CMS & Marketing",
       items: ["Shopify", "Liquid", "PageFly", "SEO Optimization", "Google Analytics"],
     },
-    { category: "Design", items: ["Figma", "Canva"] },
+    { category: "Design & Motion", items: ["Figma", "Canva", "Lottie", "Rive", "Spline"] },
     {
       category: "Data & Office",
       items: ["Excel", "PowerPoint", "Word", "YouScan"],
