@@ -210,8 +210,12 @@ export const site = {
         "Privacy-first B2B matching. A company privately describes a problem; AI agents check budget, timing and contract fit with vendors; people meet only once the terms fit, and each side's figures stay private.",
       // TODO: hackathon name and any result or award.
       role: "Built in a team of three at a hackathon (business track, 18–19 Sep 2026); now continuing in the IGNITER pre-acceleration programme. My part: the front end — onboarding, sign-in, problem and directory screens.",
-      // Stack from the repo (github.com/Dennel04/b2b-match).
-      tags: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Supabase", "Claude API", "Stripe", "Zod", "Vercel"],
+      // Stack and highlights from the repo (github.com/Dennel04/b2b-match).
+      highlights: [
+        "Two AI agents negotiate budget, timing and contract fit; a deterministic guard rejects any transcript that leaks the buyer's problem to the vendor",
+        "Reads each company's website to build its profile, with Tavily as the fallback reader when a site renders in the browser or blocks bots",
+      ],
+      tags: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Supabase", "Claude API", "Tavily", "Stripe", "Zod", "Vercel"],
       badge: "MVP / in development",
       link: { label: "Live demo", href: "https://crossdeskmatch.vercel.app/" },
       media: {
@@ -406,7 +410,7 @@ export const site = {
     { category: "Mobile", items: ["Flutter", "FlutterFlow", "Google Play", "App Store"] },
     {
       category: "AI & Automation",
-      items: ["Claude Code", "Claude API", "ChatGPT", "Gemini", "Prompt Engineering", "n8n", "Make.com"],
+      items: ["Claude Code", "Claude API", "ChatGPT", "Gemini", "Prompt Engineering", "Tavily", "n8n", "Make.com"],
     },
     {
       category: "CMS & Marketing",

@@ -185,6 +185,7 @@ const ICONS: Record<string, SimpleIcon | string | Glyph> = {
   Gemini: siGooglegemini,
   "Claude Code": siClaude,
   "Claude API": siClaude,
+  Tavily: "#468bff",
   Zod: siZod,
   "Prompt Engineering": "#d97757",
   Shopify: siShopify,
