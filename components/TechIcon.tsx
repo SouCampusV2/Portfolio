@@ -44,12 +44,77 @@ import {
 } from "simple-icons";
 
 /**
+ * Outline glyphs for skills that are not brands, drawn after Lucide icons
+ * (lucide.dev, ISC licence). Rendered in the accent colour.
+ */
+type Glyph = { glyph: React.ReactNode };
+
+const GLYPHS: Record<string, Glyph> = {
+  team: {
+    glyph: (
+      <>
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </>
+    ),
+  },
+  network: {
+    glyph: (
+      <>
+        <rect x="16" y="16" width="6" height="6" rx="1" />
+        <rect x="2" y="16" width="6" height="6" rx="1" />
+        <rect x="9" y="2" width="6" height="6" rx="1" />
+        <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+        <path d="M12 12V8" />
+      </>
+    ),
+  },
+  headset: {
+    glyph: (
+      <>
+        <path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z" />
+        <path d="M21 16v2a4 4 0 0 1-4 4h-5" />
+      </>
+    ),
+  },
+  ticket: {
+    glyph: (
+      <>
+        <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+        <path d="M13 5v2" />
+        <path d="M13 17v2" />
+        <path d="M13 11v2" />
+      </>
+    ),
+  },
+  languages: {
+    glyph: (
+      <>
+        <path d="m5 8 6 6" />
+        <path d="m4 14 6-6 2-3" />
+        <path d="M2 5h12" />
+        <path d="M7 2h1" />
+        <path d="m22 22-5-10-5 10" />
+        <path d="M14 18h6" />
+      </>
+    ),
+  },
+};
+
+/**
  * Brand icons from simple-icons (CC0). Server component: the SVG paths are
  * inlined into the HTML, nothing ships to the client.
  * A string value = technology without an icon in the set → letter badge in
  * that brand color. Names not listed here render without an icon.
  */
-const ICONS: Record<string, SimpleIcon | string> = {
+const ICONS: Record<string, SimpleIcon | string | Glyph> = {
+  "Team leadership": GLYPHS.team,
+  "Stakeholder coordination": GLYPHS.network,
+  "Client support": GLYPHS.headset,
+  "Ticket handling": GLYPHS.ticket,
+  "Client communication (English)": GLYPHS.languages,
   HTML: siHtml5,
   CSS: siCss,
   JavaScript: siJavascript,
@@ -135,6 +200,22 @@ export function TechIcon({ name, className = "size-3.5" }: { name: string; class
       >
         {name.replace(/[^A-Za-z]/g, "")[0]?.toUpperCase() ?? name[0]}
       </span>
+    );
+  }
+  if ("glyph" in icon) {
+    return (
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={`${className} shrink-0 text-accent`}
+      >
+        {icon.glyph}
+      </svg>
     );
   }
   return (
