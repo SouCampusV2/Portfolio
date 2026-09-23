@@ -124,12 +124,12 @@ export const site = {
     },
     {
       label: "Performance",
-      value: "70 → 85",
-      context: "PageSpeed on the proceedit website, page weight cut by 40%",
+      value: "70 → 88",
+      context: "Desktop PageSpeed on the proceedit website, page weight cut by 40%",
     },
     {
       label: "Speed",
-      value: "100 / 88",
+      value: "100 / 90",
       context: "PageSpeed on SouCampus, desktop / mobile",
     },
     {
@@ -161,7 +161,7 @@ export const site = {
         "Authentication and database-level access control (Supabase row-level security)",
         "Secure Stripe checkout",
         "Listings, checkout and accounts work end to end",
-        "PageSpeed 100 on desktop, 88 on mobile",
+        "PageSpeed 100 on desktop, 90 on mobile",
       ],
       tags: [
         "TypeScript",
@@ -222,7 +222,7 @@ export const site = {
       summary: "proceedit's corporate website, built on Shopify.",
       role: "Implemented part of the front end and the design.",
       highlights: [
-        "PageSpeed raised from 70 to 85",
+        "Desktop PageSpeed raised from 70 to 88",
         "Page weight cut by 40%",
         "Explored Lottie and Rive animations for the site",
         "Built a 3D model in Spline",
@@ -284,7 +284,7 @@ export const site = {
         "Created a modern e-commerce experience for buying and selling high-quality Minecraft maps and builds.",
         "Integrated secure Stripe payments, authentication and database management on Supabase (PostgreSQL) with row-level security.",
         "Core marketplace flows (listings, checkout and accounts) are built and work end to end.",
-        "Reached Google PageSpeed 100 on desktop and 88 on mobile in production through performance-focused architecture and optimization.",
+        "Reached Google PageSpeed 100 on desktop and 90 on mobile in production through performance-focused architecture and optimization.",
       ],
       tech: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Motion", "Supabase (PostgreSQL)", "Stripe", "REST APIs", "GitHub", "Vercel"],
     },
@@ -301,7 +301,7 @@ export const site = {
         "Led a team of 10 developers in the application unit and coordinated ~10 colleagues across business, marketing and leadership.",
         "Co-developed and launched the company website, contributing to front-end architecture, UI implementation and user experience.",
         "Implemented part of the website's front end and design; explored Lottie and Rive animations and built a 3D model in Spline.",
-        "Improved website performance and SEO by restructuring the content hierarchy and refactoring legacy HTML/CSS/JS: PageSpeed 70 → 85, page weight cut by 40%.",
+        "Improved website performance and SEO by restructuring the content hierarchy and refactoring legacy HTML/CSS/JS: desktop PageSpeed 70 → 88, page weight cut by 40%.",
         "Refined layouts and applied the company design system consistently across digital products.",
         "Built n8n automations to streamline internal workflows, including the onboarding system from my bachelor's thesis, which cut HR admin time per candidate from 24 to 2 minutes.",
       ],
@@ -403,7 +403,7 @@ export const site = {
     facts: [
       { label: "Role", value: "Founder & sole developer" },
       { label: "Timeline", value: "Jun 2026 – Present" },
-      { label: "PageSpeed", value: "100 desktop / 88 mobile" },
+      { label: "PageSpeed", value: "100 desktop / 90 mobile" },
       { label: "Status", value: "Live" },
     ],
     sections: [
@@ -426,7 +426,7 @@ export const site = {
       {
         heading: "Performance",
         body: [
-          "Speed is part of the product: SouCampus scores 100 on Google PageSpeed on desktop and 88 on mobile.",
+          "Speed is part of the product: SouCampus scores 100 on Google PageSpeed on desktop and 90 on mobile.",
         ],
       },
       {
