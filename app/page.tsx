@@ -47,11 +47,20 @@ export default function Home() {
 function Hero() {
   return (
     <section id="top" aria-labelledby="hero-name" className="pb-16 pt-12 sm:pb-24 sm:pt-20">
-      {/* TODO (optional): a portrait photo next to the name, only if one is provided. */}
-      <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">
-        <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
-        {site.location}
-      </p>
+      <div className="flex items-center gap-4">
+        <Image
+          src={site.avatar}
+          alt={`Portrait of ${site.name}`}
+          width={96}
+          height={96}
+          priority
+          className="size-16 rounded-full object-cover ring-2 ring-line ring-offset-2 ring-offset-bg sm:size-20"
+        />
+        <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">
+          <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
+          {site.location}
+        </p>
+      </div>
       <h1
         id="hero-name"
         className="mt-6 text-[clamp(2.6rem,9vw,6.25rem)] font-semibold leading-[0.95] tracking-[-0.035em]"
