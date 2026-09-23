@@ -167,6 +167,7 @@ export const site = {
         "Supabase (PostgreSQL)",
         "Stripe",
         "Vercel",
+        "Node.js",
       ],
       link: {
         label: "Visit marketplace",
