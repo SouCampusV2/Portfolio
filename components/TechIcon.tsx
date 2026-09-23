@@ -1,4 +1,5 @@
 import {
+  siAppstore,
   siClaude,
   siCplusplus,
   siCss,
@@ -7,6 +8,7 @@ import {
   siGit,
   siGithub,
   siGithubactions,
+  siGoogleplay,
   siGoogleanalytics,
   siGooglegemini,
   siGraphql,
@@ -66,6 +68,8 @@ const ICONS: Record<string, SimpleIcon | string> = {
   GraphQL: siGraphql,
   Stripe: siStripe,
   Flutter: siFlutter,
+  "Google Play": siGoogleplay,
+  "App Store": siAppstore,
   FlutterFlow: "#4b39ef",
   n8n: siN8n,
   "Make.com": siMake,

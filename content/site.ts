@@ -210,7 +210,11 @@ export const site = {
       summary:
         "Mobile application launched from scratch in 6 months, grown to ~200 registered users.",
       role: "Head of Application Unit. Led delivery, owned the front end, took part in architecture decisions.",
-      tags: ["FlutterFlow", "Flutter", "PostgreSQL", "GraphQL"],
+      highlights: [
+        "Took the app through Google Play and App Store publishing",
+        "Reworked the app's databases along the way",
+      ],
+      tags: ["FlutterFlow", "Flutter", "PostgreSQL", "GraphQL", "Google Play", "App Store"],
       // TODO: CMI app screenshots or a screen recording, if they can be shown publicly.
     },
     {
@@ -283,6 +287,7 @@ export const site = {
         "Led the end-to-end development and launch of the CMI mobile app from scratch in 6 months, growing it to ~200 registered users.",
         "Architected the Flutter codebase and integrated REST and GraphQL APIs between the app and backend services.",
         "Turned high-fidelity Figma designs into Flutter and FlutterFlow apps: reusable widgets, managed app state, responsive on iOS and Android.",
+        "Took the app through Google Play and App Store publishing and reworked its databases along the way.",
         "Led a team of 10 developers in the application unit and coordinated ~10 colleagues across business, marketing and leadership.",
         "Co-developed and launched the company website, contributing to front-end architecture, UI implementation and user experience.",
         "Implemented part of the website's front end and design; explored Lottie and Rive animations and built a 3D model in Spline.",
@@ -290,7 +295,7 @@ export const site = {
         "Refined layouts and applied the company design system consistently across digital products.",
         "Built n8n automations to streamline internal workflows, including an employee onboarding automation (bachelor's thesis).",
       ],
-      tech: ["Flutter", "FlutterFlow", "GraphQL", "REST APIs", "PostgreSQL", "Shopify", "HTML", "CSS", "JavaScript", "n8n", "Figma", "Jira"],
+      tech: ["Flutter", "FlutterFlow", "Google Play", "App Store", "GraphQL", "REST APIs", "PostgreSQL", "Shopify", "HTML", "CSS", "JavaScript", "n8n", "Figma", "Jira"],
     },
     {
       // Note: one older CV says "Data Analytics Intern, 15 May – 15 Aug 2023".
@@ -337,7 +342,7 @@ export const site = {
       category: "Databases",
       items: ["Supabase", "PostgreSQL", "MySQL", "SQLite"],
     },
-    { category: "Mobile", items: ["Flutter", "FlutterFlow"] },
+    { category: "Mobile", items: ["Flutter", "FlutterFlow", "Google Play", "App Store"] },
     {
       category: "AI & Automation",
       items: ["Claude Code", "Claude API", "ChatGPT", "Gemini", "Prompt Engineering", "n8n", "Make.com"],
