@@ -129,9 +129,8 @@ export const site = {
     },
     {
       label: "Speed",
-      // TODO: replace "~100" with exact SouCampus PageSpeed numbers (e.g. "100 / 98") when provided.
-      value: "~100",
-      context: "PageSpeed on SouCampus, desktop and mobile",
+      value: "100 / 88",
+      context: "PageSpeed on SouCampus, desktop / mobile",
     },
     {
       label: "Team",
@@ -162,13 +161,13 @@ export const site = {
         "Authentication and database-level access control (Supabase row-level security)",
         "Secure Stripe checkout",
         "Listings, checkout and accounts work end to end",
-        "PageSpeed ~100",
+        "PageSpeed 100 on desktop, 88 on mobile",
       ],
       tags: [
         "TypeScript",
         "Next.js",
-        "Node.js",
         "React",
+        "Node.js",
         "Tailwind CSS",
         "Motion",
         "Supabase (PostgreSQL)",
@@ -252,12 +251,13 @@ export const site = {
       },
     },
   ] satisfies Project[] as Project[],
-  // Details collected from the CV versions. Expandable on the page.
 
+  // Details collected from the CV versions. Expandable on the page.
   experience: [
     {
       role: "Founder & Full-Stack Developer",
       org: "SouCampus",
+      period: "Jun 2026 – Present",
       open: true,
       summary: "Built a live marketplace for premium Minecraft builds alone, from architecture to deployment.",
       highlights: [
@@ -268,11 +268,11 @@ export const site = {
         "Reached Google PageSpeed 100 on desktop and 88 on mobile in production through performance-focused architecture and optimization.",
       ],
       tech: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Motion", "Supabase (PostgreSQL)", "Stripe", "REST APIs", "GitHub", "Vercel"],
-      period: "Jun 2026 – Present",
     },
     {
       role: "Head of Application Unit",
       org: "proceedit",
+      period: "Jan 2025 – Jun 2026",
       summary: "Led the CMI mobile app from scratch to launch and co-built the company website.",
       highlights: [
         "Led the end-to-end development and launch of the CMI mobile app from scratch in 6 months, growing it to ~200 registered users.",
@@ -285,10 +285,9 @@ export const site = {
         "Built n8n automations to streamline internal workflows, including an employee onboarding automation (bachelor's thesis).",
       ],
       tech: ["Flutter", "FlutterFlow", "GraphQL", "REST APIs", "PostgreSQL", "Shopify", "HTML", "CSS", "JavaScript", "n8n", "Figma", "Jira"],
-      period: "Jan 2025 – Jun 2026",
     },
-      // Note: one older CV says "Data Analytics Intern, 15 May – 15 Aug 2023".
     {
+      // Note: one older CV says "Data Analytics Intern, 15 May – 15 Aug 2023".
       role: "Data Analyst",
       org: "Sayara International",
       period: "Apr 2023 – Oct 2023",
@@ -303,13 +302,13 @@ export const site = {
     {
       role: "Minecraft Level Designer",
       org: "Freelance",
+      period: "2019 – Present",
       summary: "Multiplayer maps and structures for clients worldwide, including MrBeast and Microsoft.",
       highlights: [
         "Built multiplayer maps and structures for clients worldwide for more than 5 years.",
         "Collaborated with MrBeast and Microsoft on custom designs for public events.",
         "The build portfolio lives on soucampus.online.",
       ],
-      period: "2019 – Present",
     },
   ] satisfies Job[] as Job[],
 
@@ -374,7 +373,7 @@ export const site = {
     facts: [
       { label: "Role", value: "Founder & sole developer" },
       { label: "Timeline", value: "Jun 2026 – Present" },
-      { label: "PageSpeed", value: "~100 desktop & mobile" },
+      { label: "PageSpeed", value: "100 desktop / 88 mobile" },
       { label: "Status", value: "Live" },
     ],
     sections: [
@@ -397,7 +396,7 @@ export const site = {
       {
         heading: "Performance",
         body: [
-          "Speed is part of the product: SouCampus scores ~100 on Google PageSpeed on both desktop and mobile.",
+          "Speed is part of the product: SouCampus scores 100 on Google PageSpeed on desktop and 88 on mobile.",
         ],
       },
       {
@@ -423,7 +422,7 @@ export const site = {
   education: {
     school: "University of Tartu",
     degree: "BSc Information Technology Systems Development",
-    period: "2022 – 2026",
+    period: "Aug 2022 – May 2026",
   },
 
   languages: [
