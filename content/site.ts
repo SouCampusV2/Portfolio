@@ -207,10 +207,14 @@ export const site = {
     },
     {
       title: "CMI mobile app — proceedit",
+      // What CMI is: from the public description on proceedit.shop.
       summary:
-        "Mobile application launched from scratch in 6 months, grown to ~200 registered users.",
+        "Continuous Market Insights: a fintech app with AI-powered intraday market analysis. Launched from scratch in 6 months, grown to ~200 registered users.",
       role: "Head of Application Unit. Led delivery, owned the front end, took part in architecture decisions.",
       highlights: [
+        "Built the app's screens in Flutter and FlutterFlow and made them responsive across phone sizes on iOS and Android",
+        "Worked on the UI design from Figma concepts to the shipped app",
+        "Helped shape the business model, including how the in-app credit system works",
         "Took the app through Google Play and App Store publishing",
         "Reworked the app's databases along the way",
       ],
@@ -292,11 +296,12 @@ export const site = {
       role: "Head of Application Unit",
       org: "proceedit",
       period: "Jan 2025 – Jun 2026",
-      summary: "Led the CMI mobile app from scratch to launch and co-built the company website.",
+      summary: "Led the CMI fintech app from scratch to launch and co-built the company website.",
       highlights: [
         "Led the end-to-end development and launch of the CMI mobile app from scratch in 6 months, growing it to ~200 registered users.",
         "Architected the Flutter codebase and integrated REST and GraphQL APIs between the app and backend services.",
         "Turned high-fidelity Figma designs into Flutter and FlutterFlow apps: reusable widgets, managed app state, responsive on iOS and Android.",
+        "Helped shape the CMI business model, including how the in-app credit system works.",
         "Took the app through Google Play and App Store publishing and reworked its databases along the way.",
         "Led a team of 10 developers in the application unit and coordinated ~10 colleagues across business, marketing and leadership.",
         "Co-developed and launched the company website, contributing to front-end architecture, UI implementation and user experience.",
