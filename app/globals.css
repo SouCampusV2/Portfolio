@@ -163,6 +163,17 @@ p {
 .heat-3 { background: color-mix(in oklab, var(--accent) 78%, var(--heat-0)); }
 .heat-4 { background: var(--accent); }
 
+/* Contribution calendar: cells pop in column by column when the period changes. */
+@keyframes cal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+.cal-cell {
+  animation: cal-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
 /* Technologies marquee: two copies of the row slide left by exactly one copy. */
 @keyframes marquee {
   to {
@@ -238,6 +249,9 @@ p {
   }
   .job::details-content {
     transition: none;
+  }
+  .cal-cell {
+    animation: none;
   }
   [data-reveal] {
     opacity: 1 !important;
