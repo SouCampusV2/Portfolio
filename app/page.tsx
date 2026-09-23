@@ -171,10 +171,13 @@ function Projects() {
         Projects
       </h2>
       <ul className="mt-8 grid gap-5 md:grid-cols-2">
-        {site.projects.map((project) => (
-          <li key={project.title} className={project.featured ? "md:col-span-2" : ""}>
+        {site.projects.map((project, i, all) => (
+          <li
+            key={project.title}
+            className={project.featured || isLoneLast(all, i) ? "md:col-span-2" : ""}
+          >
             <Reveal className="h-full">
-              <ProjectCard project={project} />
+              <ProjectCard project={project} wide={project.featured || isLoneLast(all, i)} />
             </Reveal>
           </li>
         ))}
@@ -183,19 +186,26 @@ function Projects() {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+/** The last card would sit alone in its row: let it span both columns. */
+function isLoneLast(all: Project[], i: number) {
+  const regular = all.filter((p) => !p.featured);
+  return i === all.length - 1 && !all[i].featured && regular.length % 2 === 1;
+}
+
+/** `wide` = spans both grid columns: media and text sit side by side on large screens. */
+function ProjectCard({ project, wide }: { project: Project; wide?: boolean }) {
   const { featured } = project;
   return (
     <article
       className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition duration-300 hover:-translate-y-1 hover:border-muted/40 hover:shadow-[0_18px_40px_-24px_rgba(16,20,27,0.45)] ${
-        featured ? "lg:grid lg:grid-cols-[1.45fr_1fr]" : ""
+        wide ? "lg:grid lg:grid-cols-[1.45fr_1fr]" : ""
       }`}
     >
       {/* Media keeps its exact 16:10 ratio so recordings are never cropped;
           in the wide featured card it sits centered beside the text. */}
       <div
         className={`border-b border-line bg-line ${
-          featured ? "lg:flex lg:items-center lg:border-b-0 lg:border-r" : ""
+          wide ? "lg:flex lg:items-center lg:border-b-0 lg:border-r" : ""
         }`}
       >
         <div className="relative aspect-[16/10] w-full max-w-full overflow-hidden">

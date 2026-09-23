@@ -205,8 +205,16 @@ export const site = {
         "Mobile application launched from scratch in 6 months, grown to ~200 registered users.",
       role: "Head of Application Unit. Led delivery, owned the front end, took part in architecture decisions.",
       tags: ["FlutterFlow", "Flutter", "PostgreSQL", "GraphQL"],
-      // TODO: CMI app screenshots, if they can be shown publicly. Until then the
-      // card shows the proceedit company site.
+      // TODO: CMI app screenshots or a screen recording, if they can be shown publicly.
+    },
+    {
+      title: "proceedit website",
+      summary: "proceedit's corporate website, built on Shopify.",
+      // TODO: your exact role on the website (what you built or changed yourself).
+      highlights: ["PageSpeed raised from 70 to 85", "Page weight cut by 40%"],
+      // Stack as detected on the live site (Shopify Dawn theme, PageFly, files on
+      // the Shopify CDN, content in metaobjects). TODO: keep only what you worked with.
+      tags: ["Shopify", "Liquid", "PageFly", "Shopify Metaobjects"],
       link: { label: "Visit proceedit", href: "https://proceedit.shop/" },
       media: {
         kind: "video",
@@ -284,7 +292,7 @@ export const site = {
     },
     {
       category: "CMS & Marketing",
-      items: ["Shopify", "SEO Optimization", "Google Analytics"],
+      items: ["Shopify", "Liquid", "PageFly", "SEO Optimization", "Google Analytics"],
     },
     { category: "Design", items: ["Figma", "Canva"] },
     {
