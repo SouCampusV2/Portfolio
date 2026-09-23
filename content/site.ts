@@ -111,7 +111,7 @@ export const site = {
   title: "Software Engineer · Product Delivery",
   tagline: "I build products end to end and keep cross-team delivery on track.",
   location: "Tallinn, Estonia",
-  avatar: "/avatar.webp",
+  avatar: "/portrait.webp",
   // TODO: add the file manually at public/cv.pdf
   cvHref: "/cv.pdf",
 

@@ -45,44 +45,76 @@ export default function Home() {
 }
 
 function Hero() {
+  const [first, ...rest] = site.name.split(" ");
+  const location = (
+    <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">
+      <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
+      {site.location}
+    </p>
+  );
   return (
-    <section id="top" aria-labelledby="hero-name" className="pb-16 pt-12 sm:pb-24 sm:pt-20">
-      <div className="flex items-center gap-4">
-        <Image
-          src={site.avatar}
-          alt={`Portrait of ${site.name}`}
-          width={128}
-          height={128}
-          priority
-          className="size-20 rounded-full object-cover ring-2 ring-line ring-offset-2 ring-offset-bg sm:size-28"
+    <section
+      id="top"
+      aria-labelledby="hero-name"
+      className="grid items-center gap-10 pb-16 pt-10 sm:pb-24 sm:pt-16 md:grid-cols-[minmax(0,1fr)_auto] md:gap-14"
+    >
+      <div>
+        {/* Phones: compact avatar + location above the name. */}
+        <div className="mb-6 flex items-center gap-4 md:hidden">
+          <Image
+            src={site.avatar}
+            alt=""
+            width={80}
+            height={80}
+            sizes="80px"
+            className="size-20 rounded-full object-cover ring-2 ring-line ring-offset-2 ring-offset-bg"
+          />
+          {location}
+        </div>
+
+        <h1
+          id="hero-name"
+          className="text-[clamp(2.75rem,8.5vw,5.75rem)] font-semibold leading-[0.92] tracking-[-0.035em]"
+        >
+          <span className="block">{first}</span>
+          <span className="block">{rest.join(" ")}</span>
+        </h1>
+        <p className="mt-6 text-lg font-medium text-accent sm:text-xl">{site.title}</p>
+        <p className="mt-3 max-w-lg text-lg leading-relaxed text-muted sm:text-xl">{site.tagline}</p>
+        <div className="mt-9 flex flex-wrap items-center gap-3">
+          <a href={mailto} className={buttonPrimary}>
+            Contact me
+          </a>
+          {/* TODO: add public/cv.pdf manually — this link 404s until the file exists. */}
+          <a href={site.cvHref} download className={buttonSecondary}>
+            Download CV
+            <ArrowDown />
+          </a>
+          <span aria-hidden="true" className="mx-1 hidden h-5 w-px bg-line sm:block" />
+          <SocialIcons />
+        </div>
+      </div>
+
+      {/* Tablets and up: portrait card with the location on it. */}
+      <figure className="relative hidden w-[clamp(15rem,26vw,20rem)] md:block">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -translate-x-3 translate-y-3 rounded-[1.75rem] border border-accent/30 bg-accent-soft/50"
         />
-        <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">
-          <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
-          {site.location}
-        </p>
-      </div>
-      <h1
-        id="hero-name"
-        className="mt-6 text-[clamp(2.6rem,9vw,6.25rem)] font-semibold leading-[0.95] tracking-[-0.035em]"
-      >
-        {site.name}
-      </h1>
-      <p className="mt-6 text-lg font-medium text-accent sm:text-xl">{site.title}</p>
-      <p className="mt-3 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-        {site.tagline}
-      </p>
-      <div className="mt-9 flex flex-wrap items-center gap-3">
-        <a href={mailto} className={buttonPrimary}>
-          Contact me
-        </a>
-        {/* TODO: add public/cv.pdf manually — this link 404s until the file exists. */}
-        <a href={site.cvHref} download className={buttonSecondary}>
-          Download CV
-          <ArrowDown />
-        </a>
-        <span aria-hidden="true" className="mx-1 hidden h-5 w-px bg-line sm:block" />
-        <SocialIcons />
-      </div>
+        <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-line bg-line shadow-[0_24px_60px_-30px_rgba(29,21,23,0.55)]">
+          <Image
+            src={site.avatar}
+            alt={`Portrait of ${site.name}`}
+            fill
+            priority
+            sizes="(min-width: 768px) 320px, 0px"
+            className="object-cover"
+          />
+          <figcaption className="absolute bottom-3 left-3 rounded-full bg-bg/85 px-3 py-1.5 backdrop-blur-sm">
+            {location}
+          </figcaption>
+        </div>
+      </figure>
     </section>
   );
 }
