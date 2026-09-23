@@ -206,6 +206,21 @@ export const site = {
       },
     },
     {
+      title: "Minecraft level design",
+      summary:
+        "Multiplayer maps and structures for clients worldwide since 2019, including collaborations with MrBeast and Microsoft for public events.",
+      tags: ["Level design", "Client work"],
+      // TODO: confirm this is the right portfolio page; add build renders if available.
+      // Do not use MrBeast or Microsoft logos.
+      link: { label: "See the builds", href: "https://soucampus.online/portfolio" },
+      media: {
+        kind: "video",
+        src: "/projects/minecraft.mp4",
+        poster: "/projects/minecraft-poster.webp",
+        alt: "Screen recording: browsing Minecraft builds in the soucampus.online portfolio",
+      },
+    },
+    {
       title: "CMI mobile app — proceedit",
       // What CMI is: from the public description on proceedit.shop.
       summary:
@@ -257,21 +272,6 @@ export const site = {
         "Chose n8n over Zapier and Make for self-hosting sensitive HR data, per-execution pricing and custom JavaScript",
       ],
       tags: ["n8n", "JavaScript", "Google Sheets", "Gmail", "Google Calendar", "Google Drive", "Jira", "OpenAI API"],
-    },
-    {
-      title: "Minecraft level design",
-      summary:
-        "Multiplayer maps and structures for clients worldwide since 2019, including collaborations with MrBeast and Microsoft for public events.",
-      tags: ["Level design", "Client work"],
-      // TODO: confirm this is the right portfolio page; add build renders if available.
-      // Do not use MrBeast or Microsoft logos.
-      link: { label: "See the builds", href: "https://soucampus.online/portfolio" },
-      media: {
-        kind: "video",
-        src: "/projects/minecraft.mp4",
-        poster: "/projects/minecraft-poster.webp",
-        alt: "Screen recording: browsing Minecraft builds in the soucampus.online portfolio",
-      },
     },
   ] satisfies Project[] as Project[],
 
