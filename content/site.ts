@@ -97,7 +97,7 @@ export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 
 export const site = {
   name: "Yevhenii Stavytskyi",
-  title: "Full-Stack Developer · Product Delivery",
+  title: "Software Engineer · Product Delivery",
   tagline: "I build products end to end and keep cross-team delivery on track.",
   location: "Tallinn, Estonia",
   // TODO: add the file manually at public/cv.pdf
