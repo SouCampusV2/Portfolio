@@ -36,6 +36,7 @@ import {
   siStripe,
   siSupabase,
   siTailwindcss,
+  siTiktok,
   siTypescript,
   siVercel,
   siVuedotjs,
@@ -89,6 +90,33 @@ const GLYPHS: Record<string, Glyph> = {
       </>
     ),
   },
+  box: {
+    glyph: (
+      <>
+        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+        <path d="m3.3 7 8.7 5 8.7-5" />
+        <path d="M12 22V12" />
+      </>
+    ),
+  },
+  server: {
+    glyph: (
+      <>
+        <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
+        <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
+        <path d="M6 6h.01" />
+        <path d="M6 18h.01" />
+      </>
+    ),
+  },
+  video: {
+    glyph: (
+      <>
+        <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
+        <rect x="2" y="6" width="14" height="12" rx="2" />
+      </>
+    ),
+  },
   languages: {
     glyph: (
       <>
@@ -115,6 +143,10 @@ const ICONS: Record<string, SimpleIcon | string | Glyph> = {
   "Client support": GLYPHS.headset,
   "Ticket handling": GLYPHS.ticket,
   "Client communication (English)": GLYPHS.languages,
+  "Level design": GLYPHS.box,
+  "Multiplayer servers": GLYPHS.server,
+  "Content creation": GLYPHS.video,
+  TikTok: siTiktok,
   HTML: siHtml5,
   CSS: siCss,
   JavaScript: siJavascript,

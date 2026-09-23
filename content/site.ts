@@ -216,10 +216,28 @@ export const site = {
       title: "Minecraft level design",
       summary:
         "Multiplayer maps and structures for clients worldwide since 2019, including collaborations with MrBeast and Microsoft for public events.",
-      tags: ["Level design", "Client work"],
-      // TODO: confirm this is the right portfolio page; add build renders if available.
+      role: "Freelance level designer, from the client's brief to the delivered build.",
+      // Servers: from the client stories on soucampus.online.
+      // TikTok numbers: public profile, September 2026.
+      highlights: [
+        "Built for many different servers, including Luckycraft, GuardiumMC, RamboMC, BreadBuilds and AstroSMP",
+        "Custom builds with MrBeast and Microsoft for public events",
+        "Handled client support through tickets: requests, revisions and delivery",
+        "Worked with international clients in English every day",
+        "Grew the @soucampus TikTok to 1.8K followers and 168K likes with 52 build videos",
+      ],
+      tags: [
+        "Level design",
+        "Multiplayer servers",
+        "Client support",
+        "Ticket handling",
+        "Client communication (English)",
+        "TikTok",
+        "Content creation",
+      ],
       // Do not use MrBeast or Microsoft logos.
       link: { label: "See the builds", href: "https://soucampus.online/portfolio" },
+      moreLinks: [{ label: "TikTok", href: "https://www.tiktok.com/@soucampus" }],
       media: {
         kind: "video",
         src: "/projects/minecraft.mp4",
@@ -353,9 +371,11 @@ export const site = {
         "Collaborated with MrBeast and Microsoft on custom designs for public events.",
         "Handled client support through a ticket system: requests, questions and revisions from first message to delivery.",
         "Worked with international clients in English every day.",
+        "Built for many different servers, including Luckycraft, GuardiumMC, RamboMC, BreadBuilds and AstroSMP.",
+        "Grew the @soucampus TikTok to 1.8K followers and 168K likes with 52 build videos.",
         "The build portfolio lives on soucampus.online.",
       ],
-      tech: ["Client support", "Ticket handling", "Client communication (English)"],
+      tech: ["Level design", "Multiplayer servers", "Client support", "Ticket handling", "Client communication (English)", "TikTok", "Content creation"],
     },
   ] satisfies Job[] as Job[],
 
