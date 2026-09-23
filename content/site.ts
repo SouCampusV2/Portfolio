@@ -186,10 +186,10 @@ export const site = {
       title: "Crossdesk",
       summary:
         "Privacy-first B2B matching. A company privately describes a problem; AI agents check budget, timing and contract fit with vendors; people meet only once the terms fit, and each side's figures stay private.",
-      // TODO: hackathon name, his exact role in the team, any result or award.
-      role: "Built in a team of three at a hackathon (business track, Sep 2026); now continuing in the IGNITER pre-acceleration programme.",
-      // TODO: tech tags (stack not confirmed yet).
-      tags: [],
+      // TODO: hackathon name and any result or award.
+      role: "Built in a team of three at a hackathon (business track, 18–19 Sep 2026); now continuing in the IGNITER pre-acceleration programme. My part: the front end — onboarding, sign-in, problem and directory screens.",
+      // Stack from the repo (github.com/Dennel04/b2b-match).
+      tags: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Supabase", "Claude API", "Stripe", "Zod", "Vercel"],
       badge: "MVP / in development",
       link: { label: "Live demo", href: "https://crossdeskmatch.vercel.app/" },
       media: {
@@ -279,7 +279,7 @@ export const site = {
     },
     {
       category: "Backend & Languages",
-      items: ["Node.js", "Python", "PHP", "C#", "C++", "GraphQL", "Stripe"],
+      items: ["Node.js", "Python", "PHP", "C#", "C++", "GraphQL", "Zod", "Stripe"],
     },
     {
       category: "Databases",
@@ -288,7 +288,7 @@ export const site = {
     { category: "Mobile", items: ["Flutter", "FlutterFlow"] },
     {
       category: "AI & Automation",
-      items: ["Claude Code", "ChatGPT", "Gemini", "Prompt Engineering", "n8n", "Make.com"],
+      items: ["Claude Code", "Claude API", "ChatGPT", "Gemini", "Prompt Engineering", "n8n", "Make.com"],
     },
     {
       category: "CMS & Marketing",

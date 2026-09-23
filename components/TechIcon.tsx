@@ -31,6 +31,7 @@ import {
   siVercel,
   siVuedotjs,
   type SimpleIcon,
+  siZod,
 } from "simple-icons";
 
 /**
@@ -69,14 +70,16 @@ const ICONS: Record<string, SimpleIcon | string> = {
   Gemini: siGooglegemini,
   "Claude Code": siClaude,
   "Prompt Engineering": "#d97757",
+  "Claude API": siClaude,
+  Zod: siZod,
   Shopify: siShopify,
   "SEO Optimization": "#0f9d58",
-  "Google Analytics": siGoogleanalytics,
-  Figma: siFigma,
-  Canva: "#00c4cc",
   "Shopify Metaobjects": siShopify,
   Liquid: "#008060",
   PageFly: "#2f54eb",
+  "Google Analytics": siGoogleanalytics,
+  Figma: siFigma,
+  Canva: "#00c4cc",
   Excel: "#217346",
   PowerPoint: "#d24726",
   Word: "#2b579a",
