@@ -416,7 +416,7 @@ export const site = {
     },
     {
       category: "Tools & Deployment",
-      items: ["Git", "GitHub", "GitHub Actions", "npm", "Vercel"],
+      items: ["Git", "GitHub", "GitHub Actions", "npm", "Docker", "Vercel"],
     },
   ] satisfies TechGroup[] as TechGroup[],
 

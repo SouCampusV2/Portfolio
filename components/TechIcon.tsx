@@ -3,6 +3,7 @@ import {
   siClaude,
   siCplusplus,
   siCss,
+  siDocker,
   siFigma,
   siFlutter,
   siGit,
@@ -204,6 +205,7 @@ const ICONS: Record<string, SimpleIcon | string | Glyph> = {
   GitHub: siGithub,
   "GitHub Actions": siGithubactions,
   npm: siNpm,
+  Docker: siDocker,
   Jira: siJira,
   Vercel: siVercel,
 };
