@@ -304,11 +304,15 @@ export const site = {
       org: "Freelance",
       period: "2019 – Present",
       summary: "Multiplayer maps and structures for clients worldwide, including MrBeast and Microsoft.",
+      // TODO: confirm/extend: pricing & scoping orders, deadlines, leading other builders, Discord community.
       highlights: [
         "Built multiplayer maps and structures for clients worldwide for more than 5 years.",
         "Collaborated with MrBeast and Microsoft on custom designs for public events.",
+        "Handled client support through a ticket system: requests, questions and revisions from first message to delivery.",
+        "Worked with international clients in English every day.",
         "The build portfolio lives on soucampus.online.",
       ],
+      tech: ["Client support", "Ticket handling", "Client communication (English)"],
     },
   ] satisfies Job[] as Job[],
 
@@ -340,6 +344,11 @@ export const site = {
     {
       category: "Data & Office",
       items: ["Excel", "PowerPoint", "Word", "YouScan"],
+    },
+    {
+      // Delivery & support side, for coordination / governance / support roles.
+      category: "Delivery & Support",
+      items: ["Team leadership", "Stakeholder coordination", "Client support", "Ticket handling", "Jira"],
     },
     {
       category: "Tools & Deployment",
