@@ -114,13 +114,13 @@ export function SiteHeader() {
         <nav aria-label="Main" className="flex items-center gap-1 sm:gap-3">
           <ul className="flex gap-3 text-sm text-muted sm:gap-5">
             <li>
-              <Link className="transition-colors hover:text-ink" href="/#projects">
-                Work
+              <Link className="transition-colors hover:text-ink" href="/#experience">
+                Experience
               </Link>
             </li>
             <li>
-              <Link className="transition-colors hover:text-ink" href="/#experience">
-                Experience
+              <Link className="transition-colors hover:text-ink" href="/#projects">
+                Projects
               </Link>
             </li>
             <li>
