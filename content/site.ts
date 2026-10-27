@@ -2,8 +2,9 @@
  * All site content lives here. Edit this file to change any text on the page;
  * components only read from it.
  *
- * Rules (from PORTFOLIO_BRIEF.md): no invented facts, numbers, clients,
- * testimonials or links. Anything unknown is marked `TODO` and is not rendered.
+ * Rules (from REDESIGN_BRIEF.md): facts only from section 3 of the brief. No
+ * invented facts, numbers, clients, testimonials or links. Anything unknown is
+ * marked `TODO` and is not rendered.
  */
 
 export type Link = {
@@ -108,8 +109,10 @@ export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 
 export const site = {
   name: "Yevhenii Stavytskyi",
-  title: "Software Engineer · Product Delivery",
-  tagline: "I build products end to end and keep cross-team delivery on track.",
+  title: "Junior Full-Stack Developer",
+  // The one positioning line: hero, <title> and meta description all use it.
+  tagline:
+    "Junior full-stack developer in Tallinn. I build with TypeScript and PostgreSQL, I'm learning Java and Spring Boot, and I want to work on software that moves money.",
   location: "Tallinn, Estonia",
   avatar: "/portrait.webp",
   // The general CV (public/). Replace the file to update it; keep the name.
@@ -122,22 +125,16 @@ export const site = {
   } as Record<string, string>,
 
   about: [
-    "Hey, I'm Yevhenii. I graduated in IT Systems Development from the University of Tartu in 2026.",
-    "For a year and a half I was Head of the Application Unit at proceedit, where I led the launch of the CMI mobile app and aligned engineering with business, marketing and leadership.",
-    "Outside of that I build my own products: SouCampus, a marketplace for premium Minecraft builds, and Crossdesk, a privacy-first B2B matching platform that started at a hackathon.",
-    "If your team needs someone who can both ship and keep delivery organized, get in touch.",
+    "I got my first paid Minecraft build in 2018, and years of briefs, deadlines and revisions taught me to deliver what the client actually asked for.",
+    "Since 2025 I do the same with software: I led the front end of a mobile app that shipped to both stores at proceedit, and I build a marketplace with payments and database-level access control on my own.",
+    "Now I'm looking for a junior developer role at a bank or fintech in Tallinn.",
   ],
 
   metrics: [
     {
-      label: "Launch",
-      value: "6 months",
-      context: "CMI mobile app built from scratch, ~200 registered users",
-    },
-    {
-      label: "Performance",
-      value: "70 → 88",
-      context: "Desktop PageSpeed on the proceedit website, page weight cut by 40%",
+      label: "Automation",
+      value: "24 → 2 min",
+      context: "HR admin time per candidate, bachelor's thesis built for proceedit",
     },
     {
       label: "Speed",
@@ -145,21 +142,9 @@ export const site = {
       context: "PageSpeed on SouCampus, desktop / mobile",
     },
     {
-      label: "Team",
-      value: "10 + 10",
-      context:
-        "Led 10 developers, coordinated ~10 people across business, marketing and leadership",
-    },
-    {
-      label: "Hackathon",
-      value: "2 days",
-      context: "Working MVP of Crossdesk in a team of three",
-    },
-    {
-      label: "Clients",
-      value: "5+ years",
-      context:
-        "Minecraft maps and builds, including work with MrBeast and Microsoft",
+      label: "Mobile app",
+      value: "~200 users",
+      context: "Registered in the CMI app, on the App Store and Google Play since March 2026",
     },
   ] satisfies Metric[],
 
@@ -173,10 +158,12 @@ export const site = {
       highlights: [
         "Wrote the business plan: marketplace sales plus custom build commissions",
         "Marketplace with categories, filters, ratings, purchase counts, free maps, collections and similar-map suggestions by category, type and theme",
-        "Cart, Stripe checkout and instant download; comments with moderation on every listing",
+        "Cart and Stripe checkout are built; payments are not switched on yet. Comments with moderation on every listing",
         "Authentication and database-level access control (Supabase row-level security)",
+        "Security audit before the relaunch: row-level security policies, Stripe webhook signatures and file uploads",
         "Studio side: portfolio, client stories and custom orders; wiki, changelog and support pages",
         "PageSpeed 100 on desktop, 90 on mobile",
+        "The site has already brought 3 custom-order clients; 5 maps sold directly",
       ],
       tags: [
         "TypeScript",
@@ -208,8 +195,7 @@ export const site = {
       title: "Crossdesk",
       summary:
         "Privacy-first B2B matching. A company privately describes a problem; AI agents check budget, timing and contract fit with vendors; people meet only once the terms fit, and each side's figures stay private.",
-      // TODO: hackathon name and any result or award.
-      role: "Built in a team of three at a hackathon (business track, 18–19 Sep 2026); now continuing in the IGNITER pre-acceleration programme. My part: the front end — onboarding, sign-in, problem and directory screens.",
+      role: "Built in a team of three at Vibe Sprint 2026 (Startup Garage), 18–19 Sep 2026: an MVP in 2 days. Now in the IGNITER pre-accelerator. My part: the database (Supabase, row-level security), website scraping, sign-in and part of the fit-scoring logic.",
       // Stack and highlights from the repo (github.com/Dennel04/b2b-match).
       highlights: [
         "Two AI agents negotiate budget, timing and contract fit; a deterministic guard rejects any transcript that leaks the buyer's problem to the vendor",
@@ -228,13 +214,13 @@ export const site = {
     {
       title: "Minecraft level design",
       summary:
-        "Multiplayer maps and structures for clients worldwide since 2019, including collaborations with MrBeast and Microsoft for public events.",
+        "Multiplayer maps and structures for clients worldwide since 2018. As a contract builder for a studio I also made builds for MrBeast projects and Minecraft Marketplace partners.",
       role: "Freelance level designer, from the client's brief to the delivered build.",
       // Servers: from the client stories on soucampus.online.
       // TikTok numbers: public profile, September 2026.
       highlights: [
         "Built for many different servers, including Luckycraft, GuardiumMC, RamboMC, BreadBuilds and AstroSMP",
-        "Custom builds with MrBeast and Microsoft for public events",
+        "As a contract builder for a studio: builds for MrBeast projects and Minecraft Marketplace partners",
         "Handled client support through tickets: requests, revisions and delivery",
         "Worked with international clients in English every day",
         "Grew the @soucampus TikTok to 1.8K followers and 168K likes with 52 build videos",
@@ -248,7 +234,7 @@ export const site = {
         "TikTok",
         "Content creation",
       ],
-      // Do not use MrBeast or Microsoft logos.
+      // Do not use MrBeast logos.
       link: { label: "See the builds", href: "https://soucampus.online/portfolio" },
       moreLinks: [{ label: "TikTok", href: "https://www.tiktok.com/@soucampus" }],
       media: {
@@ -262,14 +248,13 @@ export const site = {
       title: "CMI mobile app — proceedit",
       // What CMI is: from its App Store / Google Play listing and proceedit.shop.
       summary:
-        "Continuous Market Insights: an AI-driven market analysis app, live on the App Store and Google Play since March 2026. Launched from scratch in 6 months, grown to ~200 registered users.",
-      role: "Head of Application Unit. Led delivery, owned the front end, took part in architecture decisions.",
+        "Continuous Market Insights: an AI-driven market analysis app. First working version in 6 months (Jun–Dec 2025); on the App Store and Google Play since March 2026; ~200 registered users.",
+      role: "Led the front end and built screens myself; took part in backend architecture decisions. The backend, REST/GraphQL APIs and database were mostly the team's work.",
       highlights: [
         "Built the app's screens in Flutter and FlutterFlow and made them responsive across phone sizes on iOS and Android",
         "Worked on the UI design from Figma concepts to the shipped app",
         "Helped shape the business model, including how the in-app credit system works",
         "Took the app through Google Play and App Store publishing",
-        "Reworked the app's databases along the way",
       ],
       tags: ["FlutterFlow", "Flutter", "PostgreSQL", "GraphQL", "Google Play", "App Store"],
       link: { label: "App Store", href: "https://apps.apple.com/us/app/cmi-ai-driven-market-analysis/id6754933246" },
@@ -328,30 +313,33 @@ export const site = {
       org: "SouCampus",
       period: "Jun 2026 – Present",
       open: true,
-      summary: "Built a live marketplace for premium Minecraft builds alone, from architecture to deployment.",
+      summary: "Building a marketplace and studio site for Minecraft builds alone, from architecture to production.",
       highlights: [
         "Founded SouCampus and built the whole platform as the sole developer: architecture, front end, back end, database and deployment.",
         "Wrote the business plan: two revenue streams, marketplace sales of ready-made maps and custom build commissions.",
-        "Created a modern e-commerce experience for buying and selling high-quality Minecraft maps and builds: categories, filters, ratings, collections, similar-map suggestions, cart and instant download.",
+        "Built the marketplace for Minecraft maps and builds: categories, filters, ratings, collections, similar-map suggestions and a cart.",
         "Built the studio side too: portfolio, client stories, custom orders, plus wiki, changelog and support pages.",
-        "Integrated secure Stripe payments, authentication and database management on Supabase (PostgreSQL) with row-level security.",
-        "Core marketplace flows (listings, checkout and accounts) are built and work end to end.",
-        "Reached Google PageSpeed 100 on desktop and 90 on mobile in production through performance-focused architecture and optimization.",
+        "Built Stripe checkout (not switched on yet), authentication and the database on Supabase (PostgreSQL) with row-level security.",
+        "Ran a security audit before the relaunch: row-level security policies, Stripe webhook signatures and file uploads.",
+        "Reached Google PageSpeed 100 on desktop and 90 on mobile in production.",
+        "The site has already brought 3 custom-order clients; 5 maps sold directly.",
       ],
       tech: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Motion", "Supabase (PostgreSQL)", "Stripe", "Google Analytics", "REST APIs", "GitHub", "Vercel"],
     },
     {
-      role: "Head of Application Unit",
+      // TODO: split into three rows once it is clear what belongs to which period.
+      role: "Full Stack Developer → Frontend Supervisor → Head of Application Unit",
       org: "proceedit",
       period: "Jan 2025 – Jun 2026",
-      summary: "Led the CMI fintech app from scratch to launch and co-built the company website.",
+      summary: "Fintech company (AI market analytics), Barcelona, remote. Led the front end of the CMI mobile app and co-built the company website.",
       highlights: [
-        "Led the end-to-end development and launch of the CMI mobile app from scratch in 6 months, growing it to ~200 registered users.",
-        "Architected the Flutter codebase and integrated REST and GraphQL APIs between the app and backend services.",
+        "Full Stack Developer, Jan–Aug 2025. Frontend Supervisor, Aug 2025 – Mar 2026. Head of Application Unit, Mar–Jun 2026.",
+        "Led the front end of the CMI mobile app and built screens myself: first working version in 6 months (Jun–Dec 2025), on the App Store and Google Play since March 2026, ~200 registered users.",
+        "Took part in backend architecture decisions; the backend, REST/GraphQL APIs and database were mostly the team's work.",
         "Turned high-fidelity Figma designs into Flutter and FlutterFlow apps: reusable widgets, managed app state, responsive on iOS and Android.",
         "Helped shape the CMI business model, including how the in-app credit system works.",
-        "Took the app through Google Play and App Store publishing and reworked its databases along the way.",
-        "Led a team of 10 developers in the application unit and coordinated ~10 colleagues across business, marketing and leadership.",
+        "Took the app through Google Play and App Store publishing.",
+        "As Head of the unit: up to 10 people at a time, developers and three designers; about 20 people went through the unit. Worked daily with designers, developers, business, marketing and the CEO.",
         "Co-developed and launched the company website, contributing to front-end architecture, UI implementation and user experience.",
         "Implemented part of the website's front end and design; explored Lottie and Rive animations and built a 3D model in Spline.",
         "Improved website performance and SEO by restructuring the content hierarchy and refactoring legacy HTML/CSS/JS: desktop PageSpeed 70 → 88, page weight cut by 40%.",
@@ -374,14 +362,14 @@ export const site = {
       tech: ["YouScan", "Excel", "Word"],
     },
     {
-      role: "Minecraft Level Designer",
-      org: "Freelance",
-      period: "2019 – Present",
-      summary: "Multiplayer maps and structures for clients worldwide, including MrBeast and Microsoft.",
+      role: "Freelance Minecraft Level Designer",
+      org: "Self-employed",
+      period: "2018 – Present",
+      summary: "Multiplayer maps and structures for clients worldwide; first paid build in 2018.",
       // TODO: confirm/extend: pricing & scoping orders, deadlines, leading other builders, Discord community.
       highlights: [
-        "Built multiplayer maps and structures for clients worldwide for more than 5 years.",
-        "Collaborated with MrBeast and Microsoft on custom designs for public events.",
+        "Built multiplayer maps and structures for clients worldwide since 2018.",
+        "As a contract builder for a studio: builds for MrBeast projects and Minecraft Marketplace partners.",
         "Handled client support through a ticket system: requests, questions and revisions from first message to delivery.",
         "Worked with international clients in English every day.",
         "Built for many different servers, including Luckycraft, GuardiumMC, RamboMC, BreadBuilds and AstroSMP.",
@@ -410,7 +398,8 @@ export const site = {
     { category: "Mobile", items: ["Flutter", "FlutterFlow", "Google Play", "App Store"] },
     {
       category: "AI & Automation",
-      items: ["Claude Code", "Claude API", "OpenAI API", "ChatGPT", "Gemini", "Prompt Engineering", "Tavily", "n8n", "Make.com"],
+      // AI only as something built into a product, never as a list of AI tools.
+      items: ["OpenAI API", "Claude API", "Tavily", "n8n", "Make.com"],
     },
     {
       category: "CMS & Marketing",
@@ -452,14 +441,11 @@ export const site = {
     Motion: { level: "core", note: "Animations on SouCampus and this site" },
     Supabase: { level: "core", note: "Auth, database and row-level security in SouCampus and Crossdesk" },
     "Supabase (PostgreSQL)": { level: "core", note: "Auth, database and row-level security in SouCampus" },
-    PostgreSQL: { level: "core", note: "Through Supabase in SouCampus and Crossdesk; the CMI app database" },
-    Stripe: { level: "core", note: "Checkout in SouCampus; introduction fees in Crossdesk" },
-    GraphQL: { level: "core", note: "API layer of the CMI app" },
-    Flutter: { level: "core", note: "CMI app at proceedit, Jan 2025 – Jun 2026" },
-    FlutterFlow: { level: "core", note: "CMI app at proceedit, Jan 2025 – Jun 2026" },
+    PostgreSQL: { level: "core", note: "Through Supabase in SouCampus and Crossdesk" },
+    Stripe: { level: "core", note: "Checkout in SouCampus (built, not switched on yet)" },
+    Flutter: { level: "core", note: "Front end of the CMI app at proceedit, from Jun 2025" },
+    FlutterFlow: { level: "core", note: "Front end of the CMI app at proceedit, from Jun 2025" },
     n8n: { level: "core", note: "Internal automations at proceedit and my bachelor's thesis" },
-    "Claude Code": { level: "core", note: "Daily coding partner" },
-    "Claude API": { level: "core", note: "AI agents in Crossdesk" },
     Figma: { level: "core", note: "From design concepts to the CMI app and the proceedit site" },
     Shopify: { level: "core", note: "proceedit corporate website" },
     Git: { level: "core", note: "Every project" },
@@ -467,28 +453,27 @@ export const site = {
     npm: { level: "core", note: "Every JavaScript project" },
     Vercel: { level: "core", note: "Deploys SouCampus, Crossdesk and this site" },
     Jira: { level: "core", note: "Delivery tracking at proceedit" },
-    "Google Analytics": { level: "core", note: "Set up and used on SouCampus, configured with AI help" },
-    "REST APIs": { level: "core", note: "SouCampus back end; integrations in the CMI app and n8n" },
+    "Google Analytics": { level: "core", note: "Set up and used on SouCampus" },
+    "REST APIs": { level: "core", note: "SouCampus back end; integrations in n8n" },
     "Google Play": { level: "core", note: "Published the CMI app" },
     "App Store": { level: "core", note: "Published the CMI app" },
-    ChatGPT: { level: "core", note: "Everyday assistant for research and drafts" },
-    "Prompt Engineering": { level: "core", note: "AI parsing in my n8n thesis; everyday work with AI tools" },
     "OpenAI API": { level: "core", note: "AI agent that parses job applications in my n8n thesis" },
     "SEO Optimization": { level: "core", note: "Restructured content and code on the proceedit site" },
     "Google Sheets": { level: "core", note: "The data layer of my n8n onboarding system" },
     Gmail: { level: "core", note: "Triggers and emails in my n8n onboarding system" },
     "Google Calendar": { level: "core", note: "Automatic interview booking in my n8n onboarding system" },
     "Google Drive": { level: "core", note: "Contracts and access sharing in my n8n onboarding system" },
-    "Team leadership": { level: "core", note: "Led 10 developers at proceedit" },
-    "Stakeholder coordination": { level: "core", note: "Coordinated ~10 people across business, marketing and leadership" },
+    "Team leadership": { level: "core", note: "Head of Application Unit at proceedit: up to 10 people at a time" },
+    "Stakeholder coordination": { level: "core", note: "Daily work with designers, developers, business, marketing and the CEO at proceedit" },
     "Client support": { level: "core", note: "Years of Minecraft client work, from request to delivery" },
     "Ticket handling": { level: "core", note: "Client requests and revisions through tickets" },
     "Client communication (English)": { level: "core", note: "Daily with clients from many countries" },
-    "Level design": { level: "core", note: "Minecraft maps and builds since 2019" },
+    "Level design": { level: "core", note: "Minecraft maps and builds since 2018" },
     "Multiplayer servers": { level: "core", note: "Builds for Luckycraft, GuardiumMC, RamboMC, AstroSMP and more" },
     TikTok: { level: "core", note: "Grew @soucampus to 1.8K followers and 168K likes" },
     "Content creation": { level: "core", note: "52 build videos on @soucampus" },
     // Learned earlier / only touched
+    GraphQL: { level: "familiar", note: "Used in the CMI app; the API layer was mostly the team's work" },
     Python: { level: "familiar", note: "Learned earlier; used for smaller tasks" },
     PHP: { level: "familiar", note: "Learned earlier; not used in recent projects" },
     "C#": { level: "familiar", note: "University course" },
@@ -505,9 +490,9 @@ export const site = {
     Rive: { level: "familiar", note: "Explored for animations on the proceedit site" },
     Spline: { level: "familiar", note: "Built a 3D model for the proceedit site" },
     YouScan: { level: "familiar", note: "Media analysis at Sayara International, 2023" },
+    "Claude API": { level: "familiar", note: "Built into Crossdesk: the agents that check the fit" },
     Zod: { level: "familiar", note: "Validation in the Crossdesk code base" },
     Tavily: { level: "familiar", note: "Fallback website reader in Crossdesk (set up by a teammate)" },
-    Gemini: { level: "familiar", note: "Used now and then next to Claude and ChatGPT" },
     "Shopify Metaobjects": { level: "familiar", note: "Structured content on the proceedit site" },
     Canva: { level: "familiar", note: "Quick graphics and presentations" },
     Excel: { level: "familiar", note: "Data analysis at Sayara International, 2023" },
@@ -542,14 +527,14 @@ export const site = {
       { label: "Role", value: "Founder & sole developer" },
       { label: "Timeline", value: "Jun 2026 – Present" },
       { label: "PageSpeed", value: "100 desktop / 90 mobile" },
-      { label: "Status", value: "Live" },
+      { label: "Status", value: "Live; payments built, not switched on yet" },
     ],
     sections: [
       {
         heading: "The product",
         body: [
-          "SouCampus is a Minecraft build business in one product. The studio side takes custom orders for maps, spawns and whole worlds, with a portfolio and client stories. The marketplace sells ready-made maps and builds that are yours to download right after checkout.",
-          "Listings, checkout and accounts work end to end.",
+          "SouCampus is a Minecraft build business in one product. The studio side takes custom orders for maps, spawns and whole worlds, with a portfolio and client stories. The marketplace lists ready-made maps and builds. Checkout with instant download is built, but payments are not switched on yet.",
+          "So far the site has brought 3 custom-order clients, and 5 maps were sold directly.",
         ],
       },
       {
@@ -565,10 +550,10 @@ export const site = {
           "The whole product alone: architecture, front end, database, payments and production deployment",
           "Authentication and accounts",
           "Database-level access control with Supabase row-level security, so the database itself decides who can read or change each row",
-          "Secure checkout with Stripe",
-          "Listings, checkout and accounts working end to end",
+          "Checkout with Stripe (built, not switched on yet)",
+          "A security audit before the relaunch: row-level security policies, Stripe webhook signatures and file uploads",
           "Marketplace browsing: categories (spawns and hubs, adventure and RPG, minigames and PvP, buildings, interiors, landscape, assets), filters, collections and free maps",
-          "Listing pages with ratings, purchase and view counts, comments with moderation, cart and instant download",
+          "Listing pages with ratings, purchase and view counts, comments with moderation and a cart",
           "Similar maps picked by category, type and theme, not at random",
           "A wiki that answers the questions buyers used to ask in Discord, plus a changelog and support pages",
         ],
@@ -600,19 +585,20 @@ export const site = {
   recommendations: [] as Recommendation[],
 
   education: {
-    school: "University of Tartu",
+    school: "University of Tartu, Narva College",
     degree: "BSc Information Technology Systems Development",
-    period: "Aug 2022 – May 2026",
+    period: "Sep 2022 – May 2026",
   },
 
   languages: [
     { name: "English", level: "B2" },
-    { name: "Estonian", level: "B1" },
+    { name: "Estonian", level: "B2" },
     { name: "Ukrainian", level: "Native" },
     { name: "Russian", level: "Native" },
   ] satisfies Language[],
 
   contact: {
+    text: "Hiring a junior developer? Email is the fastest way to reach me.",
     email: "stavytskyiyevhenii@gmail.com",
     linkedin: "https://www.linkedin.com/in/eugenestavytskyi/",
     github: "https://github.com/SouCampusV2",
