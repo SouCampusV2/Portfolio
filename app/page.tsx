@@ -79,7 +79,8 @@ function Hero() {
           id="hero-name"
           className="text-[clamp(2.75rem,8.5vw,5.75rem)] font-semibold leading-[0.92] tracking-[-0.035em]"
         >
-          <span className="block">{first}</span>
+          {/* The space keeps the name "Yevhenii Stavytskyi" when text is extracted. */}
+          <span className="block">{first}</span>{" "}
           <span className="block">{rest.join(" ")}</span>
         </h1>
         <p className="mt-6 text-lg font-medium text-accent sm:text-xl">{site.title}</p>
@@ -432,7 +433,7 @@ function MarqueeRow({ items, reverse }: { items: string[]; reverse?: boolean }) 
     <ul aria-hidden={hidden || undefined} className="flex shrink-0">
       {half.map((name, i) => (
         <li key={`${name}-${i}`} className="pr-2" aria-hidden={!hidden && i >= items.length ? true : undefined}>
-          <TechChip name={name} size="md" />
+          <TechChip name={name} size="md" decorative={hidden || i >= items.length} />
         </li>
       ))}
     </ul>
@@ -619,7 +620,7 @@ function Contact() {
           Let&apos;s work together.
         </h3>
         <p className="mt-4 max-w-[46ch] text-lg text-muted">
-          Hiring for a developer or delivery role? Email is the fastest way to reach me.
+          {contact.text}
         </p>
         <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr]">
           {cards.map((card) => {

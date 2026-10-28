@@ -14,7 +14,6 @@ import {
   siGoogleanalytics,
   siGooglecalendar,
   siGoogledrive,
-  siGooglegemini,
   siGooglesheets,
   siGraphql,
   siJira,
@@ -192,13 +191,9 @@ const ICONS: Record<string, SimpleIcon | string | Glyph> = {
   "Google Calendar": siGooglecalendar,
   "Google Drive": siGoogledrive,
   "Make.com": siMake,
-  ChatGPT: "#10a37f",
-  Gemini: siGooglegemini,
-  "Claude Code": siClaude,
   "Claude API": siClaude,
   Tavily: "#468bff",
   Zod: siZod,
-  "Prompt Engineering": "#d97757",
   Shopify: siShopify,
   "Shopify Metaobjects": siShopify,
   Liquid: "#008060",
@@ -239,25 +234,17 @@ export function TechIcon({ name, className = "size-3.5" }: { name: string; class
   const icon = ICONS[name];
   if (!icon) return null;
   if (typeof icon === "string") {
-    // Letter badge as SVG so the letter sits exactly in the middle
-    // regardless of the page font's ascent/descent.
+    // Letter badge. The letter is drawn by CSS (`[data-gen]::before` in
+    // globals.css), not written as text: aria-hidden alone does not stop text
+    // extractors, and they would read "FFlutterFlow".
     const letter = name.replace(/[^A-Za-z]/g, "")[0]?.toUpperCase() ?? name[0];
     return (
-      <svg aria-hidden="true" viewBox="0 0 24 24" className={`${className} shrink-0`}>
-        <rect width="24" height="24" rx="5" fill={icon} />
-        <text
-          x="12"
-          y="12"
-          textAnchor="middle"
-          dominantBaseline="central"
-          fontSize="14"
-          fontWeight="700"
-          fontFamily="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif"
-          fill="#fff"
-        >
-          {letter}
-        </text>
-      </svg>
+      <span
+        aria-hidden="true"
+        data-gen={letter}
+        className={`${className} letter-badge shrink-0`}
+        style={{ background: icon }}
+      />
     );
   }
   if ("glyph" in icon) {
@@ -290,7 +277,17 @@ export function TechIcon({ name, className = "size-3.5" }: { name: string; class
 
 /** Chip with icon + label, as used in project cards, the marquee and /tech-stack.
  * Styled by `site.skillLevels`; a note there becomes a tooltip (see TipLayer). */
-export function TechChip({ name, size = "sm" }: { name: string; size?: "sm" | "md" }) {
+export function TechChip({
+  name,
+  size = "sm",
+  decorative,
+}: {
+  name: string;
+  size?: "sm" | "md";
+  /** A visual repeat (marquee copies): the label is drawn by CSS, so the page
+   * text holds each name once. */
+  decorative?: boolean;
+}) {
   const skill = site.skillLevels[name];
   const pad = size === "md" ? "px-3 py-1.5 text-sm" : "px-2.5 py-1 text-xs";
   const tone =
@@ -310,8 +307,8 @@ export function TechChip({ name, size = "sm" }: { name: string; size?: "sm" | "m
       <span className={`inline-flex shrink-0 ${skill?.level === "familiar" ? "opacity-60" : ""}`}>
         <TechIcon name={name} className={size === "md" ? "size-4" : "size-3.5"} />
       </span>
-      {name}
-      {skill && <span className="sr-only">: {skill.note}</span>}
+      {decorative ? <span data-gen={name} /> : name}
+      {skill && !decorative && <span className="sr-only">: {skill.note}</span>}
     </span>
   );
 }

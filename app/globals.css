@@ -174,6 +174,26 @@ p {
   animation: cal-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
+/* Text drawn by CSS instead of written in the HTML: letter badges and the
+   repeated marquee chips. It looks the same, but text extractors (ATS, search
+   bots) do not read it, so nothing on the page is doubled. */
+[data-gen]::before {
+  content: attr(data-gen);
+}
+.letter-badge {
+  display: inline-grid;
+  place-items: center;
+  container-type: size;
+  border-radius: 21%;
+  color: #fff;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1;
+}
+.letter-badge::before {
+  font-size: 58cqh;
+}
+
 /* Technologies marquee: two copies of the row slide left by exactly one copy. */
 @keyframes marquee {
   to {
