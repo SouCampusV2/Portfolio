@@ -1,0 +1,74 @@
+/* Design lab only. What a chosen variant needs moves to globals.css later. */
+
+/* Drawing-paper grids, tinted with the accent. */
+.lab-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--accent) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--accent) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in oklab, var(--accent) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--accent) 6%, transparent) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+  background-position: -1px -1px;
+}
+.lab-grid-light {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Oxblood cover gradient (H3, C6): the accent, with a light spot top-left. */
+.lab-cover {
+  background:
+    radial-gradient(90% 120% at 0% 0%, #b3283a 0%, transparent 55%),
+    radial-gradient(70% 90% at 100% 100%, #17040a 0%, transparent 60%),
+    linear-gradient(135deg, #7d1523, #3a0911);
+  color: #fff;
+}
+
+/* Blocks fall into place. */
+@keyframes lab-drop {
+  from {
+    transform: translateY(-60px);
+    opacity: 0;
+  }
+}
+.lab-drop {
+  animation: lab-drop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Outlined numerals (C5). */
+.lab-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--accent);
+}
+
+/* Dotted leader between a label and its value (H5, C7). */
+.lab-leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--muted);
+  transform: translateY(-0.3em);
+  opacity: 0.6;
+}
+
+/* Stepped "pixel" corners (C10). */
+.lab-pixel {
+  --s: 10px;
+  clip-path: polygon(
+    0 var(--s), var(--s) var(--s), var(--s) 0,
+    calc(100% - var(--s)) 0, calc(100% - var(--s)) var(--s), 100% var(--s),
+    100% calc(100% - var(--s)), calc(100% - var(--s)) calc(100% - var(--s)), calc(100% - var(--s)) 100%,
+    var(--s) 100%, var(--s) calc(100% - var(--s)), 0 calc(100% - var(--s))
+  );
+}
+
+/* Size text against the stage, not the window (H6). */
+.lab-stage {
+  container-type: inline-size;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-drop {
+    animation: none;
+  }
+}
