@@ -1,5 +1,6 @@
 "use client";
 
+import { Moon, Sun } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 
@@ -82,27 +83,9 @@ export function ThemeToggle() {
       className="relative grid size-9 place-items-center rounded-full text-muted transition-colors hover:bg-line/60 hover:text-ink"
     >
       {/* Sun: visible in dark theme (click → light). */}
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        className={`${icon} ${theme === "dark" ? "rotate-0 scale-100 opacity-100" : "rotate-90 scale-50 opacity-0"}`}
-      >
-        <circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none" />
-        <path d="M12 2.5v2.2M12 19.3v2.2M4.9 4.9l1.55 1.55M17.55 17.55l1.55 1.55M2.5 12h2.2M19.3 12h2.2M4.9 19.1l1.55-1.55M17.55 6.45l1.55-1.55" />
-      </svg>
+      <Sun aria-hidden="true" weight="bold" className={`${icon} ${theme === "dark" ? "rotate-0 scale-100 opacity-100" : "rotate-90 scale-50 opacity-0"}`} />
       {/* Moon: visible in light theme (click → dark). */}
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={`${icon} ${theme === "light" ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-50 opacity-0"}`}
-      >
-        <path d="M20.2 14.6A8.5 8.5 0 0 1 9.4 3.8a8.5 8.5 0 1 0 10.8 10.8Z" />
-      </svg>
+      <Moon aria-hidden="true" weight="bold" className={`${icon} ${theme === "light" ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-50 opacity-0"}`} />
     </button>
   );
 }

@@ -1,5 +1,11 @@
 import type { ComponentProps } from "react";
 import Link from "next/link";
+import {
+  ArrowLeft as PhArrowLeft,
+  ArrowRight as PhArrowRight,
+  ArrowUpRight as PhArrowUpRight,
+  DownloadSimple,
+} from "@phosphor-icons/react/dist/ssr";
 import { site } from "@/content/site";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { VisitorPill } from "@/components/VisitorPill";
@@ -13,55 +19,24 @@ export function ExternalLink({ children, ...props }: ComponentProps<"a">) {
   );
 }
 
-export function ArrowUpRight({ className = "size-3.5" }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M5 11 11 5M6 5h5v5" />
-    </svg>
-  );
+/* Icons: Phosphor (phosphoricons.com), bold weight at small sizes. */
+type IconProps = { className?: string };
+
+export function ArrowUpRight({ className = "size-3.5" }: IconProps) {
+  return <PhArrowUpRight aria-hidden="true" weight="bold" className={className} />;
 }
 
-export function ArrowRight({ className = "size-3.5" }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M3 8h10M9 4l4 4-4 4" />
-    </svg>
-  );
+export function ArrowRight({ className = "size-3.5" }: IconProps) {
+  return <PhArrowRight aria-hidden="true" weight="bold" className={className} />;
 }
 
-export function ArrowDown({ className = "size-3.5" }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M8 3v9M4 8.5 8 12.5l4-4" />
-    </svg>
-  );
+export function ArrowLeft({ className = "size-3.5" }: IconProps) {
+  return <PhArrowLeft aria-hidden="true" weight="bold" className={className} />;
+}
+
+/** "Download" arrow. */
+export function ArrowDown({ className = "size-3.5" }: IconProps) {
+  return <DownloadSimple aria-hidden="true" weight="bold" className={className} />;
 }
 
 /** Section shell: a mono label column beside the content on wide screens. */

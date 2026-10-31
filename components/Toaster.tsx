@@ -1,5 +1,6 @@
 "use client";
 
+import { Check } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
 
 const EVENT = "yss:toast";
@@ -44,9 +45,7 @@ export function Toaster() {
             visible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
           }`}
         >
-          <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4 shrink-0 text-accent">
-            <path d="m3.5 8.5 3 3 6-7" />
-          </svg>
+          <Check aria-hidden="true" weight="bold" className="size-4 shrink-0 text-accent" />
           {message}
         </div>
       )}

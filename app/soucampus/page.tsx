@@ -5,7 +5,7 @@ import { site } from "@/content/site";
 import { Reveal } from "@/components/Reveal";
 import { PreviewVideo } from "@/components/PreviewVideo";
 import { TechChip } from "@/components/TechIcon";
-import { ArrowUpRight, ExternalLink, Section } from "@/components/ui";
+import { ArrowLeft, ArrowUpRight, ExternalLink, Section } from "@/components/ui";
 
 const cs = site.soucampusCase;
 const project = site.projects.find((p) => p.caseStudy === "/soucampus")!;
@@ -63,18 +63,7 @@ export default function SouCampusCaseStudy() {
           href="/#projects"
           className="group inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-ink"
         >
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="size-3.5 transition-transform group-hover:-translate-x-0.5"
-          >
-            <path d="M13 8H3M7 4 3 8l4 4" />
-          </svg>
+          <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-0.5" />
           All projects
         </Link>
 
