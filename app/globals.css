@@ -174,9 +174,9 @@ p {
   animation: cal-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
-/* Text drawn by CSS instead of written in the HTML: letter badges and the
-   repeated marquee chips. It looks the same, but text extractors (ATS, search
-   bots) do not read it, so nothing on the page is doubled. */
+/* Text drawn by CSS instead of written in the HTML: the letter badges.
+   It looks the same, but text extractors (ATS, search bots) do not read it, so
+   no letter on the page is doubled. */
 [data-gen]::before {
   content: attr(data-gen);
 }
@@ -194,23 +194,44 @@ p {
   font-size: 58cqh;
 }
 
-/* Technologies marquee: two copies of the row slide left by exactly one copy. */
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
+/* Cover: the oxblood gradient of the hero and the contact block. The same in
+   both themes, with white text on it. */
+.cover {
+  background:
+    radial-gradient(90% 120% at 0% 0%, #b3283a 0%, transparent 55%),
+    radial-gradient(70% 90% at 100% 100%, #17040a 0%, transparent 60%),
+    linear-gradient(135deg, #7d1523, #3a0911);
+  color: #fff;
 }
-.marquee {
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+.cover ::selection {
+  background: #fff;
+  color: #3a0911;
 }
-.marquee-track {
-  animation: marquee var(--marquee-duration, 40s) linear infinite;
+.cover :focus-visible {
+  outline-color: #fff;
 }
-.marquee-track[data-reverse] {
-  animation-direction: reverse;
+
+/* Drawing-paper grid behind a tool chain (project "flow" media). */
+.paper-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--accent) 12%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--accent) 12%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
 }
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
+
+/* Dotted leader between a label and its value in fact tables. */
+.leader {
+  flex: 1;
+  min-width: 1rem;
+  border-bottom: 1px dotted var(--muted);
+  transform: translateY(-0.3em);
+  opacity: 0.6;
+}
+
+/* Hero blocks fall into place one by one. */
+.block-fall {
+  animation: block-drop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 /* Case study intro: a pixel "S" is built block by block, then the curtain lifts. */
@@ -256,16 +277,8 @@ p {
   html {
     scroll-behavior: auto;
   }
-  .marquee {
-    mask-image: none;
-  }
-  .marquee-track {
+  .block-fall {
     animation: none;
-    flex-wrap: wrap;
-    width: auto !important;
-  }
-  .marquee-track [aria-hidden="true"] {
-    display: none;
   }
   .job::details-content {
     transition: none;

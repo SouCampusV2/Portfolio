@@ -1,44 +1,40 @@
 import Image from "next/image";
 import Link from "next/link";
-import { site, type Project } from "@/content/site";
+import { EnvelopeSimple, GithubLogo, LinkedinLogo } from "@phosphor-icons/react/dist/ssr";
+import { site, type Job, type Project } from "@/content/site";
 import { Reveal } from "@/components/Reveal";
 import { PreviewVideo } from "@/components/PreviewVideo";
+import { Slides } from "@/components/Slides";
+import { IsoBlocks, build } from "@/components/IsoBlocks";
 import { GithubActivity } from "@/components/GithubActivity";
 import { HobbyStack } from "@/components/HobbyStack";
 import { CopyEmailButton } from "@/components/CopyEmailButton";
-import { SkillLegend, TechChip, TechIcon, hasTechIcon } from "@/components/TechIcon";
-import {
-  ArrowDown,
-  ArrowRight,
-  ArrowUpRight,
-  ExternalLink,
-  Section,
-} from "@/components/ui";
+import { TechChip, TechIcon } from "@/components/TechIcon";
+import { ArrowDown, ArrowRight, ArrowUpRight, ExternalLink, Section } from "@/components/ui";
 
 // Re-render at most once a day so the GitHub heatmap stays fresh.
 export const revalidate = 86400;
 
-// mailto: does nothing without a desktop mail app, so "Contact me" copies the
-// address instead, and "write" actions open a Gmail draft in the browser.
+// mailto: does nothing without a desktop mail app, so the email button copies
+// the address, and "Write in Gmail" opens a draft in the browser.
 const gmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(site.contact.email)}`;
 
-const buttonBase =
-  "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors";
-const buttonPrimary = `${buttonBase} bg-accent text-accent-ink hover:opacity-90`;
-const buttonSecondary = `${buttonBase} border border-line text-ink hover:border-ink`;
-const viewAll =
-  "group inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-ink";
+const mono = "font-mono text-[0.7rem] font-medium uppercase tracking-[0.14em]";
+const pill = "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-85";
+const pillLight = `${pill} bg-white text-[#3a0911]`;
+const pillGhost = `${pill} border border-white/40 text-white`;
+const textLink = `${mono} inline-flex items-center gap-1.5 transition-colors`;
 
 export default function Home() {
   return (
     <main id="main" className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <Hero />
-      <About />
-      <Metrics />
-      <Experience />
+      <Numbers />
       <Projects />
-      <Technologies />
-      <Education />
+      <Experience />
+      <Stack />
+      <Minecraft />
+      <About />
       <Outside />
       <Activity />
       <Recommendations />
@@ -47,181 +43,238 @@ export default function Home() {
   );
 }
 
-function Hero() {
-  const [first, ...rest] = site.name.split(" ");
-  const location = (
-    <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">
-      <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
-      {site.location}
-    </p>
+/** The positioning line: the first sentence is the headline, the rest sits under it. */
+function line() {
+  const cut = site.tagline.indexOf(". ") + 1;
+  return { lead: site.tagline.slice(0, cut), rest: site.tagline.slice(cut + 1) };
+}
+
+/** Label / value table on the cover gradient, like the title block of a drawing. */
+function Spec({ rows, className = "" }: { rows: [string, string][]; className?: string }) {
+  return (
+    <dl className={`grid grid-cols-[auto_1fr] border border-white/35 bg-black/20 font-mono text-xs backdrop-blur-sm ${className}`}>
+      {rows.map(([k, v]) => (
+        <div key={k} className="col-span-2 grid grid-cols-subgrid border-b border-white/25 last:border-b-0">
+          <dt className="border-r border-white/25 px-3 py-2 uppercase tracking-[0.12em] text-white/65">{k}</dt>
+          <dd className="px-3 py-2 text-white">{v}</dd>
+        </div>
+      ))}
+    </dl>
   );
+}
+
+function Hero() {
+  const { lead, rest } = line();
+  const [before, after] = lead.split("full-stack");
+  // The three phrases a recruiter looks for stand out from the sentence.
+  const parts = rest.split(/(TypeScript and PostgreSQL|Java and Spring Boot|software that moves money)/);
   return (
     <section
       id="top"
-      aria-labelledby="hero-name"
-      className="grid items-center gap-10 pb-16 pt-10 sm:pb-24 sm:pt-16 md:grid-cols-[minmax(0,1fr)_auto] md:gap-14"
+      aria-labelledby="hero-title"
+      className="cover relative mt-4 grid gap-10 overflow-hidden rounded-3xl px-6 py-12 sm:mt-6 sm:px-12 sm:py-16 lg:grid-cols-[1.2fr_1fr] lg:items-center"
     >
       <div>
-        {/* Phones: compact avatar + location above the name. */}
-        <div className="mb-6 flex items-center gap-4 md:hidden">
-          <Image
-            src={site.avatar}
-            alt=""
-            width={80}
-            height={80}
-            sizes="80px"
-            className="size-20 rounded-full object-cover ring-2 ring-line ring-offset-2 ring-offset-bg"
-          />
-          {location}
-        </div>
-
+        <p className={`${mono} text-white/70`}>
+          {site.name} · {site.location}
+        </p>
         <h1
-          id="hero-name"
-          className="text-[clamp(2.75rem,8.5vw,5.75rem)] font-semibold leading-[0.92] tracking-[-0.035em]"
+          id="hero-title"
+          className="mt-7 text-[clamp(2.5rem,5.6vw,4.5rem)] font-semibold leading-[0.96] tracking-[-0.04em]"
         >
-          {/* The space keeps the name "Yevhenii Stavytskyi" when text is extracted. */}
-          <span className="block">{first}</span>{" "}
-          <span className="block">{rest.join(" ")}</span>
+          {before}
+          <span className="whitespace-nowrap">full-stack</span>
+          {after}
         </h1>
-        <p className="mt-6 text-lg font-medium text-accent sm:text-xl">{site.title}</p>
-        <p className="mt-3 max-w-lg text-lg leading-relaxed text-muted sm:text-xl">{site.tagline}</p>
-        <div className="mt-9 flex flex-wrap items-center gap-3">
-          <CopyEmailButton email={site.contact.email} className={buttonPrimary}>
-            Contact me
-          </CopyEmailButton>
-          <a href={site.cvHref} download className={buttonSecondary}>
+        <p className="mt-7 max-w-[32ch] text-xl leading-snug text-white/75 sm:text-2xl">
+          {parts.map((part, i) =>
+            i % 2 ? (
+              <span key={i} className="font-medium text-white">
+                {part}
+              </span>
+            ) : (
+              part
+            ),
+          )}
+        </p>
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          <a href={site.cvHref} download className={pillLight}>
             Download CV
-            <ArrowDown />
+            <ArrowDown className="size-4" />
           </a>
-          <span aria-hidden="true" className="mx-1 hidden h-5 w-px bg-line sm:block" />
-          <SocialIcons />
+          <ExternalLink href={site.contact.linkedin} className={pillGhost}>
+            <LinkedinLogo aria-hidden="true" weight="fill" className="size-4" />
+            LinkedIn
+          </ExternalLink>
+          <CopyEmailButton email={site.contact.email} className={pillGhost}>
+            <EnvelopeSimple aria-hidden="true" weight="bold" className="size-4" />
+            Copy email
+          </CopyEmailButton>
         </div>
       </div>
 
-      {/* Tablets and up: portrait card with the location on it. */}
-      <figure className="relative hidden w-[clamp(15rem,26vw,20rem)] md:block">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 -translate-x-3 translate-y-3 rounded-[1.75rem] border border-accent/30 bg-accent-soft/50"
+      {/* The object in the frame: a build made of blocks, with its stamp under it. */}
+      <div className="flex flex-col items-center gap-6 lg:items-stretch">
+        <IsoBlocks
+          heights={build}
+          drop
+          size={56}
+          className="mx-auto w-[min(100%,22rem)] [--accent:#c8414f] max-sm:hidden"
         />
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-line bg-line shadow-[0_24px_60px_-30px_rgba(29,21,23,0.55)]">
-          <Image
-            src={site.avatar}
-            alt={`Portrait of ${site.name}`}
-            fill
-            priority
-            sizes="(min-width: 768px) 320px, 0px"
-            className="object-cover"
-          />
-          <figcaption className="absolute bottom-3 left-3 rounded-full bg-bg/85 px-3 py-1.5 backdrop-blur-sm">
-            {location}
-          </figcaption>
-        </div>
-      </figure>
+        <Spec rows={site.heroSpec} className="w-full" />
+      </div>
     </section>
   );
 }
 
-function SocialIcons() {
-  const item =
-    "grid size-10 place-items-center rounded-full text-muted transition-colors hover:bg-line/60 hover:text-ink";
+function Numbers() {
   return (
-    <ul className="flex items-center gap-1">
-      <li>
-        <ExternalLink href={site.contact.github} aria-label="GitHub" className={item}>
-          <TechIcon name="GitHub" className="size-[18px]" />
-        </ExternalLink>
-      </li>
-      <li>
-        <ExternalLink href={site.contact.linkedin} aria-label="LinkedIn" className={item}>
-          <svg aria-hidden="true" viewBox="0 0 24 24" className="size-[18px]" fill="currentColor">
-            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z" />
-          </svg>
-        </ExternalLink>
-      </li>
-      <li>
-        <ExternalLink href={gmail} aria-label={`Write to ${site.contact.email} in Gmail`} className={item}>
-          <svg aria-hidden="true" viewBox="0 0 24 24" className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="5" width="18" height="14" rx="2.5" />
-            <path d="m4 7 8 6 8-6" />
-          </svg>
-        </ExternalLink>
-      </li>
-    </ul>
-  );
-}
-
-function About() {
-  return (
-    <Section id="about" label="About">
-      <Reveal>
-        <div className="max-w-[62ch] space-y-4 text-lg leading-relaxed sm:text-xl sm:leading-relaxed">
-          {site.about.map((sentence, i) => (
-            <p key={i} className={i === 0 ? "text-ink" : "text-ink/80"}>
-              {sentence}
-            </p>
-          ))}
-        </div>
-      </Reveal>
-    </Section>
-  );
-}
-
-function Metrics() {
-  return (
-    <section
-      id="numbers"
-      aria-labelledby="numbers-label"
-      className="border-t border-line py-14 sm:py-20"
-    >
-      <h2
-        id="numbers-label"
-        className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted"
-      >
-        In numbers
-      </h2>
-      <Reveal>
-        <ul className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
-          {site.metrics.map((metric) => (
-            <li key={metric.label} className="flex flex-col bg-surface p-4 sm:p-7">
-              <span className="font-mono text-[0.7rem] font-medium uppercase tracking-[0.14em] text-accent">
-                {metric.label}
-              </span>
-              <span className="mt-5 whitespace-nowrap text-[clamp(1.6rem,6.4vw,3.5rem)] font-semibold leading-none tracking-[-0.03em] tabular-nums sm:mt-8">
+    <section aria-label="In numbers" className="py-10 sm:py-14">
+      <ul className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
+        {site.metrics.map((metric) => (
+          <li key={metric.label}>
+            <Link href={metric.href} className="group flex h-full flex-col bg-surface p-6 transition-colors hover:bg-accent-soft/40 sm:p-7">
+              <span className={`${mono} text-accent`}>{metric.label}</span>
+              <span className="mt-6 whitespace-nowrap text-[clamp(2.2rem,4.4vw,3.4rem)] font-semibold leading-none tracking-[-0.045em] tabular-nums">
                 {metric.value}
               </span>
-              <span className="mt-3 text-sm leading-snug text-muted">
-                {metric.context}
+              <span className="mt-3 text-sm leading-snug text-muted">{metric.context}</span>
+              <span className={`${textLink} mt-5 text-muted group-hover:text-accent`}>
+                See the proof
+                <ArrowRight />
               </span>
-            </li>
-          ))}
-        </ul>
-      </Reveal>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </section>
+  );
+}
+
+function ProjectMedia({ project }: { project: Project }) {
+  const media = project.media;
+  if (media.kind === "video") return <PreviewVideo src={media.src} poster={media.poster} alt={media.alt} />;
+  if (media.kind === "slides") return <Slides images={media.images} />;
+  // A workflow has no screen to show: draw its tools as a chain.
+  return (
+    <div role="img" aria-label={media.alt} className="paper-grid absolute inset-0 flex flex-col items-center justify-center gap-5 p-6">
+      <div className="flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5">
+        <TechIcon name="n8n" className="size-4" />
+        <span aria-hidden="true" className={`${mono} text-muted`}>
+          n8n workflow
+        </span>
+      </div>
+      <ol aria-hidden="true" className="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-3">
+        {media.steps.map((step, i) => (
+          <li key={step} className="flex items-center gap-1.5">
+            {i > 0 && <ArrowRight className="size-3.5 text-accent" />}
+            <span className="grid size-11 place-items-center rounded-xl border border-line bg-surface shadow-sm sm:size-12">
+              <TechIcon name={step} className="size-5 sm:size-6" />
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+/** Label / value rows with a dotted leader: the fact table of a project. */
+function Rows({ rows }: { rows: [string, string][] }) {
+  return (
+    <dl className="border-t-2 border-ink">
+      {rows.map(([k, v]) => (
+        <div key={k} className="flex items-baseline gap-3 border-b border-line py-2.5">
+          <dt className={`${mono} shrink-0 text-muted`}>{k}</dt>
+          <span aria-hidden="true" className="leader" />
+          <dd className="max-w-[72%] text-right text-sm font-medium leading-snug text-ink">{v}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+function ProjectLinks({ project }: { project: Project }) {
+  const external = [...(project.link ? [project.link] : []), ...(project.moreLinks ?? [])];
+  if (!project.caseStudy && external.length === 0) return null;
+  return (
+    <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+      {project.caseStudy && (
+        <Link href={project.caseStudy} className={`${textLink} text-accent hover:text-ink`}>
+          Read case study
+          <ArrowRight />
+        </Link>
+      )}
+      {external.map((l) => (
+        <ExternalLink key={l.href} href={l.href} className={`${textLink} text-muted hover:text-ink`}>
+          {l.label}
+          <ArrowUpRight />
+        </ExternalLink>
+      ))}
+    </div>
   );
 }
 
 function Projects() {
+  const flagship = site.projects.filter((p) => p.flagship);
+  const more = site.projects.filter((p) => !p.flagship);
   return (
-    <section
-      id="projects"
-      aria-labelledby="projects-label"
-      className="scroll-mt-20 border-t border-line py-14 sm:py-20"
-    >
-      <h2
-        id="projects-label"
-        className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted"
-      >
+    <section id="projects" aria-labelledby="projects-label" className="scroll-mt-20 border-t border-line py-14 sm:py-20">
+      <h2 id="projects-label" className={`${mono} text-muted`}>
         Projects
       </h2>
-      <ul className="mt-8 grid gap-5 md:grid-cols-2">
-        {site.projects.map((project, i, all) => (
-          <li
-            key={project.title}
-            className={project.featured || isLoneLast(all, i) ? "md:col-span-2" : ""}
-          >
+      <div className="mt-8 space-y-6">
+        {flagship.map((project, i) => (
+          <Reveal key={project.slug}>
+            <article
+              id={project.slug}
+              className="grid scroll-mt-24 gap-8 rounded-2xl border border-line bg-surface p-6 sm:p-10 lg:grid-cols-[1fr_1.2fr]"
+            >
+              <div className={i % 2 ? "lg:order-2" : ""}>
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="text-4xl font-semibold tracking-[-0.035em] sm:text-5xl">{project.title}</h3>
+                  {project.badge && (
+                    <span className={`${mono} rounded-full bg-accent-soft px-2.5 py-1 text-accent`}>{project.badge}</span>
+                  )}
+                </div>
+                <p className="mt-3 max-w-[42ch] leading-snug text-muted">{project.line}</p>
+                <div className="mt-7">
+                  <Rows rows={project.rows} />
+                </div>
+                <div className="mt-6">
+                  <ProjectLinks project={project} />
+                </div>
+              </div>
+              <div className="relative aspect-[16/10] self-center overflow-hidden rounded-lg border border-line bg-line">
+                <ProjectMedia project={project} />
+              </div>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+
+      <h3 className={`${mono} mt-14 text-muted`}>More work</h3>
+      <ul className="mt-6 grid gap-6 md:grid-cols-2">
+        {more.map((project) => (
+          <li key={project.slug}>
             <Reveal className="h-full">
-              <ProjectCard project={project} wide={project.featured || isLoneLast(all, i)} />
+              <article
+                id={project.slug}
+                className="flex h-full scroll-mt-24 flex-col overflow-hidden rounded-2xl border border-line bg-surface"
+              >
+                <div className="relative aspect-[16/8] border-b border-line bg-line">
+                  <ProjectMedia project={project} />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h4 className="text-2xl font-semibold tracking-[-0.03em]">{project.title}</h4>
+                  <p className="mt-2 leading-snug text-muted">{project.line}</p>
+                  <div className="mt-5">
+                    <Rows rows={project.rows} />
+                  </div>
+                  <div className="mt-auto pt-5">
+                    <ProjectLinks project={project} />
+                  </div>
+                </div>
+              </article>
             </Reveal>
           </li>
         ))}
@@ -230,145 +283,56 @@ function Projects() {
   );
 }
 
-/** The last card would sit alone in its row: let it span both columns. */
-function isLoneLast(all: Project[], i: number) {
-  const regular = all.filter((p) => !p.featured);
-  return i === all.length - 1 && !all[i].featured && regular.length % 2 === 1;
-}
-
-/** `wide` = spans both grid columns: media and text sit side by side on large screens. */
-function ProjectCard({ project, wide }: { project: Project; wide?: boolean }) {
-  const { featured } = project;
+function Bullets({ items }: { items: string[] }) {
   return (
-    <article
-      className={`card-spotlight group flex h-full flex-col rounded-2xl border border-line bg-surface transition-colors duration-300 hover:border-accent/35 ${
-        wide ? "lg:grid lg:grid-cols-[1.45fr_1fr]" : ""
-      }`}
-    >
-      {/* Media keeps its exact 16:10 ratio so recordings are never cropped;
-          in the wide featured card it sits centered beside the text. */}
-      <div
-        className={`border-b border-line bg-line ${
-          wide ? "lg:flex lg:items-center lg:border-b-0 lg:border-r" : ""
-        }`}
-      >
-        <div className="relative aspect-[16/10] w-full max-w-full overflow-hidden">
-          <ProjectMedia project={project} />
-        </div>
-      </div>
-
-      <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
-        {featured && (
-          <p className="font-mono text-[0.7rem] font-medium uppercase tracking-[0.14em] text-accent">
-            Featured build
-          </p>
-        )}
-        <div className="flex flex-wrap items-center gap-2.5">
-          <h3 className={`font-semibold tracking-[-0.02em] ${featured ? "text-2xl sm:text-3xl" : "text-xl"}`}>
-            {project.title}
-          </h3>
-          {project.badge && (
-            <span className="rounded-full bg-accent-soft px-2.5 py-1 font-mono text-[0.65rem] font-medium uppercase tracking-[0.08em] text-accent">
-              {project.badge}
-            </span>
-          )}
-        </div>
-        {project.role && <p className="text-sm font-medium leading-snug text-ink/80">{project.role}</p>}
-        <p className="text-sm leading-relaxed text-muted">{project.summary}</p>
-        {project.highlights && (
-          <ul className="space-y-1.5 text-sm leading-relaxed text-muted">
-            {project.highlights.map((item) => (
-              <li key={item} className="flex gap-3">
-                <span aria-hidden="true" className="mt-[0.6em] h-px w-3 shrink-0 bg-accent" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        )}
-        {project.tags.length > 0 && (
-          <ul aria-label="Tech" className="flex flex-wrap gap-1.5 pt-1">
-            {project.tags.map((tag) => (
-              <li key={tag}>
-                <TechChip name={tag} />
-              </li>
-            ))}
-          </ul>
-        )}
-        {(project.link || project.caseStudy) && (
-          <div className="mt-auto flex flex-wrap items-center justify-end gap-x-6 gap-y-2 border-t border-line pt-4">
-            {project.caseStudy && (
-              <Link
-                href={project.caseStudy}
-                className="inline-flex items-center gap-1.5 font-mono text-[0.72rem] font-medium uppercase tracking-[0.12em] text-accent transition-colors hover:text-ink"
-              >
-                Read case study
-                <ArrowRight className="size-3.5" />
-              </Link>
-            )}
-            {[...(project.link ? [project.link] : []), ...(project.moreLinks ?? [])].map((l) => (
-              <ExternalLink
-                key={l.href}
-                href={l.href}
-                className="inline-flex items-center gap-1.5 font-mono text-[0.72rem] font-medium uppercase tracking-[0.12em] text-muted transition-colors hover:text-accent"
-              >
-                {l.label}
-                <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </ExternalLink>
-            ))}
-          </div>
-        )}
-      </div>
-    </article>
+    <ul className="space-y-2 text-[0.95rem] leading-relaxed text-ink/85">
+      {items.map((item) => (
+        <li key={item} className="flex gap-3">
+          <span aria-hidden="true" className="mt-[0.7em] h-px w-3 shrink-0 bg-accent" />
+          {item}
+        </li>
+      ))}
+    </ul>
   );
 }
 
-function ProjectMedia({ project }: { project: Project }) {
-  const media = project.media;
-  if (media?.kind === "video") {
-    return <PreviewVideo src={media.src} poster={media.poster} alt={media.alt} />;
-  }
-  if (media?.kind === "image") {
-    return (
-      <Image
-        src={media.src}
-        alt={media.alt}
-        fill
-        sizes="(min-width: 768px) 560px, 100vw"
-        className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-      />
-    );
-  }
-  if (media?.kind === "app") {
-    return (
-      <div className="absolute inset-0 grid place-items-center bg-[radial-gradient(var(--line)_1px,transparent_1px)] [background-size:14px_14px]">
-        <Image
-          src={media.icon}
-          alt={media.alt}
-          width={160}
-          height={160}
-          className="size-28 rounded-[22%] shadow-[0_18px_40px_-16px_rgba(16,20,27,0.55)] transition-transform duration-500 group-hover:scale-105 sm:size-36"
-        />
-      </div>
-    );
-  }
-  // No preview yet: a quiet panel built from the project's own tags.
-  const icons = project.tags.filter(hasTechIcon).slice(0, 8);
-  const plain = project.tags.filter((t) => !hasTechIcon(t));
+function JobRow({ job }: { job: Job }) {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[radial-gradient(var(--line)_1px,transparent_1px)] p-6 [background-size:14px_14px]">
-      {icons.length > 0 && (
-        <div className="flex max-w-xs flex-wrap justify-center gap-4 text-ink">
-          {icons.map((t) => (
-            <TechIcon key={t} name={t} className="size-10 sm:size-11" />
-          ))}
-        </div>
-      )}
-      {plain.length > 0 && (
-        <p className="text-center font-mono text-xs uppercase tracking-[0.14em] text-muted">
-          {plain.join(" · ")}
-        </p>
-      )}
-    </div>
+    <li className="grid gap-x-6 gap-y-2 py-7 sm:grid-cols-[10.5rem_1fr]">
+      <p className="font-mono text-xs leading-7 text-muted tabular-nums">{job.period}</p>
+      <div>
+        <h3 className="text-lg font-semibold sm:text-xl">
+          {job.role}
+          <span className="font-normal text-muted"> · {job.org}</span>
+        </h3>
+        <p className="mt-1 leading-relaxed text-muted">{job.summary}</p>
+
+        {/* Several positions at one company: a row for each, newest first. */}
+        {job.roles && (
+          <ol className="mt-5 space-y-5 border-l border-line pl-5">
+            {job.roles.map((role) => (
+              <li key={role.role} className="relative">
+                <span aria-hidden="true" className="absolute -left-[1.5rem] top-2 size-2 rounded-full bg-accent" />
+                <h4 className="flex flex-wrap items-baseline gap-x-3 font-semibold">
+                  {role.role}
+                  <span className="font-mono text-xs font-normal text-muted tabular-nums">{role.period}</span>
+                </h4>
+                <div className="mt-2">
+                  <Bullets items={role.highlights} />
+                </div>
+              </li>
+            ))}
+          </ol>
+        )}
+
+        {job.highlights.length > 0 && (
+          <div className="mt-5">
+            {job.highlightsLabel && <p className={`${mono} mb-2.5 text-muted`}>{job.highlightsLabel}</p>}
+            <Bullets items={job.highlights} />
+          </div>
+        )}
+      </div>
+    </li>
   );
 }
 
@@ -378,47 +342,7 @@ function Experience() {
       <Reveal>
         <ol className="divide-y divide-line border-y border-line">
           {site.experience.map((job) => (
-            <li key={`${job.role}-${job.org}`}>
-              <details className="job group/job" open={job.open}>
-                <summary className="grid cursor-pointer list-none gap-1 py-5 sm:grid-cols-[11rem_1fr_auto] sm:gap-6 [&::-webkit-details-marker]:hidden">
-                  <span className="font-mono text-xs leading-6 text-muted tabular-nums">{job.period}</span>
-                  <span>
-                    <span className="block text-base font-semibold sm:text-lg">
-                      {job.role}
-                      <span className="font-normal text-muted"> · {job.org}</span>
-                    </span>
-                    <span className="mt-1 block text-sm leading-relaxed text-muted">{job.summary}</span>
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="hidden size-8 place-items-center self-start rounded-full border border-line text-muted transition-[transform,color,border-color] duration-300 group-open/job:rotate-45 group-open/job:border-accent group-open/job:text-accent group-hover/job:text-ink sm:grid"
-                  >
-                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" className="size-3.5">
-                      <path d="M8 3v10M3 8h10" />
-                    </svg>
-                  </span>
-                </summary>
-                <div className="pb-6 sm:pl-[calc(11rem+1.5rem)] sm:pr-14">
-                  <ul className="space-y-2 text-[0.95rem] leading-relaxed text-ink/85">
-                    {job.highlights.map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span aria-hidden="true" className="mt-[0.7em] h-px w-3 shrink-0 bg-accent" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  {job.tech && (
-                    <ul aria-label="Tech" className="mt-4 flex flex-wrap gap-1.5">
-                      {job.tech.map((t) => (
-                        <li key={t}>
-                          <TechChip name={t} />
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </details>
-            </li>
+            <JobRow key={`${job.role}-${job.org}`} job={job} />
           ))}
         </ol>
       </Reveal>
@@ -426,75 +350,119 @@ function Experience() {
   );
 }
 
-function MarqueeRow({ items, reverse }: { items: string[]; reverse?: boolean }) {
-  // Each half holds the list twice so it is always wider than the viewport.
-  const half = [...items, ...items];
-  const copy = (hidden: boolean) => (
-    <ul aria-hidden={hidden || undefined} className="flex shrink-0">
-      {half.map((name, i) => (
-        <li key={`${name}-${i}`} className="pr-2" aria-hidden={!hidden && i >= items.length ? true : undefined}>
-          <TechChip name={name} size="md" decorative={hidden || i >= items.length} />
-        </li>
-      ))}
-    </ul>
-  );
-  return (
-    <div className="marquee overflow-hidden">
-      <div
-        className="marquee-track flex w-max py-1"
-        data-reverse={reverse || undefined}
-        style={{ ["--marquee-duration" as string]: `${items.length * 5}s` }}
-      >
-        {copy(false)}
-        {copy(true)}
-      </div>
-    </div>
-  );
-}
-
-function Technologies() {
-  const all = site.tech.flatMap((g) => g.items);
-  const third = Math.ceil(all.length / 3);
-  const rows = [all.slice(0, third), all.slice(third, third * 2), all.slice(third * 2)];
+function Stack() {
   return (
     <Section
-      id="technologies"
-      label="Technologies"
+      id="stack"
+      label="Stack"
       action={
-        <Link href="/tech-stack" className={viewAll}>
-          View all
+        <Link href="/tech-stack" className="group inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-ink">
+          Everything, with notes
           <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
         </Link>
       }
     >
       <Reveal>
-        <div className="flex flex-col gap-2.5">
-          {rows.map((row, i) => (
-            <MarqueeRow key={i} items={row} reverse={i % 2 === 1} />
+        <dl className="divide-y divide-line border-y border-line">
+          {site.stack.map((group) => (
+            <div key={group.level} className="grid gap-x-6 gap-y-3 py-5 sm:grid-cols-[10.5rem_1fr]">
+              <dt>
+                <span className="block font-semibold">{group.level}</span>
+                <span className="mt-0.5 block text-sm text-muted">{group.note}</span>
+              </dt>
+              <dd>
+                <ul className="flex flex-wrap gap-2">
+                  {group.items.map((name) => (
+                    <li key={name}>
+                      <TechChip name={name} size="md" />
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
           ))}
-        </div>
-        <div className="mt-4">
-          <SkillLegend />
+        </dl>
+      </Reveal>
+    </Section>
+  );
+}
+
+function Minecraft() {
+  const mc = site.minecraft;
+  return (
+    <Section id="minecraft" label="Before software">
+      <Reveal>
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-line bg-line">
+            <PreviewVideo src={mc.media.src} poster={mc.media.poster} alt={mc.media.alt} />
+          </div>
+          <div>
+            <h3 className="flex flex-wrap items-baseline gap-x-3 text-3xl font-semibold tracking-[-0.03em]">
+              {mc.title}
+              <span className="font-mono text-xs font-normal text-muted tabular-nums">{mc.period}</span>
+            </h3>
+            <p className="mt-3 leading-relaxed text-muted">{mc.line}</p>
+            <div className="mt-6">
+              <Rows rows={mc.facts} />
+            </div>
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+              {mc.links.map((l) => (
+                <ExternalLink key={l.href} href={l.href} className={`${textLink} text-muted hover:text-ink`}>
+                  {l.label}
+                  <ArrowUpRight />
+                </ExternalLink>
+              ))}
+            </div>
+          </div>
         </div>
       </Reveal>
     </Section>
   );
 }
 
-function Activity() {
+function About() {
+  const { education, languages } = site;
   return (
-    <Section
-      id="activity"
-      label="GitHub Activity"
-      action={
-        <ExternalLink href={site.contact.github} className={viewAll}>
-          @{site.githubUser}
-          <ArrowUpRight className="size-3.5" />
-        </ExternalLink>
-      }
-    >
+    <Section id="about" label="About">
       <Reveal>
-        <GithubActivity user={site.githubUser} />
+        <div className="grid gap-10 lg:grid-cols-[1fr_auto]">
+          <div>
+            <div className="max-w-[58ch] space-y-4 text-lg leading-relaxed sm:text-xl sm:leading-relaxed">
+              {site.about.map((sentence, i) => (
+                <p key={i} className={i === 0 ? "text-ink" : "text-ink/80"}>
+                  {sentence}
+                </p>
+              ))}
+            </div>
+            <dl className="mt-10 grid gap-x-10 gap-y-6 border-t border-line pt-6 sm:grid-cols-2">
+              <div>
+                <dt className={`${mono} text-muted`}>Education</dt>
+                <dd className="mt-2">
+                  <span className="block font-semibold">{education.degree}</span>
+                  <span className="block text-muted">{education.school}</span>
+                  <span className="mt-1 block font-mono text-xs text-muted tabular-nums">{education.period}</span>
+                </dd>
+              </div>
+              <div>
+                <dt className={`${mono} text-muted`}>Languages</dt>
+                <dd className="mt-2 grid grid-cols-2 gap-x-6 gap-y-2">
+                  {languages.map((lang) => (
+                    <span key={lang.name} className="whitespace-nowrap">
+                      <span className="font-semibold">{lang.name}</span>{" "}
+                      <span className="font-mono text-xs text-muted">{lang.level}</span>
+                    </span>
+                  ))}
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <figure className="relative w-48 self-start max-lg:hidden xl:w-56">
+            <div aria-hidden="true" className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-accent" />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-line">
+              <Image src={site.avatar} alt={`Portrait of ${site.name}`} fill sizes="224px" className="object-cover" />
+            </div>
+          </figure>
+        </div>
       </Reveal>
     </Section>
   );
@@ -510,10 +478,7 @@ function Outside() {
             <p className="max-w-[46ch] text-lg leading-relaxed text-ink/80">{outside.text}</p>
             <ul className="mt-6 flex flex-wrap gap-2">
               {outside.hobbies.map((h) => (
-                <li
-                  key={h.name}
-                  className="rounded-full border border-line px-3 py-1 text-sm text-ink/80"
-                >
+                <li key={h.name} className="rounded-full border border-line px-3 py-1 text-sm text-ink/80">
                   {h.name}
                 </li>
               ))}
@@ -525,6 +490,28 @@ function Outside() {
             <HobbyStack hobbies={outside.hobbies} />
           </div>
         </div>
+      </Reveal>
+    </Section>
+  );
+}
+
+function Activity() {
+  return (
+    <Section
+      id="activity"
+      label="GitHub Activity"
+      action={
+        <ExternalLink
+          href={site.contact.github}
+          className="group inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-ink"
+        >
+          @{site.githubUser}
+          <ArrowUpRight className="size-3.5" />
+        </ExternalLink>
+      }
+    >
+      <Reveal>
+        <GithubActivity user={site.githubUser} />
       </Reveal>
     </Section>
   );
@@ -553,123 +540,55 @@ function Recommendations() {
   );
 }
 
-function Education() {
-  const { education, languages } = site;
-  return (
-    <Section id="education" label="Education & Languages">
-      <Reveal>
-        <div className="grid gap-10 sm:grid-cols-2">
-          <div>
-            <h3 className="text-lg font-semibold">{education.school}</h3>
-            <p className="mt-1 text-muted">{education.degree}</p>
-            <p className="mt-2 font-mono text-xs text-muted tabular-nums">{education.period}</p>
-          </div>
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-4 self-start">
-            {languages.map((lang) => (
-              <div key={lang.name}>
-                <dt className="font-semibold">{lang.name}</dt>
-                <dd className="font-mono text-xs text-muted">{lang.level}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </Reveal>
-    </Section>
-  );
-}
-
 function Contact() {
   const { contact } = site;
-  const cards = [
-    {
-      label: "Email",
-      value: contact.email,
-      href: "",
-      external: false,
-      icon: (
-        <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="5" width="18" height="14" rx="2.5" />
-          <path d="m4 7 8 6 8-6" />
-        </svg>
-      ),
-    },
-    {
-      label: "LinkedIn",
-      value: "in/eugenestavytskyi",
-      href: contact.linkedin,
-      external: true,
-      icon: (
-        <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="currentColor">
-          <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z" />
-        </svg>
-      ),
-    },
-    {
-      label: "GitHub",
-      value: `@${site.githubUser}`,
-      href: contact.github,
-      external: true,
-      icon: <TechIcon name="GitHub" className="size-5" />,
-    },
-  ];
-
+  const row = "flex items-center gap-3 border-b border-white/25 px-4 py-3 text-left transition-colors last:border-b-0 hover:bg-white/10";
   return (
-    <Section id="contact" label="Contact">
-      <Reveal>
-        <h3 className="text-[clamp(2rem,5vw,3.25rem)] font-semibold leading-none tracking-[-0.03em]">
+    <section
+      id="contact"
+      aria-labelledby="contact-title"
+      className="cover mb-6 mt-4 grid scroll-mt-24 gap-10 overflow-hidden rounded-3xl px-6 py-12 sm:px-12 sm:py-16 lg:grid-cols-[1.2fr_1fr] lg:items-end"
+    >
+      <div>
+        <p className={`${mono} text-white/70`}>Contact</p>
+        <h2 id="contact-title" className="mt-6 text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.04em]">
           Let&apos;s work together.
-        </h3>
-        <p className="mt-4 max-w-[46ch] text-lg text-muted">
-          {contact.text}
-        </p>
-        <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr]">
-          {cards.map((card) => {
-            const inner = (
-              <>
-                <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-line bg-bg text-ink transition-colors group-hover:border-accent group-hover:text-accent">
-                  {card.icon}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block font-mono text-[0.65rem] font-medium uppercase tracking-[0.14em] text-accent">
-                    {card.label}
-                  </span>
-                  <span className="mt-0.5 block truncate text-sm font-medium text-ink">
-                    {card.value}
-                  </span>
-                </span>
-                <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="size-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-ink">
-                  <path d="m6 3 5 5-5 5" />
-                </svg>
-              </>
-            );
-            const cls =
-              "card-spotlight group flex items-center gap-3.5 rounded-2xl border border-line bg-surface p-4 transition-colors duration-300 hover:border-accent/35";
-            return (
-              <li key={card.label} className={card.label === "Email" ? "sm:col-span-2 lg:col-span-1" : ""}>
-                {card.external ? (
-                  <ExternalLink href={card.href} className={cls}>
-                    {inner}
-                  </ExternalLink>
-                ) : (
-                  <CopyEmailButton email={contact.email} className={`${cls} w-full text-left`}>
-                    {inner}
-                  </CopyEmailButton>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <ExternalLink href={gmail} className={buttonSecondary}>
+        </h2>
+        <p className="mt-5 max-w-[36ch] text-xl leading-snug text-white/75">{contact.text}</p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <ExternalLink href={gmail} className={pillLight}>
             Write in Gmail
-            <ArrowUpRight />
+            <ArrowUpRight className="size-4" />
           </ExternalLink>
-          <a href={site.cvHref} download className={buttonSecondary}>
+          <a href={site.cvHref} download className={pillGhost}>
             Download CV
-            <ArrowDown />
+            <ArrowDown className="size-4" />
           </a>
         </div>
-      </Reveal>
-    </Section>
+      </div>
+      <ul className="border border-white/35 bg-black/20 font-mono text-sm backdrop-blur-sm">
+        <li>
+          <CopyEmailButton email={contact.email} className={`${row} w-full`}>
+            <EnvelopeSimple aria-hidden="true" weight="bold" className="size-5 shrink-0 text-white/70" />
+            <span className="min-w-0 flex-1 truncate">{contact.email}</span>
+            <span className={`${mono} text-white/60`}>Copy</span>
+          </CopyEmailButton>
+        </li>
+        <li>
+          <ExternalLink href={contact.linkedin} className={row}>
+            <LinkedinLogo aria-hidden="true" weight="fill" className="size-5 shrink-0 text-white/70" />
+            <span className="min-w-0 flex-1 truncate">in/eugenestavytskyi</span>
+            <ArrowUpRight className="size-4 text-white/60" />
+          </ExternalLink>
+        </li>
+        <li>
+          <ExternalLink href={contact.github} className={row}>
+            <GithubLogo aria-hidden="true" weight="fill" className="size-5 shrink-0 text-white/70" />
+            <span className="min-w-0 flex-1 truncate">@{site.githubUser}</span>
+            <ArrowUpRight className="size-4 text-white/60" />
+          </ExternalLink>
+        </li>
+      </ul>
+    </section>
   );
 }

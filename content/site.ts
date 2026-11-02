@@ -16,26 +16,32 @@ export type Metric = {
   label: string;
   value: string;
   context: string;
+  /** Where the number is proven: a case study page or a project on this page. */
+  href: string;
 };
 
 /**
- * Project preview shown at the top of a card. Files live in public/projects/.
- * Use a 16:10 ratio. A video plays muted and looped only while on screen and
- * never autoplays for prefers-reduced-motion; keep it under ~1 MB.
+ * Project media. Files live in public/projects/. Videos are 16:10, play muted
+ * and looped only while on screen and never autoplay for prefers-reduced-motion.
  */
 export type ProjectMedia =
   | { kind: "video"; src: string; poster: string; alt: string }
-  | { kind: "image"; src: string; alt: string }
-  /** App icon on a quiet panel, for apps without public screenshots. */
-  | { kind: "app"; icon: string; alt: string };
+  /** Still screenshots that crossfade. */
+  | { kind: "slides"; images: { src: string; alt: string }[] }
+  /** A chain of tools drawn with their icons, for a workflow without a UI. */
+  | { kind: "flow"; steps: string[]; alt: string };
 
 export type Project = {
+  /** Anchor on the home page: /#soucampus. */
+  slug: string;
   title: string;
-  /** Featured projects get the wide card at the top of the grid. */
-  featured?: boolean;
-  summary: string;
-  role?: string;
-  highlights?: string[];
+  /** Flagship projects get the large card; the rest are compact. */
+  flagship?: boolean;
+  /** One or two sentences under the title. */
+  line: string;
+  /** Label / value rows of the card: role, stack, how it was checked, result. */
+  rows: [string, string][];
+  /** Not shown on the card; the /tech-stack page collects them. */
   tags: string[];
   badge?: string;
   link?: Link;
@@ -43,20 +49,28 @@ export type Project = {
   moreLinks?: Link[];
   /** Internal case study page, e.g. "/soucampus". */
   caseStudy?: string;
-  media?: ProjectMedia;
+  media: ProjectMedia;
+};
+
+export type Role = {
+  role: string;
+  period: string;
+  highlights: string[];
 };
 
 export type Job = {
   role: string;
   org: string;
   period: string;
-  /** One line shown in the collapsed row. */
+  /** One line under the title. */
   summary: string;
-  /** Shown when the row is expanded. */
+  /** For a company with several positions: one row per position, newest first. */
+  roles?: Role[];
+  /** Label above `highlights` when `roles` are present. */
+  highlightsLabel?: string;
   highlights: string[];
+  /** Not shown on the home page; the /tech-stack page collects them. */
   tech?: string[];
-  /** Expanded on first load. */
-  open?: boolean;
 };
 
 export type TechGroup = {
@@ -130,40 +144,50 @@ export const site = {
     "Now I'm looking for a junior developer role at a bank or fintech in Tallinn.",
   ],
 
+  // The stamp in the hero, like the title block of a drawing.
+  heroSpec: [
+    ["Role", "Junior full-stack developer"],
+    ["Site", "Tallinn, Estonia · 59.44°N 24.75°E"],
+    ["In production", "TypeScript · PostgreSQL"],
+    ["Learning", "Java · Spring Boot"],
+  ] as [string, string][],
+
+  // Three numbers, each linked to the place that proves it.
   metrics: [
     {
       label: "Automation",
       value: "24 → 2 min",
       context: "HR admin time per candidate, bachelor's thesis built for proceedit",
+      href: "/#onboarding-automation",
     },
     {
       label: "Speed",
       value: "100 / 90",
       context: "PageSpeed on SouCampus, desktop / mobile",
+      href: "/soucampus",
     },
     {
       label: "Mobile app",
       value: "~200 users",
       context: "Registered in the CMI app, on the App Store and Google Play since March 2026",
+      href: "/#cmi",
     },
   ] satisfies Metric[],
 
   projects: [
     {
+      slug: "soucampus",
       title: "SouCampus",
-      // Features as they are on the live site (soucampus.online).
-      summary:
-        "A Minecraft build business in one product: a studio for custom builds on order and a marketplace of ready-made maps with instant download.",
-      role: "Founder and sole developer, from the business plan and architecture to production deployment.",
-      highlights: [
-        "Wrote the business plan: marketplace sales plus custom build commissions",
-        "Marketplace with categories, filters, ratings, purchase counts, free maps, collections and similar-map suggestions by category, type and theme",
-        "Cart and Stripe checkout are built; payments are not switched on yet. Comments with moderation on every listing",
-        "Authentication and database-level access control (Supabase row-level security)",
-        "Security audit before the relaunch: row-level security policies, Stripe webhook signatures and file uploads",
-        "Studio side: portfolio, client stories and custom orders; wiki, changelog and support pages",
-        "PageSpeed 100 on desktop, 90 on mobile",
-        "The site has already brought 3 custom-order clients; 5 maps sold directly",
+      flagship: true,
+      line: "A marketplace and studio site for Minecraft builds. I build it alone, from the database to production.",
+      rows: [
+        ["Role", "Sole engineer"],
+        ["Period", "Jun 2026 – present"],
+        ["Stack", "Next.js, TypeScript, Supabase (PostgreSQL, RLS), Stripe, Vercel"],
+        ["Checked", "Security audit: RLS policies, Stripe webhook signatures, file uploads"],
+        ["Speed", "PageSpeed 100 desktop / 90 mobile"],
+        ["Payments", "Stripe checkout is built, not switched on yet"],
+        ["Result", "3 custom-order clients, 5 maps sold directly"],
       ],
       tags: [
         "TypeScript",
@@ -177,11 +201,7 @@ export const site = {
         "Google Analytics",
         "Vercel",
       ],
-      link: {
-        label: "Visit marketplace",
-        href: "https://soucampus.online/marketplace",
-      },
-      featured: true,
+      link: { label: "soucampus.online", href: "https://soucampus.online" },
       caseStudy: "/soucampus",
       // Screen recording of the live site: landing → portfolio → marketplace.
       media: {
@@ -192,69 +212,19 @@ export const site = {
       },
     },
     {
-      title: "Crossdesk",
-      summary:
-        "Privacy-first B2B matching. A company privately describes a problem; AI agents check budget, timing and contract fit with vendors; people meet only once the terms fit, and each side's figures stay private.",
-      role: "Built in a team of three at Vibe Sprint 2026 (Startup Garage), 18–19 Sep 2026: an MVP in 2 days. Now in the IGNITER pre-accelerator. My part: the database (Supabase, row-level security), website scraping, sign-in and part of the fit-scoring logic.",
-      // Stack and highlights from the repo (github.com/Dennel04/b2b-match).
-      highlights: [
-        "Two AI agents negotiate budget, timing and contract fit; a deterministic guard rejects any transcript that leaks the buyer's problem to the vendor",
-        "Reads each company's website to build its profile, with Tavily as the fallback reader when a site renders in the browser or blocks bots",
-      ],
-      tags: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Supabase", "Claude API", "Tavily", "Stripe", "Zod", "Vercel"],
-      badge: "MVP / in development",
-      link: { label: "Live demo", href: "https://crossdeskmatch.vercel.app/" },
-      media: {
-        kind: "video",
-        src: "/projects/crossdesk.mp4",
-        poster: "/projects/crossdesk-poster.webp",
-        alt: "Screen recording: the animated Crossdesk landing page",
-      },
-    },
-    {
-      title: "Minecraft level design",
-      summary:
-        "Multiplayer maps and structures for clients worldwide since 2018. As a contract builder for a studio I also made builds for MrBeast projects and Minecraft Marketplace partners.",
-      role: "Freelance level designer, from the client's brief to the delivered build.",
-      // Servers: from the client stories on soucampus.online.
-      // TikTok numbers: public profile, September 2026.
-      highlights: [
-        "Built for many different servers, including Luckycraft, GuardiumMC, RamboMC, BreadBuilds and AstroSMP",
-        "As a contract builder for a studio: builds for MrBeast projects and Minecraft Marketplace partners",
-        "Handled client support through tickets: requests, revisions and delivery",
-        "Worked with international clients in English every day",
-        "Grew the @soucampus TikTok to 1.8K followers and 168K likes with 52 build videos",
-      ],
-      tags: [
-        "Level design",
-        "Multiplayer servers",
-        "Client support",
-        "Ticket handling",
-        "Client communication (English)",
-        "TikTok",
-        "Content creation",
-      ],
-      // Do not use MrBeast logos.
-      link: { label: "See the builds", href: "https://soucampus.online/portfolio" },
-      moreLinks: [{ label: "TikTok", href: "https://www.tiktok.com/@soucampus" }],
-      media: {
-        kind: "video",
-        src: "/projects/minecraft.mp4",
-        poster: "/projects/minecraft-poster.webp",
-        alt: "Screen recording: browsing Minecraft builds in the soucampus.online portfolio",
-      },
-    },
-    {
-      title: "CMI mobile app — proceedit",
+      slug: "cmi",
+      title: "CMI mobile app",
+      flagship: true,
       // What CMI is: from its App Store / Google Play listing and proceedit.shop.
-      summary:
-        "Continuous Market Insights: an AI-driven market analysis app. First working version in 6 months (Jun–Dec 2025); on the App Store and Google Play since March 2026; ~200 registered users.",
-      role: "Led the front end and built screens myself; took part in backend architecture decisions. The backend, REST/GraphQL APIs and database were mostly the team's work.",
-      highlights: [
-        "Built the app's screens in Flutter and FlutterFlow and made them responsive across phone sizes on iOS and Android",
-        "Worked on the UI design from Figma concepts to the shipped app",
-        "Helped shape the business model, including how the in-app credit system works",
-        "Took the app through Google Play and App Store publishing",
+      line: "Continuous Market Insights: market analytics on a phone, made at proceedit. I led the front end and built screens myself.",
+      rows: [
+        ["Role", "Front end lead; built screens myself"],
+        ["Period", "From June 2025"],
+        ["Stack", "Flutter, FlutterFlow"],
+        ["Team's part", "Backend, REST / GraphQL APIs and database, mostly"],
+        ["Pace", "First working version in 6 months"],
+        ["Shipped", "App Store and Google Play, March 2026"],
+        ["Result", "~200 registered users"],
       ],
       tags: ["FlutterFlow", "Flutter", "PostgreSQL", "GraphQL", "Google Play", "App Store"],
       link: { label: "App Store", href: "https://apps.apple.com/us/app/cmi-ai-driven-market-analysis/id6754933246" },
@@ -264,23 +234,70 @@ export const site = {
           href: "https://play.google.com/store/apps/details?id=com.mycompany.cticontinuoustradinginsightsapplication",
         },
       ],
-      // TODO: app screenshots or a screen recording could replace the icon.
-      media: { kind: "app", icon: "/projects/cmi-icon.webp", alt: "CMI app icon" },
+      // Promo screens made by proceedit's designer.
+      media: {
+        kind: "slides",
+        images: [
+          { src: "/projects/cmi-subscription.webp", alt: "CMI app: the subscription screen on a phone" },
+          { src: "/projects/cmi-insights.webp", alt: "CMI app: the market insights screen" },
+          { src: "/projects/cmi-themes.webp", alt: "CMI app in light and dark themes" },
+          { src: "/projects/cmi-plans.webp", alt: "CMI app: choosing a plan" },
+        ],
+      },
     },
     {
-      title: "Corporate website — proceedit",
-      summary: "proceedit's corporate website, built on Shopify.",
-      role: "Implemented part of the front end and the design.",
-      highlights: [
-        "Desktop PageSpeed raised from 70 to 88",
-        "Page weight cut by 40%",
-        "Explored Lottie and Rive animations for the site",
-        "Built a 3D model in Spline",
+      slug: "crossdesk",
+      title: "Crossdesk",
+      flagship: true,
+      line: "B2B matching where each side's figures stay private. A working MVP in 2 days at a hackathon, in a team of three.",
+      rows: [
+        ["My part", "Database (Supabase, RLS), website scraping, sign-in, part of the fit scoring"],
+        ["Event", "Vibe Sprint 2026 (Startup Garage), 18–19 Sep 2026"],
+        ["Team", "Three people"],
+        ["Stack", "Next.js, TypeScript, Supabase, Claude API"],
+        ["Result", "Working MVP in 2 days"],
+        ["Now", "IGNITER pre-accelerator"],
       ],
-      // Stack as detected on the live site (Shopify Dawn theme, PageFly, files on
-      // the Shopify CDN, content in metaobjects). TODO: keep only what you worked with.
+      tags: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Supabase", "Claude API", "Tavily", "Stripe", "Zod", "Vercel"],
+      badge: "MVP",
+      link: { label: "Live demo", href: "https://crossdeskmatch.vercel.app/" },
+      media: {
+        kind: "video",
+        src: "/projects/crossdesk.mp4",
+        poster: "/projects/crossdesk-poster.webp",
+        alt: "Screen recording: the animated Crossdesk landing page",
+      },
+    },
+    {
+      slug: "onboarding-automation",
+      title: "Hiring and onboarding automation",
+      // Thesis "Automated System for Onboarding in a Medium-Sized Company"
+      // (University of Tartu, 2026).
+      line: "My bachelor's thesis, built for proceedit: n8n takes a candidate from the application email to the first working day.",
+      rows: [
+        ["Result", "HR admin time per candidate: 24 → 2 minutes (−91.6%)"],
+        ["Stack", "n8n, OpenAI, Gmail / Google Workspace, Jira"],
+        ["Where", "University of Tartu, 2026"],
+      ],
+      tags: ["n8n", "JavaScript", "Google Sheets", "Gmail", "Google Calendar", "Google Drive", "Jira", "OpenAI API"],
+      media: {
+        kind: "flow",
+        steps: ["Gmail", "OpenAI API", "Google Sheets", "Google Calendar", "Google Drive", "Jira"],
+        alt: "The n8n workflow: Gmail, OpenAI, Google Sheets, Google Calendar, Google Drive, Jira",
+      },
+    },
+    {
+      slug: "proceedit-website",
+      title: "proceedit website",
+      line: "The company website on Shopify. I am a co-author: part of the front end and the design.",
+      rows: [
+        ["Result", "Desktop PageSpeed 70 → 88, page weight −40%"],
+        ["Stack", "Shopify, Liquid"],
+        ["Role", "Co-author"],
+      ],
+      // Stack as detected on the live site. TODO: keep only what you worked with.
       tags: ["Shopify", "Liquid", "PageFly", "Shopify Metaobjects", "Lottie", "Rive", "Spline"],
-      link: { label: "Visit proceedit", href: "https://proceedit.shop/" },
+      link: { label: "proceedit.shop", href: "https://proceedit.shop/" },
       media: {
         kind: "video",
         src: "/projects/proceedit.mp4",
@@ -288,63 +305,89 @@ export const site = {
         alt: "Screen recording: the proceedit website landing page",
       },
     },
-    {
-      title: "Onboarding automation in n8n — bachelor's thesis",
-      // From the thesis "Automated System for Onboarding in a Medium-Sized
-      // Company" (University of Tartu, 2026). Public in UT DSpace a year after graduation.
-      summary:
-        "An n8n system that automates hiring and onboarding for a fintech company of 50–100 people, on top of the tools HR already used: Gmail, Google Forms and Sheets, Google Drive and Jira.",
-      role: "Author: mapped the manual process, designed and built the MVP, and measured the result. University of Tartu, 2026.",
-      highlights: [
-        "Cut HR admin time per candidate from 24 to 2 minutes (−91.6%); only the CV review stays manual",
-        "AI intake: a Gmail trigger and an OpenAI agent turn application emails into structured rows in Google Sheets and book interviews in Google Calendar",
-        "Status-driven pipeline: changing a candidate's status in the sheet sends test tasks with automatic reminders and generates contracts in Google Drive",
-        "IT provisioning: a daily job creates the Jira user, clones onboarding tickets, notifies the supervisor, shares Drive folders, sends the welcome email and adds recurring meetings after a week",
-        "Chose n8n over Zapier and Make for self-hosting sensitive HR data, per-execution pricing and custom JavaScript",
-      ],
-      tags: ["n8n", "JavaScript", "Google Sheets", "Gmail", "Google Calendar", "Google Drive", "Jira", "OpenAI API"],
-    },
+    // TODO: SouTools (Java add-on for the Axiom editor). Before publishing ask:
+    // is the repository public, what was written personally, is there a video.
+    // TODO: fourth flagship slot is reserved for the Java project (transfers API).
   ] satisfies Project[] as Project[],
 
-  // Details collected from the CV versions. Expandable on the page.
+  // Minecraft: eight years of client work. One strip on the home page.
+  // TODO: a /builds page with renders; until then the link goes to soucampus.online.
+  minecraft: {
+    title: "Minecraft level design",
+    period: "2018 – present",
+    line: "My first paid build was in 2018. Since then: maps and structures for multiplayer servers, from the client's brief to the delivered build.",
+    facts: [
+      ["Servers", "Luckycraft, GuardiumMC, RamboMC, BreadBuilds, AstroSMP"],
+      ["Studio work", "As a contract builder: builds for MrBeast projects and Minecraft Marketplace partners"],
+      ["TikTok", "@soucampus: 1.8K followers, 168K likes"],
+    ] as [string, string][],
+    // Do not use MrBeast logos.
+    links: [
+      { label: "See the builds", href: "https://soucampus.online/portfolio" },
+      { label: "TikTok", href: "https://www.tiktok.com/@soucampus" },
+    ] satisfies Link[],
+    media: {
+      src: "/projects/minecraft.mp4",
+      poster: "/projects/minecraft-poster.webp",
+      alt: "Screen recording: browsing Minecraft builds in the soucampus.online portfolio",
+    },
+  },
+
+  // Newest first. proceedit: only dated facts sit under a role; the rest goes
+  // under "Across the whole time".
   experience: [
     {
-      role: "Founder & Full-Stack Developer",
+      role: "Founder & sole engineer",
       org: "SouCampus",
       period: "Jun 2026 – Present",
-      open: true,
-      summary: "Building a marketplace and studio site for Minecraft builds alone, from architecture to production.",
+      summary: "A marketplace and studio site for Minecraft builds, built alone from architecture to production.",
       highlights: [
-        "Founded SouCampus and built the whole platform as the sole developer: architecture, front end, back end, database and deployment.",
-        "Wrote the business plan: two revenue streams, marketplace sales of ready-made maps and custom build commissions.",
-        "Built the marketplace for Minecraft maps and builds: categories, filters, ratings, collections, similar-map suggestions and a cart.",
-        "Built the studio side too: portfolio, client stories, custom orders, plus wiki, changelog and support pages.",
-        "Built Stripe checkout (not switched on yet), authentication and the database on Supabase (PostgreSQL) with row-level security.",
+        "Built the marketplace: categories, filters, ratings, collections, similar-map suggestions and a cart.",
+        "Built the studio side: portfolio, client stories, custom orders, a wiki, changelog and support pages.",
+        "Authentication and the database on Supabase (PostgreSQL), with row-level security deciding who reads each row.",
+        "Stripe checkout is built; payments are not switched on yet.",
         "Ran a security audit before the relaunch: row-level security policies, Stripe webhook signatures and file uploads.",
-        "Reached Google PageSpeed 100 on desktop and 90 on mobile in production.",
+        "PageSpeed 100 on desktop and 90 on mobile in production.",
         "The site has already brought 3 custom-order clients; 5 maps sold directly.",
       ],
       tech: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Motion", "Supabase (PostgreSQL)", "Stripe", "Google Analytics", "REST APIs", "GitHub", "Vercel"],
     },
     {
-      // TODO: split into three rows once it is clear what belongs to which period.
-      role: "Full Stack Developer → Frontend Supervisor → Head of Application Unit",
+      role: "Full Stack Developer → Head of Application Unit",
       org: "proceedit",
       period: "Jan 2025 – Jun 2026",
-      summary: "Fintech company (AI market analytics), Barcelona, remote. Led the front end of the CMI mobile app and co-built the company website.",
+      summary: "Fintech company (AI market analytics), Barcelona, remote. Three positions between January 2025 and June 2026.",
+      roles: [
+        {
+          role: "Head of Application Unit",
+          period: "Mar 2026 – Jun 2026",
+          highlights: [
+            "Ran the application unit: up to 10 people at a time, developers and three designers. About 20 people went through the unit over time.",
+            "Worked every day with designers, developers, business, marketing and the CEO.",
+            "The CMI app went live on the App Store and Google Play in March 2026 and reached ~200 registered users.",
+          ],
+        },
+        {
+          role: "Frontend Supervisor",
+          period: "Aug 2025 – Mar 2026",
+          highlights: [
+            "Led the front end of the CMI mobile app and kept building screens myself in Flutter and FlutterFlow.",
+            "First working version in December 2025, 6 months after the start.",
+            "Took part in backend architecture decisions; the backend, REST / GraphQL APIs and database were mostly the team's work.",
+          ],
+        },
+        {
+          role: "Full Stack Developer",
+          period: "Jan 2025 – Aug 2025",
+          // TODO: what was the work from January to June 2025, before CMI started?
+          highlights: ["CMI development started in June 2025: turned Figma designs into Flutter and FlutterFlow screens for iOS and Android."],
+        },
+      ],
+      // TODO: move each line under the right position once the dates are known.
+      highlightsLabel: "Across the whole time",
       highlights: [
-        "Full Stack Developer, Jan–Aug 2025. Frontend Supervisor, Aug 2025 – Mar 2026. Head of Application Unit, Mar–Jun 2026.",
-        "Led the front end of the CMI mobile app and built screens myself: first working version in 6 months (Jun–Dec 2025), on the App Store and Google Play since March 2026, ~200 registered users.",
-        "Took part in backend architecture decisions; the backend, REST/GraphQL APIs and database were mostly the team's work.",
-        "Turned high-fidelity Figma designs into Flutter and FlutterFlow apps: reusable widgets, managed app state, responsive on iOS and Android.",
-        "Helped shape the CMI business model, including how the in-app credit system works.",
-        "Took the app through Google Play and App Store publishing.",
-        "As Head of the unit: up to 10 people at a time, developers and three designers; about 20 people went through the unit. Worked daily with designers, developers, business, marketing and the CEO.",
-        "Co-developed and launched the company website, contributing to front-end architecture, UI implementation and user experience.",
-        "Implemented part of the website's front end and design; explored Lottie and Rive animations and built a 3D model in Spline.",
-        "Improved website performance and SEO by restructuring the content hierarchy and refactoring legacy HTML/CSS/JS: desktop PageSpeed 70 → 88, page weight cut by 40%.",
-        "Refined layouts and applied the company design system consistently across digital products.",
-        "Built n8n automations to streamline internal workflows, including the onboarding system from my bachelor's thesis, which cut HR admin time per candidate from 24 to 2 minutes.",
+        "Co-author of the company website on Shopify (Liquid): desktop PageSpeed 70 → 88, page weight −40%.",
+        "Built the hiring and onboarding automation for the company as my bachelor's thesis (n8n, OpenAI, Gmail / Google Workspace, Jira): HR admin time per candidate 24 → 2 minutes.",
       ],
       tech: ["Flutter", "FlutterFlow", "Google Play", "App Store", "GraphQL", "REST APIs", "PostgreSQL", "Shopify", "HTML", "CSS", "JavaScript", "n8n", "Figma", "Jira"],
     },
@@ -353,12 +396,8 @@ export const site = {
       role: "Data Analyst",
       org: "Sayara International",
       period: "Apr 2023 – Oct 2023",
-      summary: "Analyzed propaganda narratives about the conflict in Ukraine from media data.",
-      highlights: [
-        "Analyzed Russian propaganda narratives related to the conflict in Ukraine.",
-        "Collected, validated and organized media data in YouScan, Excel and Word.",
-        "Built and interpreted data visualizations to support ongoing analysis and reporting.",
-      ],
+      summary: "Remote. Reports on narratives about the war in Ukraine, from media data.",
+      highlights: ["Collected and organized media data in YouScan and Excel and turned it into reports."],
       tech: ["YouScan", "Excel", "Word"],
     },
     {
@@ -368,17 +407,33 @@ export const site = {
       summary: "Multiplayer maps and structures for clients worldwide; first paid build in 2018.",
       // TODO: confirm/extend: pricing & scoping orders, deadlines, leading other builders, Discord community.
       highlights: [
-        "Built multiplayer maps and structures for clients worldwide since 2018.",
+        "English has been my working language with clients since 2018.",
+        "Built for servers including Luckycraft, GuardiumMC, RamboMC, BreadBuilds and AstroSMP.",
         "As a contract builder for a studio: builds for MrBeast projects and Minecraft Marketplace partners.",
-        "Handled client support through a ticket system: requests, questions and revisions from first message to delivery.",
-        "Worked with international clients in English every day.",
-        "Built for many different servers, including Luckycraft, GuardiumMC, RamboMC, BreadBuilds and AstroSMP.",
-        "Grew the @soucampus TikTok to 1.8K followers and 168K likes with 52 build videos.",
-        "The build portfolio lives on soucampus.online.",
       ],
       tech: ["Level design", "Multiplayer servers", "Client support", "Ticket handling", "Client communication (English)", "TikTok", "Content creation"],
     },
   ] satisfies Job[] as Job[],
+
+  // The stack block on the home page, three honest levels. The full list with
+  // notes is on /tech-stack (`tech` and `skillLevels` below).
+  stack: [
+    {
+      level: "In production",
+      note: "Runs in products people use",
+      items: ["TypeScript", "Next.js", "React", "PostgreSQL", "Supabase", "Stripe", "Tailwind CSS", "Vercel", "Flutter", "FlutterFlow", "Shopify"],
+    },
+    {
+      level: "Used in projects",
+      note: "Built something real with it",
+      items: ["Node.js", "n8n", "OpenAI API", "REST APIs", "GraphQL", "Liquid", "Figma", "Git"],
+    },
+    {
+      level: "Learning now",
+      note: "Since October 2026",
+      items: ["Java", "Spring Boot"],
+    },
+  ],
 
   // Technologies, grouped as on the /tech-stack page. Icons come from
   // simple-icons (see components/TechIcon.tsx); add new names there too.

@@ -233,15 +233,11 @@ export function ActivityCalendar({
       </div>
 
       {/* Stats */}
-      <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
+      <dl className="mt-5 grid grid-cols-3 gap-px overflow-hidden rounded-xl border border-line bg-line">
         {[
           ["Active days", `${stats.active}`],
           ["Best day", stats.best ? `${stats.best.count} · ${shortLabel(stats.best.date)}` : "—"],
           ["Longest streak", `${stats.longest} day${stats.longest === 1 ? "" : "s"}`],
-          [
-            "Current streak",
-            stats.current === null ? "—" : `${stats.current} day${stats.current === 1 ? "" : "s"}`,
-          ],
         ].map(([label, value]) => (
           <div key={label} className="bg-surface px-4 py-3">
             <dt className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted">{label}</dt>
