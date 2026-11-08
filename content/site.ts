@@ -29,7 +29,9 @@ export type ProjectMedia =
   /** Still screenshots that crossfade. */
   | { kind: "slides"; images: { src: string; alt: string }[] }
   /** A chain of tools drawn with their icons, for a workflow without a UI. */
-  | { kind: "flow"; steps: string[]; alt: string };
+  | { kind: "flow"; steps: string[]; alt: string }
+  /** A named list on drawing paper, until real screenshots exist. */
+  | { kind: "list"; label: string; items: string[] };
 
 export type Project = {
   /** Anchor on the home page: /#soucampus. */
@@ -143,6 +145,18 @@ export const site = {
     "Since 2025 I do the same with software: I led the front end of a mobile app that shipped to both stores at proceedit, and I build a marketplace with payments and database-level access control on my own.",
     "Now I'm looking for a junior developer role at a bank or fintech in Tallinn.",
   ],
+
+  // Header links, in page order.
+  nav: [
+    { label: "Projects", href: "/#projects" },
+    { label: "Experience", href: "/#experience" },
+    { label: "Stack", href: "/#stack" },
+    { label: "Builds", href: "/#builds" },
+    { label: "About", href: "/#about" },
+    { label: "Outside", href: "/#outside" },
+    { label: "GitHub", href: "/#activity" },
+    { label: "Contact", href: "/#contact" },
+  ] satisfies Link[],
 
   // The stamp in the hero, like the title block of a drawing.
   heroSpec: [
@@ -292,11 +306,11 @@ export const site = {
       line: "The company website on Shopify. I am a co-author: part of the front end and the design.",
       rows: [
         ["Result", "Desktop PageSpeed 70 → 88, page weight −40%"],
-        ["Stack", "Shopify, Liquid"],
+        ["Stack", "Shopify, Liquid, HTML, CSS, JavaScript"],
         ["Role", "Co-author"],
       ],
       // Stack as detected on the live site. TODO: keep only what you worked with.
-      tags: ["Shopify", "Liquid", "PageFly", "Shopify Metaobjects", "Lottie", "Rive", "Spline"],
+      tags: ["Shopify", "Liquid", "HTML", "CSS", "JavaScript", "PageFly", "Shopify Metaobjects", "Lottie", "Rive", "Spline"],
       link: { label: "proceedit.shop", href: "https://proceedit.shop/" },
       media: {
         kind: "video",
@@ -305,8 +319,24 @@ export const site = {
         alt: "Screen recording: the proceedit website landing page",
       },
     },
-    // TODO: SouTools (Java add-on for the Axiom editor). Before publishing ask:
-    // is the repository public, what was written personally, is there a video.
+    {
+      slug: "soutools",
+      title: "SouTools",
+      // The repository is private. Wording stays on what the tools are and do.
+      // TODO: screenshots or a video of the tools in the editor.
+      line: "Terrain tools I designed for my own building work: an add-on for the Axiom editor in Minecraft.",
+      rows: [
+        ["What", "About ten tools for shaping landscape"],
+        ["Platform", "Java add-on for the Axiom editor (Fabric)"],
+        ["Releases", "Built and released through GitHub Actions, with auto-update"],
+      ],
+      tags: ["Java", "GitHub Actions"],
+      media: {
+        kind: "list",
+        label: "Axiom add-on",
+        items: ["Floating Rock", "Carved Rock", "Palette Brush", "Ocean Floor", "Bushes"],
+      },
+    },
     // TODO: fourth flagship slot is reserved for the Java project (transfers API).
   ] satisfies Project[] as Project[],
 
@@ -373,14 +403,19 @@ export const site = {
           highlights: [
             "Led the front end of the CMI mobile app and kept building screens myself in Flutter and FlutterFlow.",
             "First working version in December 2025, 6 months after the start.",
+            "Legal compliance work around August–September 2025: reworked many sections of the company website.",
+            "Put the documentation in order: wrote usage docs and FlutterFlow tutorials so new interns could start on their own.",
             "Took part in backend architecture decisions; the backend, REST / GraphQL APIs and database were mostly the team's work.",
           ],
         },
         {
           role: "Full Stack Developer",
           period: "Jan 2025 – Aug 2025",
-          // TODO: what was the work from January to June 2025, before CMI started?
-          highlights: ["CMI development started in June 2025: turned Figma designs into Flutter and FlutterFlow screens for iOS and Android."],
+          highlights: [
+            "Before CMI: worked on another company website and its design, and on a second app that was never finished because the plans kept changing.",
+            "Taught the interns to work with FlutterFlow.",
+            "CMI development started in June 2025: turned Figma designs into Flutter and FlutterFlow screens for iOS and Android.",
+          ],
         },
       ],
       // TODO: move each line under the right position once the dates are known.
@@ -617,6 +652,7 @@ export const site = {
         heading: "Performance",
         body: [
           "Speed is part of the product: SouCampus scores 100 on Google PageSpeed on desktop and 90 on mobile.",
+          "The reports below are a separate check: Lighthouse 12.8 run from my own machine on 14 November 2026. It gave 99 on desktop and 93 on mobile. Scores move a few points between runs and tools.",
         ],
       },
       {
@@ -627,6 +663,19 @@ export const site = {
         ],
       },
     ] satisfies CaseSection[] as CaseSection[],
+    // Proof for the Performance section. Re-shoot when the site changes.
+    lighthouse: [
+      {
+        src: "/projects/soucampus-lighthouse-desktop.webp",
+        alt: "Lighthouse report for soucampus.online, desktop: performance 99, accessibility 96, best practices 100, SEO 100",
+        caption: "Desktop: 99 · LCP 0.6 s · CLS 0",
+      },
+      {
+        src: "/projects/soucampus-lighthouse-mobile.webp",
+        alt: "Lighthouse report for soucampus.online, mobile: performance 93, accessibility 96, best practices 100, SEO 100",
+        caption: "Mobile: 93 · LCP 3.1 s · CLS 0",
+      },
+    ],
     gallery: [
       { src: "/projects/soucampus-home.webp", alt: "SouCampus landing page", caption: "Landing" },
       { src: "/projects/soucampus-portfolio.webp", alt: "Portfolio of Minecraft builds", caption: "Portfolio" },
