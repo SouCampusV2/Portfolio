@@ -141,6 +141,21 @@ export default function SouCampusCaseStudy() {
             </Section>
           ))}
 
+          <Section id="lighthouse" label="Measured">
+            <div className="grid gap-5 sm:grid-cols-2">
+              {cs.lighthouse.map((shot) => (
+                <Reveal key={shot.src}>
+                  <figure>
+                    <div className="overflow-hidden rounded-xl border border-line bg-white">
+                      <Image src={shot.src} alt={shot.alt} width={1440} height={1200} sizes="(min-width: 640px) 420px, 100vw" className="h-auto w-full" />
+                    </div>
+                    <figcaption className="mt-2 font-mono text-xs text-muted">{shot.caption}</figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          </Section>
+
           <Section id="stack" label="Stack">
             <Reveal>
               <ul className="flex flex-wrap gap-2">
