@@ -211,6 +211,34 @@ p {
   outline-color: #fff;
 }
 
+/* White-on-dark scope: inside it the usual tokens resolve to light colours, so
+   components built on tokens work on the cover and in the footer unchanged. */
+.on-dark,
+.site-header[data-over-cover] {
+  --ink: #fff;
+  --muted: rgb(255 255 255 / 0.72);
+  --line: rgb(255 255 255 / 0.28);
+  --surface: rgb(255 255 255 / 0.08);
+  --accent: #fff;
+  --accent-ink: #3a0911;
+  --accent-soft: rgb(255 255 255 / 0.14);
+  color: var(--ink);
+}
+/* The header over the hero: no bar at all, the gradient shows through. */
+.site-header[data-over-cover] {
+  background: transparent;
+  border-color: transparent;
+  backdrop-filter: none;
+}
+
+/* Header links scroll sideways on narrow screens, without a scrollbar. */
+.nav-scroll {
+  scrollbar-width: none;
+}
+.nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 /* Drawing-paper grid behind a tool chain (project "flow" media). */
 .paper-grid {
   background-image:

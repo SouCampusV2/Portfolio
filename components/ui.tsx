@@ -7,6 +7,7 @@ import {
   DownloadSimple,
 } from "@phosphor-icons/react/dist/ssr";
 import { site } from "@/content/site";
+import { HeaderFrame } from "@/components/HeaderFrame";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { VisitorPill } from "@/components/VisitorPill";
 
@@ -76,46 +77,40 @@ export function Section({
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line/70 bg-bg/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+    <HeaderFrame>
+      <div className="mx-auto flex h-[60px] max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
           aria-label={`${site.name}, home`}
           title="Yevhenii Stavytskyi · SouCampus"
-          className="grid h-9 place-items-center rounded-full border border-line px-3 font-mono text-xs font-medium tracking-[0.06em] transition-colors hover:border-accent hover:text-accent"
+          className="grid h-9 shrink-0 place-items-center rounded-full border border-line px-3 font-mono text-xs font-medium tracking-[0.06em] transition-colors hover:border-accent hover:text-accent"
         >
           YSS
         </Link>
-        <nav aria-label="Main" className="flex items-center gap-1 sm:gap-3">
-          <ul className="flex gap-3 text-sm text-muted sm:gap-5">
-            <li>
-              <Link className="transition-colors hover:text-ink" href="/#experience">
-                Experience
-              </Link>
-            </li>
-            <li>
-              <Link className="transition-colors hover:text-ink" href="/#projects">
-                Projects
-              </Link>
-            </li>
-            <li>
-              <Link className="transition-colors hover:text-ink" href="/tech-stack">
-                Stack
-              </Link>
-            </li>
+        <nav aria-label="Main" className="flex min-w-0 items-center gap-1 sm:gap-3">
+          {/* On phones the links scroll sideways instead of wrapping. */}
+          <ul className="nav-scroll flex gap-4 overflow-x-auto whitespace-nowrap text-sm text-muted lg:gap-5">
+            {site.nav.map((item) => (
+              <li key={item.href}>
+                <Link className="transition-colors hover:text-ink" href={item.href}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
-          <span aria-hidden="true" className="mx-1 h-4 w-px bg-line" />
+          <span aria-hidden="true" className="mx-1 h-4 w-px shrink-0 bg-line" />
           <ThemeToggle />
         </nav>
       </div>
-    </header>
+    </HeaderFrame>
   );
 }
 
+/** Full-width dark band; the content stays in the page column. */
 export function SiteFooter() {
   return (
-    <footer className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col gap-4 border-t border-line py-8 font-mono text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+    <footer className="on-dark bg-[#17040a] text-muted">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 font-mono text-xs sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
         <div className="flex flex-col gap-1">
           <p>© 2026 {site.name}</p>
           <p>{site.location}</p>
