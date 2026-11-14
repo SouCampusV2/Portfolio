@@ -924,6 +924,12 @@ export const site = {
         },
         {
           heading: "What is next",
+          bullets: [
+            "Better tools and new ones: paths, more kinds of rocks and other terrain.",
+            "Protection, so the add-on cannot be shared freely.",
+            "Publishing on Modrinth or a similar platform, with updates through it.",
+            "One jar that works on every Minecraft and Axiom version.",
+          ],
           body: [
             "4 builders have already asked about the tools. I plan to sell SouTools once it is in good shape, and I am working out how to sell and promote it, and whether it is worth it.",
           ],
