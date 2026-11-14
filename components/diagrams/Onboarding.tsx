@@ -1,6 +1,4 @@
-import type { Icon } from "@phosphor-icons/react";
 import {
-  ArrowBendDownRight,
   ArrowDown,
   ArrowRight,
   ArrowsClockwise,
@@ -16,6 +14,7 @@ import {
   Signature,
 } from "@phosphor-icons/react/dist/ssr";
 import { TechIcon } from "@/components/TechIcon";
+import { Chain, Frame, Lane, Module, mono } from "./parts";
 
 /**
  * Diagrams for the onboarding-automation case study, redrawn from the thesis
@@ -28,18 +27,6 @@ import { TechIcon } from "@/components/TechIcon";
  * The offboarding chart (thesis p. 22) is deliberately not drawn: it shows a
  * security gap at the company.
  */
-
-const mono = "font-mono text-[0.65rem] font-medium uppercase tracking-[0.14em]";
-
-/** Drawing-paper frame shared by the three diagrams. */
-function Frame({ children, label }: { children: React.ReactNode; label: string }) {
-  return (
-    <div role="img" aria-label={label} className="paper-grid overflow-hidden rounded-xl border border-line p-4 sm:p-6">
-      {/* Everything inside is described by aria-label; the parts are visual. */}
-      <div aria-hidden="true">{children}</div>
-    </div>
-  );
-}
 
 const down = <ArrowDown weight="bold" className="size-3.5 text-accent" />;
 
@@ -214,78 +201,6 @@ export function OnboardingAsIs() {
 }
 
 /* ─────────────────────────── 2. After: the n8n workflow ─────────────────────────── */
-
-type Node = { label: string; tech?: string; icon?: Icon; trigger?: boolean };
-
-/** One n8n node: icon tile + label, like the editor's canvas. */
-function NodeBox({ node }: { node: Node }) {
-  const Glyph = node.icon;
-  return (
-    <span
-      className={`flex items-center gap-2 rounded-lg border bg-surface px-2 py-1.5 text-[0.72rem] font-medium leading-tight shadow-sm md:min-h-[4.5rem] md:w-[8.25rem] md:flex-col md:items-start md:gap-1.5 md:p-2 ${
-        node.trigger ? "border-accent/70 ring-1 ring-accent/30" : "border-line"
-      }`}
-    >
-      <span className="grid size-6 shrink-0 place-items-center rounded-md border border-line bg-bg">
-        {node.tech ? (
-          <TechIcon name={node.tech} className="size-3.5" />
-        ) : Glyph ? (
-          <Glyph weight="bold" className={`size-3.5 ${node.trigger ? "text-accent" : "text-ink/70"}`} />
-        ) : null}
-      </span>
-      {node.label}
-    </span>
-  );
-}
-
-/**
- * A chain of nodes. From `md` up: one row, never wrapped (it scrolls inside the
- * module if it must). Below: a column with arrows down.
- */
-function Chain({ nodes }: { nodes: Node[] }) {
-  return (
-    <ol className="flex flex-col items-start md:flex-row md:items-stretch">
-      {nodes.map((node, i) => (
-        <li key={node.label} className="flex flex-col items-start md:flex-row md:items-center">
-          {i > 0 && (
-            <span className="flex py-0.5 pl-3 text-accent md:px-1 md:py-0 md:pl-1">
-              <ArrowDown weight="bold" className="size-3.5 md:hidden" />
-              <ArrowRight weight="bold" className="hidden size-3.5 md:block" />
-            </span>
-          )}
-          <NodeBox node={node} />
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-function Module({ index, title, note, children }: { index: string; title: string; note: string; children: React.ReactNode }) {
-  return (
-    <section className="rounded-lg border border-line bg-bg/85 p-3 sm:p-4">
-      <header className="mb-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className={`${mono} text-accent`}>
-          <span className="text-muted">{index}</span> {title}
-        </p>
-        <p className="text-xs text-muted">{note}</p>
-      </header>
-      <div className="-mx-1 overflow-x-auto px-1 pb-1">{children}</div>
-    </section>
-  );
-}
-
-/** A labelled branch or row: "status: Test task" then its chain. */
-function Lane({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="flex flex-col gap-1.5 md:flex-row md:items-center md:gap-2">
-      <span className={`${mono} inline-flex shrink-0 items-center gap-1.5 text-ink/70 md:w-[7.5rem]`}>
-        <ArrowBendDownRight weight="bold" className="size-3.5 text-accent" />
-        {label}
-      </span>
-      {children}
-    </div>
-  );
-}
 
 export function OnboardingN8n() {
   return (
