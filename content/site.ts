@@ -682,6 +682,9 @@ export const site = {
       { src: "/projects/soucampus-portfolio.webp", alt: "Portfolio of Minecraft builds", caption: "Portfolio" },
       { src: "/projects/soucampus-marketplace.webp", alt: "Marketplace with category filters and listings", caption: "Marketplace" },
       { src: "/projects/soucampus-listing.webp", alt: "Sky Cathedral listing with price and checkout", caption: "Listing & checkout" },
+      { src: "/projects/soucampus-profile.webp", alt: "Public creator profile with maps, sales count and rating", caption: "Creator profile" },
+      { src: "/projects/soucampus-wiki.webp", alt: "Wiki with guides for installing and using the maps", caption: "Wiki" },
+      { src: "/projects/soucampus-update.webp", alt: "A changelog post about live notifications", caption: "Changelog" },
     ],
   },
 

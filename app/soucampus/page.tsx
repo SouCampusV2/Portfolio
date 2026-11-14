@@ -170,8 +170,9 @@ export default function SouCampusCaseStudy() {
 
           <Section id="screens" label="Screens">
             <div className="grid gap-5 sm:grid-cols-2">
-              {cs.gallery.map((g) => (
-                <Reveal key={g.src}>
+              {/* The first screen is wide, the rest go in pairs. */}
+              {cs.gallery.map((g, i) => (
+                <Reveal key={g.src} className={i === 0 ? "sm:col-span-2" : ""}>
                   <figure>
                     <div className="relative aspect-[16/10] w-full max-w-full overflow-hidden rounded-xl border border-line bg-line">
                       <Image
@@ -179,7 +180,7 @@ export default function SouCampusCaseStudy() {
                         alt={g.alt}
                         fill
                         quality={92}
-                        sizes="(min-width: 640px) 720px, 100vw"
+                        sizes={i === 0 ? "(min-width: 640px) 1440px, 100vw" : "(min-width: 640px) 720px, 100vw"}
                         className="object-cover object-top"
                       />
                     </div>
