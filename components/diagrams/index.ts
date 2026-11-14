@@ -1,5 +1,7 @@
 import type { DiagramId } from "@/content/site";
 import { BOTCAMPUS_DIAGRAMS } from "./BotCampus";
+import { CMI_DIAGRAMS } from "./Cmi";
+import { CROSSDESK_DIAGRAMS } from "./Crossdesk";
 import { ONBOARDING_DIAGRAMS } from "./Onboarding";
 import { SOUTOOLS_DIAGRAMS } from "./SouTools";
 
@@ -8,4 +10,6 @@ export const DIAGRAMS: Record<DiagramId, () => React.JSX.Element> = {
   ...ONBOARDING_DIAGRAMS,
   ...BOTCAMPUS_DIAGRAMS,
   ...SOUTOOLS_DIAGRAMS,
+  ...CMI_DIAGRAMS,
+  ...CROSSDESK_DIAGRAMS,
 };
