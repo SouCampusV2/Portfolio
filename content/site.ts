@@ -465,8 +465,8 @@ export const site = {
     },
     {
       level: "Learning now",
-      note: "Since October 2026",
-      items: ["Java", "Spring Boot"],
+      note: "Java and Spring Boot since October 2026",
+      items: ["Java", "Spring Boot", "Kubernetes"],
     },
   ],
 
@@ -511,7 +511,7 @@ export const site = {
     },
     {
       category: "Tools & Deployment",
-      items: ["Git", "GitHub", "GitHub Actions", "npm", "Docker", "Vercel"],
+      items: ["Git", "GitHub", "GitHub Actions", "npm", "Docker", "Kubernetes", "Vercel"],
     },
   ] satisfies TechGroup[] as TechGroup[],
 
@@ -571,6 +571,7 @@ export const site = {
     "Vue.js": { level: "familiar", note: "Tried it; React is my main framework" },
     MySQL: { level: "familiar", note: "Learned earlier; PostgreSQL is my main database" },
     SQLite: { level: "familiar", note: "Learned earlier; small projects" },
+    Kubernetes: { level: "familiar", note: "Learning now" },
     Docker: { level: "familiar", note: "Learned the basics; not in production yet" },
     "GitHub Actions": { level: "familiar", note: "Basic CI workflows" },
     "Make.com": { level: "familiar", note: "Evaluated against n8n and Zapier in my thesis" },
