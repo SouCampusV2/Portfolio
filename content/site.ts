@@ -97,7 +97,14 @@ export type CaseSection = {
 };
 
 /** Diagrams drawn in code; the map from id to component is in components/diagrams. */
-export type DiagramId = "onboarding-as-is" | "onboarding-n8n" | "onboarding-data-flow";
+export type DiagramId =
+  | "onboarding-as-is"
+  | "onboarding-n8n"
+  | "onboarding-data-flow"
+  | "botcampus-order-flow"
+  | "botcampus-system"
+  | "soutools-use"
+  | "soutools-release";
 
 /** A picture in a case study. Opens at full size on click. */
 export type CaseFigure = { src: string; alt: string; caption: string; width: number; height: number };
@@ -351,6 +358,7 @@ export const site = {
     },
     {
       slug: "botcampus",
+      caseStudy: "/projects/botcampus",
       title: "BotCampus",
       // Private repository SouCampusV2/soucampusBot. The code was not written by
       // hand: say "designed and run", never "wrote" (brief, rule 2).
@@ -380,8 +388,11 @@ export const site = {
         ["What", "About ten tools for shaping landscape"],
         ["Platform", "Java add-on for the Axiom editor (Fabric)"],
         ["Releases", "Built and released through GitHub Actions, with auto-update"],
+        ["Stack", "Java 21, Fabric, Axiom API, GitHub Actions"],
+        ["Interest", "4 builders have asked about it"],
       ],
-      tags: ["Java", "GitHub Actions"],
+      tags: ["Java", "Fabric", "GitHub Actions", "Python", "PowerShell"],
+      caseStudy: "/projects/soutools",
       media: {
         kind: "list",
         label: "Axiom add-on",
@@ -530,7 +541,7 @@ export const site = {
     },
     {
       category: "Backend & Languages",
-      items: ["Node.js", "REST APIs", "GraphQL", "Zod", "Stripe", "Python", "PHP", "C#", "C++"],
+      items: ["Node.js", "REST APIs", "GraphQL", "Zod", "Stripe", "Java", "Spring Boot", "Python", "PHP", "C#", "C++"],
     },
     {
       category: "Databases",
@@ -558,11 +569,11 @@ export const site = {
     },
     {
       category: "Games & Content",
-      items: ["Level design", "Multiplayer servers", "TikTok", "Content creation"],
+      items: ["Level design", "Multiplayer servers", "Fabric", "TikTok", "Content creation"],
     },
     {
       category: "Tools & Deployment",
-      items: ["Git", "GitHub", "GitHub Actions", "npm", "Docker", "Kubernetes", "Vercel"],
+      items: ["Git", "GitHub", "GitHub Actions", "npm", "Docker", "Kubernetes", "PowerShell", "Vercel"],
     },
   ] satisfies TechGroup[] as TechGroup[],
 
@@ -632,6 +643,10 @@ export const site = {
     Rive: { level: "familiar", note: "Explored for animations on the proceedit site" },
     Spline: { level: "familiar", note: "Built a 3D model for the proceedit site" },
     YouScan: { level: "familiar", note: "Media analysis at Sayara International, 2023" },
+    Java: { level: "familiar", note: "Learning since October 2026; SouTools is written in Java" },
+    "Spring Boot": { level: "familiar", note: "Learning since October 2026" },
+    Fabric: { level: "familiar", note: "The Minecraft mod loader SouTools runs on" },
+    PowerShell: { level: "familiar", note: "The Windows auto-update task of SouTools" },
     "Claude API": { level: "familiar", note: "Built into Crossdesk: the agents that check the fit" },
     Zod: { level: "familiar", note: "Validation in the Crossdesk code base" },
     Tavily: { level: "familiar", note: "Fallback website reader in Crossdesk (set up by a teammate)" },
@@ -766,6 +781,151 @@ export const site = {
           body: [
             "HR admin time per candidate went from 24 to 2 minutes, a 91.6% cut. The only manual step left is reading the CV.",
             "It is an MVP: it covers intake, pre-boarding and IT setup, not yet the whole employee lifecycle.",
+          ],
+        },
+      ],
+    },
+
+    botcampus: {
+      title: "BotCampus",
+      tagline:
+        "A Discord bot that runs SouCampus build orders, from the first ticket to the client's review. I designed it and run it on my own server.",
+      facts: [
+        { label: "My part", value: "Idea, order flow, features; I run it" },
+        { label: "Stack", value: "Node.js, discord.js, SQLite" },
+        { label: "Checked", value: "175 automated tests, CI" },
+        { label: "Result", value: "3 orders handled" },
+      ],
+      sections: [
+        {
+          heading: "Why I started it",
+          body: [
+            "Most clients and Minecraft builders have talked in Discord for years. It is where server owners, the people who buy builds, already are. So an order should start and end there, not in a form on another website.",
+            "The idea is old. Over a couple of years I tried to write such a bot myself several times. BotCampus, started in July 2026, is the version that works.",
+          ],
+        },
+        {
+          heading: "My role",
+          body: [
+            "I designed the bot: the order flow, every step and button, who may do what, and how it talks to the website. I test it live on the SouCampus server and run it on my own VPS. The code was written to my specification; I am now going through it module by module so I can explain and change any part of it.",
+          ],
+        },
+        {
+          heading: "How an order moves",
+          body: [
+            "Each order is a ticket with one status. Builders compete with quotes, the client chooses, a manager confirms the payment, and the client reviews the work at the end.",
+          ],
+          diagrams: [{ id: "botcampus-order-flow", caption: "One order, ticket to review. Red captions are the saved statuses" }],
+        },
+        {
+          heading: "How it is built",
+          body: [
+            "A small Node.js process with a SQLite database. Every button carries an ID; one router sends each click to its handler.",
+          ],
+          diagrams: [{ id: "botcampus-system", caption: "One button press, what reacts to it, and the link to the website" }],
+        },
+        {
+          heading: "Key design choices",
+          points: [
+            {
+              title: "One status, one table of moves",
+              text: "A ticket has one status column, and a table says which status can follow which. The move is a single SQL update with the allowed statuses in the condition, so a double click cannot confirm a payment twice.",
+            },
+            {
+              title: "Every button is a public door",
+              text: "Discord does not check who presses a button. So each handler first checks the person: the client of this ticket, or a manager by the role set on the server, never by a role name.",
+            },
+            {
+              title: "Time lives in the database",
+              text: "Reminders and deleting closed channels are dates in the database, checked on a schedule. A restart loses nothing; a failed step runs again on the next pass.",
+            },
+            {
+              title: "A queue to the website",
+              text: "Reviews and portfolio drafts go to soucampus.online only with the client's consent, through a queue. Every request is signed, failed ones are retried with growing pauses.",
+            },
+          ],
+        },
+        {
+          heading: "How it is checked",
+          bullets: [
+            "175 automated tests run on fake Discord objects and an in-memory database; every new handler gets a test that an outsider is refused.",
+            "GitHub Actions runs them on Node 22 and 24 on every push.",
+            "Live runs on the server: the first real order went from the form to a confirmed payment in November 2026.",
+          ],
+        },
+        {
+          heading: "What is next",
+          bullets: [
+            "Orders paid 50/50: today the bot knows one payment status; the second half should be its own step.",
+            "Switch on the bot-to-website bridge on the server; the code is ready.",
+            "A team of builders, so orders go to quotes instead of being taken by me.",
+          ],
+        },
+        {
+          heading: "Result",
+          body: [
+            "3 orders handled through the bot so far. It runs 24/7 on my VPS in Docker, with a daily database backup.",
+          ],
+        },
+      ],
+    },
+    soutools: {
+      title: "SouTools",
+      tagline:
+        "An add-on for the Axiom editor in Minecraft with about ten terrain tools. I designed them for my own landscape work.",
+      facts: [
+        { label: "My part", value: "Tool design, settings, testing in my builds" },
+        { label: "Stack", value: "Java 21, Fabric, Axiom API" },
+        { label: "Releases", value: "GitHub Actions, auto-update" },
+        { label: "Interest", value: "4 builders asked about it" },
+      ],
+      sections: [
+        {
+          heading: "Why I made it",
+          body: [
+            "I build landscapes for clients. Floating rocks, reefs, bushes and rock formations are slow to build block by block in Axiom, the editor builders use. I wanted tools made for exactly these shapes.",
+            "So I designed tools that build them from a few points and a handful of settings, and I use them in my own builds.",
+          ],
+        },
+        {
+          heading: "My role",
+          body: [
+            "I designed every tool: the shapes, the settings and their limits, the presets, and how they behave in Axiom. I test them in real builds. The code was written to my specification.",
+          ],
+        },
+        {
+          heading: "The tools",
+          points: [
+            { title: "Floating Rock", text: "Floating islands and rock spikes from hanging columns, with a rounded version that bends and smooths into boulders." },
+            { title: "Carved Rock and Mesa Rock", text: "Rock formations rebuilt from reference builds: tilted plates, terraces, grooves and cuts." },
+            { title: "Twist Spline", text: "A twisted shape swept along points: horns, tentacles, arches." },
+            { title: "Ocean Floor", text: "Decorates existing water like the game does: seagrass, kelp, corals, sea pickles." },
+            { title: "Water Surface and Bushes", text: "Lily pads and petals on water; layered leaf bushes with tall plants, only on the chosen ground." },
+            { title: "Palette Brush", text: "Repaints a build dark to light with a block palette and keeps every stair, slab and rotation." },
+          ],
+        },
+        {
+          heading: "How a builder uses it",
+          diagrams: [{ id: "soutools-use", caption: "One tool, inside Axiom's own editor" }],
+        },
+        {
+          heading: "How releases work",
+          body: [
+            "Builders should never install an update by hand. Every push builds a new release, and the add-on updates itself.",
+          ],
+          diagrams: [{ id: "soutools-release", caption: "From a push to an updated game" }],
+        },
+        {
+          heading: "How it is checked",
+          bullets: [
+            "The build fails if the code calls anything in Axiom or Minecraft that does not exist in the target version.",
+            "I try the tools in my own builds.",
+          ],
+        },
+        {
+          heading: "What is next",
+          body: [
+            "4 builders have already asked about the tools. I plan to sell SouTools once it is in good shape, and I am working out how to sell and promote it, and whether it is worth it.",
           ],
         },
       ],
