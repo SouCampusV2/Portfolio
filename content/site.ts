@@ -666,14 +666,14 @@ export const site = {
     // Proof for the Performance section. Re-shoot when the site changes.
     lighthouse: [
       {
-        src: "/projects/soucampus-lighthouse-desktop.webp",
+        src: "/projects/soucampus-lh-desktop.webp",
         alt: "Lighthouse report for soucampus.online, desktop: performance 99, accessibility 96, best practices 100, SEO 100",
-        caption: "Desktop: 99 · LCP 0.6 s · CLS 0",
+        caption: "Desktop · Performance 99 · Accessibility 96 · Best practices 100 · SEO 100",
       },
       {
-        src: "/projects/soucampus-lighthouse-mobile.webp",
+        src: "/projects/soucampus-lh-mobile.webp",
         alt: "Lighthouse report for soucampus.online, mobile: performance 93, accessibility 96, best practices 100, SEO 100",
-        caption: "Mobile: 93 · LCP 3.1 s · CLS 0",
+        caption: "Mobile · Performance 93 · Accessibility 96 · Best practices 100 · SEO 100",
       },
     ],
     gallery: [
