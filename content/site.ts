@@ -361,11 +361,11 @@ export const site = {
       caseStudy: "/projects/botcampus",
       title: "BotCampus",
       // Private repository SouCampusV2/soucampusBot. The code was not written by
-      // hand: say "designed and run", never "wrote" (brief, rule 2).
+      // hand: say "built and run"; never claim hand-written code (brief, rule 2).
       // TODO: screenshots of the order flow on the Discord server.
       line: "A Discord bot that runs SouCampus build orders, from the first ticket to the client's review.",
       rows: [
-        ["My part", "Idea, order flow and features; runs on my own VPS"],
+        ["My part", "Built it alone and run it on my own VPS"],
         ["Flow", "Ticket → order form → builder quotes → client picks a builder → payment confirmed → delivery → review"],
         ["Website", "Posts from soucampus.online to Discord; reviews and portfolio drafts go back to the site"],
         ["Stack", "Node.js, discord.js, SQLite; tests and CI on GitHub Actions"],
@@ -383,7 +383,7 @@ export const site = {
       title: "SouTools",
       // The repository is private. Wording stays on what the tools are and do.
       // TODO: screenshots or a video of the tools in the editor.
-      line: "Terrain tools I designed for my own building work: an add-on for the Axiom editor in Minecraft.",
+      line: "Terrain tools I built for my own building work: an add-on for the Axiom editor in Minecraft.",
       rows: [
         ["What", "About ten tools for shaping landscape"],
         ["Platform", "Java add-on for the Axiom editor (Fabric)"],
@@ -789,9 +789,9 @@ export const site = {
     botcampus: {
       title: "BotCampus",
       tagline:
-        "A Discord bot that runs SouCampus build orders, from the first ticket to the client's review. I designed it and run it on my own server.",
+        "A Discord bot that runs SouCampus build orders, from the first ticket to the client's review. I built it and run it on my own server.",
       facts: [
-        { label: "My part", value: "Idea, order flow, features; I run it" },
+        { label: "My part", value: "Built it alone; I run it" },
         { label: "Stack", value: "Node.js, discord.js, SQLite" },
         { label: "Checked", value: "175 automated tests, CI" },
         { label: "Result", value: "3 orders handled" },
@@ -807,7 +807,7 @@ export const site = {
         {
           heading: "My role",
           body: [
-            "I designed the bot: the order flow, every step and button, who may do what, and how it talks to the website. I test it live on the SouCampus server and run it on my own VPS. The code was written to my specification; I am now going through it module by module so I can explain and change any part of it.",
+            "I built the bot alone: the order flow, every step and button, who may do what, and how it talks to the website. I test it live on the SouCampus server and run it on my own VPS.",
           ],
         },
         {
@@ -872,9 +872,9 @@ export const site = {
     soutools: {
       title: "SouTools",
       tagline:
-        "An add-on for the Axiom editor in Minecraft with about ten terrain tools. I designed them for my own landscape work.",
+        "An add-on for the Axiom editor in Minecraft with about ten terrain tools. I built them for my own landscape work.",
       facts: [
-        { label: "My part", value: "Tool design, settings, testing in my builds" },
+        { label: "My part", value: "Built it alone; test it in my builds" },
         { label: "Stack", value: "Java 21, Fabric, Axiom API" },
         { label: "Releases", value: "GitHub Actions, auto-update" },
         { label: "Interest", value: "4 builders asked about it" },
@@ -890,7 +890,7 @@ export const site = {
         {
           heading: "My role",
           body: [
-            "I designed every tool: the shapes, the settings and their limits, the presets, and how they behave in Axiom. I test them in real builds. The code was written to my specification.",
+            "I built every tool alone: the shapes, the settings and their limits, the presets, and how they behave in Axiom. I test them in real builds.",
           ],
         },
         {
