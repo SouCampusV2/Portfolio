@@ -104,7 +104,11 @@ export type DiagramId =
   | "botcampus-order-flow"
   | "botcampus-system"
   | "soutools-use"
-  | "soutools-release";
+  | "soutools-release"
+  | "cmi-delivery"
+  | "cmi-data-model"
+  | "crossdesk-flow"
+  | "crossdesk-directory";
 
 /** A picture in a case study. Opens at full size on click. */
 export type CaseFigure = { src: string; alt: string; caption: string; width: number; height: number };
@@ -266,18 +270,19 @@ export const site = {
       title: "CMI mobile app",
       flagship: true,
       // What CMI is: from its App Store / Google Play listing and proceedit.shop.
-      line: "Continuous Market Insights: market analytics on a phone, made at proceedit. I led the front end and built screens myself.",
+      line: "Continuous Market Insights: market analytics on a phone, made at proceedit. I designed and built the front end and worked out the new database with the backend developer.",
       rows: [
-        ["Role", "Front end lead; built screens myself"],
+        ["Role", "Design and front end; database design with the backend developer"],
         ["Period", "From June 2025"],
         ["Stack", "Flutter, FlutterFlow"],
-        ["Team's part", "Backend, REST / GraphQL APIs and database, mostly"],
+        ["Team", "About 8–10 people over time"],
         ["Pace", "First working version in 6 months"],
         ["Shipped", "App Store and Google Play, March 2026"],
         ["Result", "~200 registered users"],
       ],
       tags: ["FlutterFlow", "Flutter", "PostgreSQL", "GraphQL", "Google Play", "App Store"],
       link: { label: "App Store", href: "https://apps.apple.com/us/app/cmi-ai-driven-market-analysis/id6754933246" },
+      caseStudy: "/projects/cmi",
       moreLinks: [
         {
           label: "Google Play",
@@ -301,16 +306,17 @@ export const site = {
       flagship: true,
       line: "B2B matching where each side's figures stay private. A working MVP in 2 days at a hackathon, in a team of three.",
       rows: [
-        ["My part", "Database (Supabase, RLS), website scraping, sign-in, part of the fit scoring"],
+        ["My part", "Design and front end, sign-in, the company directory with its RLS, many product ideas"],
         ["Event", "Vibe Sprint 2026 (Startup Garage), 18–19 Sep 2026"],
         ["Team", "Three people"],
         ["Stack", "Next.js, TypeScript, Supabase, Claude API"],
-        ["Result", "Working MVP in 2 days"],
-        ["Now", "IGNITER pre-accelerator"],
+        ["Result", "Working MVP in 2 days; 4th in our category"],
+        ["After", "IGNITER pre-accelerator; paused now"],
       ],
       tags: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Supabase", "Claude API", "Tavily", "Stripe", "Zod", "Vercel"],
       badge: "MVP",
       link: { label: "Live demo", href: "https://crossdeskmatch.vercel.app/" },
+      caseStudy: "/projects/crossdesk",
       media: {
         kind: "video",
         src: "/projects/crossdesk-hd.mp4",
@@ -463,11 +469,11 @@ export const site = {
           role: "Frontend Supervisor",
           period: "Aug 2025 – Mar 2026",
           highlights: [
-            "Led the front end of the CMI mobile app and kept building screens myself in Flutter and FlutterFlow.",
+            "Designed and built the front end of the CMI mobile app in Flutter and FlutterFlow, with one other designer and two other developers.",
             "First working version in December 2025, 6 months after the start.",
             "Legal compliance work around August–September 2025: reworked many sections of the company website.",
             "Put the documentation in order: wrote usage docs and FlutterFlow tutorials so new interns could start on their own.",
-            "Took part in backend architecture decisions; the backend, REST / GraphQL APIs and database were mostly the team's work.",
+            "Worked out the new database with the backend developer: real users, credit accounts and subscriptions instead of duplicated data; the backend code was mostly theirs.",
           ],
         },
         {
@@ -932,6 +938,168 @@ export const site = {
           ],
           body: [
             "4 builders have already asked about the tools. I plan to sell SouTools once it is in good shape, and I am working out how to sell and promote it, and whether it is worth it.",
+          ],
+        },
+      ],
+    },
+
+    cmi: {
+      title: "CMI mobile app",
+      tagline:
+        "Continuous Market Insights: proceedit's AI market analysis on a phone. I designed and built the front end and worked out the new database with the backend developer.",
+      facts: [
+        { label: "My part", value: "Design, front end, database design" },
+        { label: "Stack", value: "Flutter, FlutterFlow" },
+        { label: "Shipped", value: "App Store and Google Play, March 2026" },
+        { label: "Result", value: "~200 registered accounts" },
+      ],
+      sections: [
+        {
+          heading: "The problem",
+          body: [
+            "proceedit already had an AI analysis of markets: stocks, Bitcoin and more. People could only read it in a browser or wait for the email.",
+            "The app brings it to the phone: insights, push notifications the moment something happens, the balance and the account in one place. Buying and selling inside the app was the next step, but it needs licences, so it was not shipped.",
+          ],
+          diagrams: [{ id: "cmi-delivery", caption: "From browser and email to a phone app with push notifications" }],
+        },
+        {
+          heading: "My role",
+          body: [
+            "About 8–10 people worked on CMI over time. I was in the core of it from June 2025:",
+          ],
+          bullets: [
+            "Designed the screens together with one other designer",
+            "Built the front end with two other developers",
+            "Planned the product with a colleague",
+            "Worked out with the backend developer how the backend and the database should work",
+            "From March 2026, as Head of the Application Unit, ran the team of up to 10 people",
+          ],
+        },
+        {
+          heading: "The database rework",
+          body: [
+            "The data model we inherited did not fit the product. Tables were badly linked, the same data sat in many places, and some data was missing. There were no real users either, only one-time payments.",
+            "Credits and subscriptions needed real accounts, so the schema was redesigned around them.",
+          ],
+          diagrams: [{ id: "cmi-data-model", caption: "Before and after the rework" }],
+        },
+        {
+          heading: "Decisions",
+          points: [
+            {
+              title: "One place for each fact",
+              text: "Users, credit accounts and subscriptions became separate, linked tables. No copies of the same data, so a balance cannot disagree with itself.",
+            },
+            {
+              title: "The right tool for each platform",
+              text: "Flutter and FlutterFlow were chosen before the team, so the app would run everywhere. I argued that each platform should get its own tool, React for the web, and agreed it with the company owner shortly before I left.",
+            },
+            {
+              title: "First month free",
+              text: "New users got a free month, then a monthly charge in credits based on how much they used.",
+            },
+          ],
+        },
+        {
+          heading: "How we checked it",
+          bullets: [
+            "TestFlight builds on iOS and manual runs on Android before every store release.",
+            "No automated tests: we did not find a good way to test FlutterFlow screens. That is the first thing I would change.",
+          ],
+        },
+        {
+          heading: "What I would do differently",
+          bullets: [
+            "React Native instead of Flutter and FlutterFlow.",
+            "Get the licence early: without it the app cannot do the most useful thing, buying and selling.",
+            "A plain monthly subscription instead of credits.",
+            "Automated tests from the first screen.",
+          ],
+        },
+        {
+          heading: "Result",
+          body: [
+            "The first working version in 6 months (June – December 2025), on the App Store and Google Play since March 2026, about 200 registered accounts.",
+          ],
+          figures: [
+            {
+              src: "/projects/cmi-themes.webp",
+              alt: "CMI app in light and dark themes, from the store listing",
+              caption: "From the store listing: light and dark themes",
+              width: 1280,
+              height: 720,
+            },
+          ],
+        },
+      ],
+    },
+    crossdesk: {
+      title: "Crossdesk",
+      tagline:
+        "Private B2B matching: companies describe their services in public and their problems in private, AI agents check the fit, and people meet only when the terms fit. Built in a team of three in two days.",
+      facts: [
+        { label: "My part", value: "Design, front end, sign-in, directory" },
+        { label: "Event", value: "Vibe Sprint 2026, 18–19 Sep" },
+        { label: "Team", value: "Three people" },
+        { label: "Result", value: "MVP in 2 days, 4th in category" },
+      ],
+      sections: [
+        {
+          heading: "The problem",
+          body: [
+            "A big company sometimes needs help fast, for example when its servers go down. It cannot ask in public: the news alone can hurt its sales and its share price. So it asks people it knows, and hopes.",
+            "A small company has the opposite problem. It can help, but nobody reads its cold emails.",
+            "Crossdesk connects the two in private. The buyer describes the problem, the platform finds vendors that fit by their reviews and scores, and nobody sees the problem until both sides agree.",
+          ],
+        },
+        {
+          heading: "My role",
+          body: [
+            "We built it at a hackathon in a team of three. Many of the product ideas were mine. In the code, from the commit history of the public repository:",
+          ],
+          bullets: [
+            "Design: the look, the design system, the logo, and design labs we tried and later removed",
+            "Front end: sign-in and sign-up with Google, password reset, onboarding, the dashboard, the problem screens, the landing page, terms and privacy pages",
+            "Back end: page protection and the sign-in flow, the company profile actions",
+            "The company directory: its database table with its access rule (RLS) and the website reader behind it",
+          ],
+        },
+        {
+          heading: "How it works",
+          diagrams: [
+            { id: "crossdesk-flow", caption: "One company's path. Red captions are my part" },
+            { id: "crossdesk-directory", caption: "The company directory: all of it is my part" },
+          ],
+        },
+        {
+          heading: "Decisions",
+          points: [
+            {
+              title: "Read the website instead of a long form",
+              text: "Sign-up asks three things. The company pastes its website, and the reader fills the rest of the profile: city, size, languages, logo, services. The user only adds what the site did not say.",
+            },
+            {
+              title: "A directory before anyone joins",
+              text: "An empty marketplace is useless. The directory shows real companies read off their public sites, so a new member has something to browse on day one. These companies never take part in matching.",
+            },
+            {
+              title: "Read by members, written by the server",
+              text: "Everything in the directory is already public, so every signed-in user may read it. Only the server may write, which the database itself enforces with row-level security.",
+            },
+          ],
+        },
+        {
+          heading: "What I would do differently",
+          bullets: [
+            "Prepare before the event. We had the idea early but no documents, no screen list, no flow; drawing those first would have saved hours.",
+            "Record a short demo video. We clicked through the live site, and the jury's only advice was a sharper demo.",
+            "A separate backend service for the private data. Row-level security works, but for data this sensitive I would keep the front end and the back end fully apart.",
+          ],
+        },
+        {
+          heading: "Result",
+          body: [
+            "A working MVP in two days, live on Vercel. 4th place in our category, where the top three went on; the jury liked the product. After the event the project went through the IGNITER pre-accelerator and is paused now.",
           ],
         },
       ],
