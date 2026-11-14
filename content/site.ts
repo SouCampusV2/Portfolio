@@ -345,8 +345,8 @@ export const site = {
       },
     },
     {
-      slug: "bocampus",
-      title: "BoCampus",
+      slug: "botcampus",
+      title: "BotCampus",
       // Private repository SouCampusV2/soucampusBot. The code was not written by
       // hand: say "designed and run", never "wrote" (brief, rule 2).
       // TODO: screenshots of the order flow on the Discord server.
