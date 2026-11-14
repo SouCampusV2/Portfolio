@@ -96,6 +96,9 @@ export type CaseSection = {
   planned?: boolean;
 };
 
+/** Diagrams drawn in code; the map from id to component is in components/diagrams. */
+export type DiagramId = "onboarding-as-is" | "onboarding-n8n" | "onboarding-data-flow";
+
 /** A picture in a case study. Opens at full size on click. */
 export type CaseFigure = { src: string; alt: string; caption: string; width: number; height: number };
 
@@ -117,6 +120,8 @@ export type CaseStudy = {
     points?: { title: string; text: string }[];
     table?: { head: string[]; rows: string[][]; foot?: string[] };
     figures?: CaseFigure[];
+    /** Diagrams drawn in code (components/diagrams), by id. */
+    diagrams?: { id: DiagramId; caption: string }[];
   }[];
 };
 
@@ -673,15 +678,7 @@ export const site = {
             "The company is a fintech of 50–100 people that hires three to ten people a month. Hiring ran by hand across email, Google Forms, one shared Google Sheet and Jira.",
             "Nothing sent alerts. HR had to watch the inbox for new applications, write every email, book interviews, prepare contracts and create accounts. Applications got missed, and new hires waited for access in their first days.",
           ],
-          figures: [
-            {
-              src: "/projects/onboarding-as-is.webp",
-              alt: "Flowchart of the manual hiring process: application, screening, HR and technical interviews, test task, contract and onboarding, every step done by HR by hand",
-              caption: "Before: every step is a manual HR task",
-              width: 2257,
-              height: 1193,
-            },
-          ],
+          diagrams: [{ id: "onboarding-as-is", caption: "Before: seven phases, almost every step done by HR by hand" }],
         },
         {
           heading: "My role",
@@ -715,21 +712,9 @@ export const site = {
               text: "Once a day the workflow picks up new hires. It creates the Jira user through the REST API, clones the onboarding tickets, tells the supervisor, shares the Drive folders and sends the welcome email. After seven days it adds the recurring team meetings.",
             },
           ],
-          figures: [
-            {
-              src: "/projects/onboarding-n8n.webp",
-              alt: "The n8n workflow in three rows: intake from Gmail with an AI agent, routing by status, and the daily IT setup with Jira and Google Drive",
-              caption: "The workflow in n8n: intake, pre-boarding, IT setup",
-              width: 1302,
-              height: 1304,
-            },
-            {
-              src: "/projects/onboarding-data-flow.webp",
-              alt: "Data flow: email and Google Forms go into n8n, n8n stores data in Google Sheets and acts in Gmail, Google Calendar, Jira and Google Drive",
-              caption: "Data flow: Google Sheets is the single source of truth",
-              width: 1502,
-              height: 668,
-            },
+          diagrams: [
+            { id: "onboarding-n8n", caption: "The workflow in n8n: intake, pre-boarding, IT setup" },
+            { id: "onboarding-data-flow", caption: "Data flow: Google Sheets is the single source of truth" },
           ],
         },
         {

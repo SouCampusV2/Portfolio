@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { site, type CaseFigure, type CaseStudy } from "@/content/site";
 import { Reveal } from "@/components/Reveal";
+import { DIAGRAMS } from "@/components/diagrams";
 import { ArrowLeft, ArrowUpRight } from "@/components/ui";
 
 /**
@@ -181,6 +182,20 @@ export default async function CaseStudyPage({ params }: Props) {
                       </tfoot>
                     )}
                   </table>
+                </div>
+              )}
+
+              {section.diagrams && (
+                <div className="mt-8 space-y-8">
+                  {section.diagrams.map(({ id, caption }) => {
+                    const Diagram = DIAGRAMS[id];
+                    return (
+                      <figure key={id}>
+                        <Diagram />
+                        <figcaption className="mt-2 font-mono text-xs text-muted">{caption}</figcaption>
+                      </figure>
+                    );
+                  })}
                 </div>
               )}
 
