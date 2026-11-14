@@ -320,6 +320,27 @@ export const site = {
       },
     },
     {
+      slug: "bocampus",
+      title: "BoCampus",
+      // Private repository SouCampusV2/soucampusBot. The code was not written by
+      // hand: say "designed and run", never "wrote" (brief, rule 2).
+      // TODO: screenshots of the order flow on the Discord server.
+      line: "A Discord bot that runs SouCampus build orders, from the first ticket to the client's review.",
+      rows: [
+        ["My part", "Idea, order flow and features; runs on my own VPS"],
+        ["Flow", "Ticket → order form → builder quotes → client picks a builder → payment confirmed → delivery → review"],
+        ["Website", "Posts from soucampus.online to Discord; reviews and portfolio drafts go back to the site"],
+        ["Stack", "Node.js, discord.js, SQLite; tests and CI on GitHub Actions"],
+        ["Result", "3 orders handled through the bot so far"],
+      ],
+      tags: ["Node.js", "JavaScript", "SQLite", "GitHub Actions"],
+      media: {
+        kind: "list",
+        label: "Order flow in Discord",
+        items: ["Ticket", "Order form", "Quotes", "Pick a builder", "Payment", "Delivery", "Review"],
+      },
+    },
+    {
       slug: "soutools",
       title: "SouTools",
       // The repository is private. Wording stays on what the tools are and do.

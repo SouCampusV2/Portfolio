@@ -297,7 +297,7 @@ function Projects() {
       </div>
 
       <h3 className={`${mono} mt-14 text-muted`}>More work</h3>
-      <ul className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-6 grid gap-6 md:grid-cols-2">
         {more.map((project) => (
           <li key={project.slug}>
             <Reveal className="h-full">
