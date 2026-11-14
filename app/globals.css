@@ -248,6 +248,12 @@ p {
   background-position: -1px -1px;
 }
 
+/* Full-size video viewer (PreviewVideo). */
+.video-dialog::backdrop {
+  background: rgb(10 4 6 / 0.82);
+  backdrop-filter: blur(6px);
+}
+
 /* Dotted leader between a label and its value in fact tables. */
 .leader {
   flex: 1;

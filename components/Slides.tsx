@@ -21,7 +21,8 @@ export function Slides({ images }: { images: { src: string; alt: string }[] }) {
           src={img.src}
           alt={n === i ? img.alt : ""}
           fill
-          sizes="(min-width: 1024px) 720px, 100vw"
+          quality={92}
+          sizes="(min-width: 1024px) 1080px, 100vw"
           className={`object-cover transition-opacity duration-700 ${n === i ? "opacity-100" : "opacity-0"}`}
         />
       ))}

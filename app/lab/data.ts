@@ -67,8 +67,8 @@ export const projects: LabProject[] = [
     link: { label: "soucampus.online", href: "https://soucampus.online" },
     media: {
       kind: "video",
-      src: "/projects/soucampus.mp4",
-      poster: "/projects/soucampus-poster.webp",
+      src: "/projects/soucampus-hd.mp4",
+      poster: "/projects/soucampus-hd-poster.webp",
       alt: "Screen recording: SouCampus landing page, portfolio and marketplace",
     },
   },
@@ -128,8 +128,8 @@ export const projects: LabProject[] = [
     link: { label: "Live demo", href: "https://crossdeskmatch.vercel.app/" },
     media: {
       kind: "video",
-      src: "/projects/crossdesk.mp4",
-      poster: "/projects/crossdesk-poster.webp",
+      src: "/projects/crossdesk-hd.mp4",
+      poster: "/projects/crossdesk-hd-poster.webp",
       alt: "Screen recording: the Crossdesk landing page",
     },
   },

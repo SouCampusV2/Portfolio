@@ -147,7 +147,7 @@ export default function SouCampusCaseStudy() {
                 <Reveal key={shot.src}>
                   <figure>
                     <div className="overflow-hidden rounded-xl border border-line bg-white">
-                      <Image src={shot.src} alt={shot.alt} width={1440} height={1200} sizes="(min-width: 640px) 420px, 100vw" className="h-auto w-full" />
+                      <Image src={shot.src} alt={shot.alt} width={1440} height={1200} quality={92} sizes="(min-width: 640px) 720px, 100vw" className="h-auto w-full" />
                     </div>
                     <figcaption className="mt-2 font-mono text-xs text-muted">{shot.caption}</figcaption>
                   </figure>
@@ -178,7 +178,8 @@ export default function SouCampusCaseStudy() {
                         src={g.src}
                         alt={g.alt}
                         fill
-                        sizes="(min-width: 640px) 420px, 100vw"
+                        quality={92}
+                        sizes="(min-width: 640px) 720px, 100vw"
                         className="object-cover object-top"
                       />
                     </div>

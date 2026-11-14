@@ -269,7 +269,7 @@ function Projects() {
       <div className="space-y-6">
         {flagship.map((project, i) => (
           <Reveal key={project.slug}>
-            <article id={project.slug} className={`${card} grid scroll-mt-24 gap-8 p-6 sm:p-10 lg:grid-cols-[1fr_1.2fr]`}>
+            <article id={project.slug} className={`${card} grid scroll-mt-24 gap-8 p-6 sm:p-10 lg:grid-cols-[0.85fr_1.35fr]`}>
               <div className={i % 2 ? "lg:order-2" : ""}>
                 <div className="flex flex-wrap items-center gap-3">
                   <h3 className="text-4xl font-semibold tracking-[-0.035em] sm:text-5xl">{project.title}</h3>
@@ -495,7 +495,7 @@ function About() {
           <figure className="relative w-48 self-start sm:w-60">
             <div aria-hidden="true" className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-accent" />
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-line">
-              <Image src={site.avatar} alt={`Portrait of ${site.name}`} fill sizes="240px" className="object-cover" />
+              <Image src={site.avatar} alt={`Portrait of ${site.name}`} fill quality={92} sizes="480px" className="object-cover" />
             </div>
           </figure>
           <div>

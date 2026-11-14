@@ -21,7 +21,7 @@ export type Metric = {
 };
 
 /**
- * Project media. Files live in public/projects/. Videos are 16:10, play muted
+ * Project media. Files live in public/projects/. Videos are 16:10 (1920x1200), play muted
  * and looped only while on screen and never autoplay for prefers-reduced-motion.
  */
 export type ProjectMedia =
@@ -220,8 +220,8 @@ export const site = {
       // Screen recording of the live site: landing → portfolio → marketplace.
       media: {
         kind: "video",
-        src: "/projects/soucampus.mp4",
-        poster: "/projects/soucampus-poster.webp",
+        src: "/projects/soucampus-hd.mp4",
+        poster: "/projects/soucampus-hd-poster.webp",
         alt: "Screen recording: SouCampus landing page, then the portfolio, then the marketplace",
       },
     },
@@ -277,8 +277,8 @@ export const site = {
       link: { label: "Live demo", href: "https://crossdeskmatch.vercel.app/" },
       media: {
         kind: "video",
-        src: "/projects/crossdesk.mp4",
-        poster: "/projects/crossdesk-poster.webp",
+        src: "/projects/crossdesk-hd.mp4",
+        poster: "/projects/crossdesk-hd-poster.webp",
         alt: "Screen recording: the animated Crossdesk landing page",
       },
     },
@@ -314,8 +314,8 @@ export const site = {
       link: { label: "proceedit.shop", href: "https://proceedit.shop/" },
       media: {
         kind: "video",
-        src: "/projects/proceedit.mp4",
-        poster: "/projects/proceedit-poster.webp",
+        src: "/projects/proceedit-hd.mp4",
+        poster: "/projects/proceedit-hd-poster.webp",
         alt: "Screen recording: the proceedit website landing page",
       },
     },
@@ -357,8 +357,8 @@ export const site = {
       { label: "TikTok", href: "https://www.tiktok.com/@soucampus" },
     ] satisfies Link[],
     media: {
-      src: "/projects/minecraft.mp4",
-      poster: "/projects/minecraft-poster.webp",
+      src: "/projects/minecraft-hd.mp4",
+      poster: "/projects/minecraft-hd-poster.webp",
       alt: "Screen recording: browsing Minecraft builds in the soucampus.online portfolio",
     },
   },
