@@ -96,6 +96,30 @@ export type CaseSection = {
   planned?: boolean;
 };
 
+/** A picture in a case study. Opens at full size on click. */
+export type CaseFigure = { src: string; alt: string; caption: string; width: number; height: number };
+
+/**
+ * A case study at /projects/[slug]. Same order for every project (brief, section 5):
+ * problem → my role → architecture → decisions → how I checked → what I'd do
+ * differently → result.
+ */
+export type CaseStudy = {
+  title: string;
+  /** One or two sentences under the title; also the page description. */
+  tagline: string;
+  facts: { label: string; value: string }[];
+  sections: {
+    heading: string;
+    body?: string[];
+    bullets?: string[];
+    /** Label / value pairs, e.g. decisions and the reason for each. */
+    points?: { title: string; text: string }[];
+    table?: { head: string[]; rows: string[][]; foot?: string[] };
+    figures?: CaseFigure[];
+  }[];
+};
+
 export type SkillLevel = {
   /** core = used a lot or right now; familiar = learned earlier or only touched. */
   level: "core" | "familiar";
@@ -172,7 +196,7 @@ export const site = {
       label: "Automation",
       value: "24 → 2 min",
       context: "HR admin time per candidate, bachelor's thesis built for proceedit",
-      href: "/#onboarding-automation",
+      href: "/projects/onboarding-automation",
     },
     {
       label: "Speed",
@@ -294,6 +318,7 @@ export const site = {
         ["Where", "University of Tartu, 2026"],
       ],
       tags: ["n8n", "JavaScript", "Google Sheets", "Gmail", "Google Calendar", "Google Drive", "Jira", "OpenAI API"],
+      caseStudy: "/projects/onboarding-automation",
       media: {
         kind: "flow",
         steps: ["Gmail", "OpenAI API", "Google Sheets", "Google Calendar", "Google Drive", "Jira"],
@@ -627,6 +652,140 @@ export const site = {
       { name: "Counter-Strike", art: "counter-strike" },
     ] satisfies Hobby[] as Hobby[],
   },
+
+  // Case studies at /projects/[slug]. Facts only from REDESIGN_BRIEF.md section 3
+  // and, for the thesis, from the thesis itself (owner's own work).
+  cases: {
+    "onboarding-automation": {
+      title: "Hiring and onboarding automation",
+      tagline:
+        "My bachelor's thesis (University of Tartu, 2026), built for proceedit: an n8n system that takes a candidate from the application email to the first working day.",
+      facts: [
+        { label: "Role", value: "Author: research, design, build" },
+        { label: "Platform", value: "n8n, custom JavaScript" },
+        { label: "Connected", value: "Gmail, OpenAI, Sheets, Calendar, Drive, Jira" },
+        { label: "Result", value: "24 → 2 min per candidate" },
+      ],
+      sections: [
+        {
+          heading: "The problem",
+          body: [
+            "The company is a fintech of 50–100 people that hires three to ten people a month. Hiring ran by hand across email, Google Forms, one shared Google Sheet and Jira.",
+            "Nothing sent alerts. HR had to watch the inbox for new applications, write every email, book interviews, prepare contracts and create accounts. Applications got missed, and new hires waited for access in their first days.",
+          ],
+          figures: [
+            {
+              src: "/projects/onboarding-as-is.webp",
+              alt: "Flowchart of the manual hiring process: application, screening, HR and technical interviews, test task, contract and onboarding, every step done by HR by hand",
+              caption: "Before: every step is a manual HR task",
+              width: 2257,
+              height: 1193,
+            },
+          ],
+        },
+        {
+          heading: "My role",
+          body: [
+            "I did the project alone. I knew the process from the inside: I went through it as a new hire at the company.",
+          ],
+          bullets: [
+            "Interviewed the HR team and mapped the manual process step by step",
+            "Ran surveys for HR staff and for new hires to get numbers, not only opinions",
+            "Compared three tools and chose one",
+            "Designed and built the workflow in n8n",
+            "Measured the result against the manual baseline",
+          ],
+        },
+        {
+          heading: "Architecture",
+          body: [
+            "n8n works as an invisible layer between the tools HR already used. HR keeps working in the same Google Sheet. Changing a candidate's status in it starts the next step. The workflow has three parts:",
+          ],
+          points: [
+            {
+              title: "1. Intake",
+              text: "A Gmail trigger catches new applications. An OpenAI model pulls the name, email and position out of free-form emails. The candidate becomes a row in Google Sheets, and the interview slot goes to Google Calendar.",
+            },
+            {
+              title: "2. Status-driven pre-boarding",
+              text: "Each status change in the sheet sends the candidate down one path: the test task with automatic reminders, a rejection email, or a contract copied from a template in Google Drive.",
+            },
+            {
+              title: "3. IT setup",
+              text: "Once a day the workflow picks up new hires. It creates the Jira user through the REST API, clones the onboarding tickets, tells the supervisor, shares the Drive folders and sends the welcome email. After seven days it adds the recurring team meetings.",
+            },
+          ],
+          figures: [
+            {
+              src: "/projects/onboarding-n8n.webp",
+              alt: "The n8n workflow in three rows: intake from Gmail with an AI agent, routing by status, and the daily IT setup with Jira and Google Drive",
+              caption: "The workflow in n8n: intake, pre-boarding, IT setup",
+              width: 1302,
+              height: 1304,
+            },
+            {
+              src: "/projects/onboarding-data-flow.webp",
+              alt: "Data flow: email and Google Forms go into n8n, n8n stores data in Google Sheets and acts in Gmail, Google Calendar, Jira and Google Drive",
+              caption: "Data flow: Google Sheets is the single source of truth",
+              width: 1502,
+              height: 668,
+            },
+          ],
+        },
+        {
+          heading: "Decisions",
+          points: [
+            {
+              title: "n8n, not Zapier or Make",
+              text: "n8n can run on the company's own server, so contracts and personal details stay inside. It counts one run of a whole workflow, not every step, which keeps the price flat as hiring grows. And it lets me write JavaScript inside a step when no ready node exists.",
+            },
+            {
+              title: "Keep Google Sheets",
+              text: "The company did not want a new HR system. A status column turns the sheet into a simple state machine: HR moves a candidate forward by changing one value and never touches the automation.",
+            },
+            {
+              title: "A person still reads the CV",
+              text: "The AI only extracts data. The decision about a candidate stays with HR, so CV review keeps its 2 minutes in the comparison below.",
+            },
+          ],
+        },
+        {
+          heading: "How I checked it",
+          body: [
+            "I compared HR time per candidate, step by step, before and after. The baseline figures came from the HR team. Interview time itself is not counted.",
+          ],
+          table: {
+            head: ["HR task", "Before", "After"],
+            rows: [
+              ["CV review", "2 min", "2 min"],
+              ["Shortlisting email", "~2 min", "0"],
+              ["Booking the interview", "5 min", "0"],
+              ["Rejection after the first interview", "1 min", "0"],
+              ["Setting up the second interview", "7 min", "0"],
+              ["Sending the test task", "1 min", "0"],
+              ["Accounts and access", "5 min", "0"],
+            ],
+            foot: ["Total", "24 min", "2 min"],
+          },
+        },
+        {
+          heading: "What I would do differently",
+          bullets: [
+            "Google Sheets is the weak spot: it has no strict validation, and one wrong manual edit can break a trigger. Next step: PostgreSQL behind a small HR dashboard.",
+            "The Jira node in n8n could not manage users, so I used direct HTTP requests and wait steps. If Jira answers slowly, account creation can time out. It needs retries and proper error handling.",
+            "Offboarding is not automated yet. The next module would remove access to every tool when an employee's status changes to leaving.",
+          ],
+        },
+        {
+          heading: "Result",
+          body: [
+            "HR admin time per candidate went from 24 to 2 minutes, a 91.6% cut. The only manual step left is reading the CV.",
+            "It is an MVP: it covers intake, pre-boarding and IT setup, not yet the whole employee lifecycle.",
+          ],
+        },
+      ],
+    },
+  } as Record<string, CaseStudy>,
 
   // Case study page: /soucampus. Facts only from this file.
   // TODO: add the story behind key decisions and any numbers (users, sales, orders)
