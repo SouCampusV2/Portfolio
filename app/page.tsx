@@ -167,7 +167,7 @@ function Numbers() {
                 {metric.value}
               </span>
               <span className="mt-3 text-sm leading-snug text-muted">{metric.context}</span>
-              <span className={`${textLink} mt-5 text-muted group-hover:text-accent`}>
+              <span className={`${textLink} mt-auto pt-5 text-muted group-hover:text-accent`}>
                 See the proof
                 <ArrowRight />
               </span>
@@ -269,7 +269,10 @@ function Projects() {
       <div className="space-y-6">
         {flagship.map((project, i) => (
           <Reveal key={project.slug}>
-            <article id={project.slug} className={`${card} grid scroll-mt-24 gap-8 p-6 sm:p-10 lg:grid-cols-[0.85fr_1.35fr]`}>
+            <article
+              id={project.slug}
+              className={`${card} grid scroll-mt-24 gap-8 p-6 sm:p-10 ${i % 2 ? "lg:grid-cols-[1.35fr_0.85fr]" : "lg:grid-cols-[0.85fr_1.35fr]"}`}
+            >
               <div className={i % 2 ? "lg:order-2" : ""}>
                 <div className="flex flex-wrap items-center gap-3">
                   <h3 className="text-4xl font-semibold tracking-[-0.035em] sm:text-5xl">{project.title}</h3>
@@ -285,7 +288,7 @@ function Projects() {
                   <ProjectLinks project={project} />
                 </div>
               </div>
-              <div className="relative aspect-[16/10] self-center overflow-hidden rounded-lg border border-line bg-line">
+              <div className="relative aspect-[16/10] self-start overflow-hidden rounded-lg border border-line bg-line lg:mt-1">
                 <ProjectMedia project={project} />
               </div>
             </article>

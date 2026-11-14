@@ -89,10 +89,10 @@ export function SiteHeader() {
         </Link>
         <nav aria-label="Main" className="flex min-w-0 items-center gap-1 sm:gap-3">
           {/* On phones the links scroll sideways instead of wrapping. */}
-          <ul className="nav-scroll flex gap-4 overflow-x-auto whitespace-nowrap text-sm text-muted lg:gap-5">
+          <ul className="nav-scroll flex items-center gap-1 overflow-x-auto whitespace-nowrap text-sm text-muted">
             {site.nav.map((item) => (
               <li key={item.href}>
-                <Link className="transition-colors hover:text-ink" href={item.href}>
+                <Link className="block rounded-full px-3 py-1.5 transition-colors hover:bg-ink/10 hover:text-ink" href={item.href}>
                   {item.label}
                 </Link>
               </li>
