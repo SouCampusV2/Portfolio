@@ -13,7 +13,7 @@ Things to add later. Not built yet.
 
 ## Beyond the site
 
-- **SouCampus file-check service in Python**: a separate service that validates uploaded map files (archive safety, real Minecraft world/structure, duplicates) before a listing goes live. Add it to the portfolio once it ships.
+- **SouCampus file scanner (Java 21, Spring Boot, ClamAV)**: built and security-audited (repo `soucampus-scanner`), not yet deployed in Docker on the VPS. Once it is live, move it from "What's next" on the SouCampus case study into the shipped highlights.
 - **GitHub profile README** in neofetch style (ASCII portrait + key/value info), like the TikTok example.
 
 ## Done

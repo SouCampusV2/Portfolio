@@ -1159,7 +1159,15 @@ export const site = {
         heading: "What's next",
         planned: true,
         body: [
-          "A separate Python service that checks uploaded map files before they go live.",
+          "The file scanner was the first item on this list, and it is built. It is a separate Java 21 and Spring Boot service with ClamAV next to it. It checks every uploaded map before the listing goes live: archive safety, what is actually inside, antivirus. If the service is down, the file is rejected rather than quietly let through. It has been through a security audit: only exact download hosts, a cap on parallel scans, symlinks rejected. Next step: deploy it in Docker on the VPS.",
+        ],
+        bullets: [
+          "A design pass, a logo and a brand identity.",
+          "Live payments. Several sellers have agreed to sell on SouCampus, so Stripe goes from test mode to live, with payouts to authors.",
+          "A better creator experience: clearer pages for adding a map and sales statistics for sellers.",
+          "Gamification, so people have more reasons to come back to the site.",
+          "Discord bot upgrades: Stripe payment links from a ticket, 50/50 prepayment for large orders, reply templates for managers, a review reminder for clients, an early-access role for Discord members and AI-drafted showcase posts from the site's admin.",
+          "Later: SouCampus Ledger, a separate Java service that keeps the marketplace's money records, and a Patreon-style subscription inside the shop.",
         ],
       },
     ] satisfies CaseSection[] as CaseSection[],
