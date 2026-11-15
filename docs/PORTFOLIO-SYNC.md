@@ -15,7 +15,7 @@
 |---|---|---|---|
 | SouCampus builds (сайт) | `PORTFOLIO.md` | `Claude/FirstTry` | `SouCampusV2/soucampusWeb`, ветка `dev` |
 | BotCampus (Discord-бот) | `PORTFOLIO.md` | `Claude/botds` | `SouCampusV2/soucampusBot`, ветка `dev` |
-| SouTools (Axiom) | паспорта нет — `README.md` | `Claude/soucampusAxiomTools` | `SouCampusV2/soucampusAxiomTools` |
+| SouTools (Axiom) | `PORTFOLIO.md` (с 15.11; обновляется по правилу в `CLAUDE.md`, `wrap-day` там нет) | `Claude/soucampusAxiomTools` | `SouCampusV2/soucampusAxiomTools`, ветка `main` |
 | Java: API переводов | паспорта нет | `Claude/bank-transfer-api` | — (нет удалённого репозитория на 14.11) |
 
 **Сканер загрузок** (`SouCampusV2/soucampus-scanner`, Java 21 + Spring Boot +
