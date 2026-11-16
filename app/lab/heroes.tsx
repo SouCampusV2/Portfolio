@@ -243,7 +243,7 @@ function H7() {
             {p.media.kind === "video" && <PreviewVideo src={p.media.src} poster={p.media.poster} alt={p.media.alt} />}
           </div>
         </div>
-        <figcaption className={`${mono} mt-4 text-muted`}>SouCampus · built alone · PageSpeed 100 / 90</figcaption>
+        <figcaption className={`${mono} mt-4 text-muted`}>SouCampus · built alone · PageSpeed 100 / 99</figcaption>
       </figure>
     </div>
   );

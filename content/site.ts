@@ -216,7 +216,7 @@ export const site = {
     },
     {
       label: "Speed",
-      value: "100 / 90",
+      value: "100 / 99",
       context: "PageSpeed on SouCampus, desktop / mobile",
       href: "/soucampus",
     },
@@ -239,7 +239,7 @@ export const site = {
         ["Period", "Jun 2026 – present"],
         ["Stack", "Next.js, TypeScript, Supabase (PostgreSQL, RLS), Stripe, Vercel"],
         ["Checked", "Security audit: RLS policies, Stripe webhook signatures, file uploads"],
-        ["Speed", "PageSpeed 100 desktop / 90 mobile"],
+        ["Speed", "PageSpeed 100 desktop / 99 mobile"],
         ["Payments", "Stripe checkout is built, not switched on yet"],
         ["Result", "3 custom-order clients, 5 maps sold directly"],
       ],
@@ -445,7 +445,7 @@ export const site = {
         "Authentication and the database on Supabase (PostgreSQL), with row-level security deciding who reads each row.",
         "Stripe checkout is built; payments are not switched on yet.",
         "Ran a security audit before the relaunch: row-level security policies, Stripe webhook signatures and file uploads.",
-        "PageSpeed 100 on desktop and 90 on mobile in production.",
+        "PageSpeed 100 on desktop and 99 on mobile in production.",
         "The site has already brought 3 custom-order clients; 5 maps sold directly.",
       ],
       tech: ["TypeScript", "Next.js", "React", "Node.js", "Tailwind CSS", "Motion", "Supabase (PostgreSQL)", "Stripe", "Google Analytics", "REST APIs", "GitHub", "Vercel"],
@@ -1116,7 +1116,7 @@ export const site = {
     facts: [
       { label: "Role", value: "Founder & sole developer" },
       { label: "Timeline", value: "Jun 2026 – Present" },
-      { label: "PageSpeed", value: "100 desktop / 90 mobile" },
+      { label: "PageSpeed", value: "100 desktop / 99 mobile" },
       { label: "Status", value: "Live; payments built, not switched on yet" },
     ],
     sections: [
@@ -1151,8 +1151,8 @@ export const site = {
       {
         heading: "Performance",
         body: [
-          "Speed is part of the product: SouCampus scores 100 on Google PageSpeed on desktop and 90 on mobile.",
-          "The reports below are a separate check: Lighthouse 12.8 run from my own machine on 14 November 2026. It gave 99 on desktop and 93 on mobile. Scores move a few points between runs and tools.",
+          "Speed is part of the product: SouCampus scores 100 on Google PageSpeed on desktop and 99 on mobile.",
+          "The reports below are from PageSpeed Insights, run on 16 November 2026. Accessibility 96, best practices 100 and SEO 100 on both. Scores move a few points between runs.",
         ],
       },
       {
@@ -1167,13 +1167,13 @@ export const site = {
     lighthouse: [
       {
         src: "/projects/soucampus-lh-desktop.webp",
-        alt: "Lighthouse report for soucampus.online, desktop: performance 99, accessibility 96, best practices 100, SEO 100",
-        caption: "Desktop · Performance 99 · Accessibility 96 · Best practices 100 · SEO 100",
+        alt: "PageSpeed Insights report for soucampus.online, desktop: performance 100, accessibility 96, best practices 100, SEO 100",
+        caption: "Desktop · Performance 100 · Accessibility 96 · Best practices 100 · SEO 100",
       },
       {
         src: "/projects/soucampus-lh-mobile.webp",
-        alt: "Lighthouse report for soucampus.online, mobile: performance 93, accessibility 96, best practices 100, SEO 100",
-        caption: "Mobile · Performance 93 · Accessibility 96 · Best practices 100 · SEO 100",
+        alt: "PageSpeed Insights report for soucampus.online, mobile: performance 99, accessibility 96, best practices 100, SEO 100",
+        caption: "Mobile · Performance 99 · Accessibility 96 · Best practices 100 · SEO 100",
       },
     ],
     gallery: [

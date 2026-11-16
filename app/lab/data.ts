@@ -12,7 +12,7 @@ export const rest = site.tagline.slice(cut + 1); // "I build with …"
 
 export const numbers = [
   { value: "24 → 2 min", label: "HR admin time per candidate", where: "Bachelor's thesis, n8n" },
-  { value: "100 / 90", label: "PageSpeed, desktop / mobile", where: "SouCampus" },
+  { value: "100 / 99", label: "PageSpeed, desktop / mobile", where: "SouCampus" },
   { value: "~200 users", label: "registered in the app", where: "CMI, App Store and Google Play" },
 ];
 
@@ -21,7 +21,7 @@ export const ledger = [
   { date: "2018", text: "First paid Minecraft build", amount: "8 years of client work" },
   { date: "Jan 2025", text: "proceedit: front end of the CMI mobile app", amount: "~200 users" },
   { date: "2026", text: "Bachelor's thesis: hiring automation in n8n", amount: "24 → 2 min" },
-  { date: "Jun 2026", text: "SouCampus: marketplace, sole engineer", amount: "100 / 90" },
+  { date: "Jun 2026", text: "SouCampus: marketplace, sole engineer", amount: "100 / 99" },
   { date: "Oct 2026", text: "Learning Java and Spring Boot", amount: "in progress" },
 ];
 
@@ -51,7 +51,7 @@ export const projects: LabProject[] = [
     host: "soucampus.online",
     kicker: "Sole engineer · Jun 2026 – present",
     line: "A marketplace and studio site for Minecraft builds. I build it alone, from the database to production.",
-    metric: { value: "100 / 90", label: "PageSpeed, desktop / mobile" },
+    metric: { value: "100 / 99", label: "PageSpeed, desktop / mobile" },
     facts: [
       "Row-level security in PostgreSQL decides who reads each row",
       "Security audit before the relaunch",
